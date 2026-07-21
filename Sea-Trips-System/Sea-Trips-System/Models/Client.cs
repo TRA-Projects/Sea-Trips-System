@@ -4,8 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sea_Trips_System.Models
 {
-    [Table("User")]
-    [Index(nameof(fullName), IsUnique = true)]  //uniqe
+    [Table("Client")]
     [Index(nameof(email), IsUnique = true)]  //uniqe
     public class Client
     {
@@ -28,5 +27,9 @@ namespace Sea_Trips_System.Models
             [Required]
             public DateTime createdAt { get; set; }   ////system generated 
 
-        }
+
+        /// ////////////////////////////////////////////////////////////////////////////////////////////
+        //one to many
+        public virtual List<Appointment> Appointments { get; set; }         //Navigation Property => one client can place many Appointmnt
+    }
     }

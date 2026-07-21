@@ -22,6 +22,9 @@ namespace Sea_Trips_System.Models
         // User selects whether the event is active
         [Required]
         public bool isActive { get; set; }
-    
-}
+
+        // reverse navigation — one Event has many Appointments
+        public virtual List<Appointment> Appointments { get; set; }           // link to event bookings
+
+    }
 }

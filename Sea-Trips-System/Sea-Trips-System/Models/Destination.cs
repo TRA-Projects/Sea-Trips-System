@@ -18,6 +18,9 @@ namespace Sea_Trips_System.Models
         public string coordinates { get; set; }//user input
 
         [Required]
-        public TimeSpan estimatedDuration { get; set; }//calculated//
+        public TimeSpan estimatedDuration { get; set; }//calculated
+
+        // reverse navigation — one Destination has many Appointments
+        public virtual List<Appointment> Appointments { get; set; }           // link to destination bookings
     }
 }

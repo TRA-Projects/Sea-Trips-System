@@ -11,9 +11,7 @@ namespace Sea_Trips_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int maintenanceId { get; set; }                        //System Genrated
 
-        [Required]
-        [ForeignKey("Boat")]
-        public int boatId { get; set; }                              //From List ,foreign key
+      
 
         [MaxLength(1000)]
         public string description { get; set; }                     //User input
@@ -21,5 +19,11 @@ namespace Sea_Trips_System.Models
         [Required]
         public DateTime startDate { get; set; }                    //System Genrated
         public DateTime? endDate { get; set; }                    //User input
+
+        // foreign key — every maintenance record must belong to exactly one boat
+        [Required]
+        [ForeignKey("Boat")]
+        public int boatId { get; set; }                              //From List ,foreign key
+        public Boat Boat { get; set; }                                 // navigation property
     }
 }
