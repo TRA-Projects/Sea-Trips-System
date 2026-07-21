@@ -20,7 +20,7 @@ namespace Sea_Trips_System.Models
             public string phone { get; set; }    //user input
 
             [MaxLength(100)]
-            public string email { get; set; }  //user input
+            public string email { get; set; }  //user input ---
 
             [Required]
             public DateTime createdAt { get; set; }   ////system generated 
