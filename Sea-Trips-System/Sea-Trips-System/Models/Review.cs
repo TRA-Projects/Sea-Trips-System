@@ -12,7 +12,7 @@ namespace Sea_Trips_System.Models
 
         [Required]
         [Range(1, 5)]
-        public int Rating { get; set; } //user input ///
+        public int Rating { get; set; } //user input 
 
         [MaxLength(1000)]
         public string? Comment { get; set; }//user input //optional//

@@ -9,6 +9,7 @@ namespace Sea_Trips_System.Models
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+
         public int AppointmentId { get; set; }  // system generated (Primary Key) 
 
         [Required]
@@ -42,5 +43,5 @@ namespace Sea_Trips_System.Models
         [Required]
         public int NumberOfPeople { get; set; }  //user input
 
-    }
+    }  
 }
