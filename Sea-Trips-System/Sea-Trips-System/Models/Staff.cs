@@ -27,7 +27,10 @@ namespace Sea_Trips_System.Models
         [StringLength(20)]
         public string? phone { get; set; }         // user input
 
-        
 
+        /// ////////////////////////////////////////////////////////////////////////////////////////////
+
+        // reverse navigation — one Staff has many AppointmentStaffs (bridge table)
+        public virtual List<AppointmentStaff> AppointmentStaffs { get; set; } // bridge table link
     }
 }

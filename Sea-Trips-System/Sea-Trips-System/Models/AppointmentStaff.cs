@@ -11,11 +11,25 @@ namespace Sea_Trips_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)] 
         public int appointmentStaffId { get; set; }    //system generated 
 
-        [Required]
-        public int appointmentId { get; set; }   // user input
 
+        // Role of this staff member in this specific trip (optional)
+        [StringLength(50)]
+        public string? AssignedRole { get; set; }              // user input / default (Captain, Co-Captain, Crew)
+
+
+        /// ////////////////////////////////////////////////////////////////////////////////////////////
+
+        // foreign key — bridge link to appointment
         [Required]
-        public int staffId { get; set; }         // user input
+        [ForeignKey("Appointment")]
+        public int AppointmentId { get; set; }              // foreign key to appointment
+        public Appointment Appointment { get; set; }        // navigation property
+
+        // foreign key — bridge link to staff
+        [Required]
+        [ForeignKey("Staff")]
+        public int StaffId { get; set; }                    // foreign key to staff
+        public Staff Staff { get; set; }                    // navigation property
 
     }
 }

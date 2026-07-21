@@ -15,6 +15,14 @@ namespace Sea_Trips_System.Models
         public int rating { get; set; } //user input 
 
         [MaxLength(1000)]
-        public string? comment { get; set; }//user input //optional//
+        public string? comment { get; set; }//user input //optional
+
+        // foreign key — every review must belong to exactly one appointment
+
+
+        [Required]
+        [ForeignKey("Appointment")]
+        public int AppointmentId { get; set; }                         // foreign key to appointment[cite: 1]
+        public Appointment Appointment { get; set; }                   // navigation property
     }
 }

@@ -11,19 +11,7 @@ namespace Sea_Trips_System.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int appointmentId { get; set; }  // system generated (Primary Key) 
 
-        [Required]
-        public int clientId { get; set; }      // user input (Foreign Key)
-
-        [Required]
-        public int boatId { get; set; }         //user input (Foreign Key)
-
-        [Required]
-        public int tripTypeId { get; set; }      //user input (Foreign Key)
-
-        [Required]
-        public int destinationId { get; set; }  // user input (Foreign Key)
-
-        public int? eventId { get; set; }  //Foreign Key
+    
 
         [Required]
         public DateTime startTime { get; set; }  // user input
@@ -42,5 +30,46 @@ namespace Sea_Trips_System.Models
         [Required]
         public int numberOfPeople { get; set; }  //user input
 
-    }  
+
+
+        /// ////////////////////////////////////////////////////////////////////////////////////////////
+
+        // foreign key — every appointment must belong to exactly one client:
+
+        [Required]
+        [ForeignKey("Client")]
+        public int ClientId { get; set; }                   
+        public Client Client { get; set; }                   // navigation property
+
+        // foreign key — every appointment must belong to exactly one boat:
+
+        [Required]
+        [ForeignKey("Boat")]
+        public int BoatId { get; set; }                      // chosen from available boats
+        public Boat Boat { get; set; }                       // navigation property
+
+
+        // foreign key — every appointment must belong to exactly one trip type
+        [Required]
+        [ForeignKey("TripType")]
+        public int TripTypeId { get; set; }                  // chosen from trip types list
+        public TripType TripType { get; set; }               // navigation property
+
+        // foreign key — every appointment must belong to exactly one destination
+        [Required]
+        [ForeignKey("Destination")]
+        public int DestinationId { get; set; }               // chosen from destinations list
+        public Destination Destination { get; set; }         // navigation property
+
+        // foreign key — optional event discount
+        [ForeignKey("Event")]
+        public int? EventId { get; set; }                    // optional event selection
+        public Event Event { get; set; }                     // navigation property
+
+        // reverse navigation — one Appointment has many AppointmentStaffs(bridge table)
+         public virtual List<AppointmentStaff> AppointmentStaffs { get; set; }
+
+         public virtual List<Review> Reviews { get; set; }
+
+    }
 }

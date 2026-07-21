@@ -11,9 +11,6 @@ namespace Sea_Trips_System.Models
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
             public int paymentId { get; set; }                      // system generated
 
-            [Required]
-            [ForeignKey("Appointment")]
-            public int appointmentId { get; set; }                  //From List ,foreign key
 
             [Range(0.0, double.MaxValue)]
             [Column(TypeName = "decimal(18,2)")]
@@ -29,6 +26,10 @@ namespace Sea_Trips_System.Models
 
             [Required]
             public DateTime transactionDate { get; set; }       //System Genrated
-        
+
+            [Required]
+            [ForeignKey("Appointment")]
+            public int appointmentId { get; set; }                  //From List ,foreign key
+           public Appointment Appointment { get; set; }// navication property
     }
 }
