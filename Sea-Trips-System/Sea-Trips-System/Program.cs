@@ -1,4 +1,6 @@
 
+using Microsoft.EntityFrameworkCore;
+
 namespace Sea_Trips_System
 {
     public class Program
@@ -6,7 +8,10 @@ namespace Sea_Trips_System
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+            // add DB
 
+            builder.Services.AddDbContext<SeaTripsContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             // Add services to the container.
 
             builder.Services.AddControllers();
