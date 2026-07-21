@@ -1,9 +1,12 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Sea_Trips_System.Models
 {
     [Table("User")]
+    [Index(nameof(fullName), IsUnique = true)]  //uniqe
+    [Index(nameof(email), IsUnique = true)]  //uniqe
     public class Client
     {
 
