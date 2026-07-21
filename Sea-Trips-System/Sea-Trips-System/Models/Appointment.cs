@@ -42,5 +42,5 @@ namespace Sea_Trips_System.Models
         [Required]
         public int numberOfPeople { get; set; }  //user input
 
-    }
+    }  
 }

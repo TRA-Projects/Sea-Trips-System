@@ -8,16 +8,16 @@ namespace Sea_Trips_System.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int DestinationId { get; set; }//system generated
+        public int destinationId { get; set; }//system generated
 
         [Required]
         [MaxLength(100)]
-        public string Name { get; set; }//user input
+        public string name { get; set; }//user input
 
         [MaxLength(100)]
-        public string Coordinates { get; set; }//user input
+        public string coordinates { get; set; }//user input
 
         [Required]
-        public TimeSpan EstimatedDuration { get; set; }//calculated
+        public TimeSpan estimatedDuration { get; set; }//calculated
     }
 }
