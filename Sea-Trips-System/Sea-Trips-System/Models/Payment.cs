@@ -9,26 +9,26 @@ namespace Sea_Trips_System.Models
         {
             [Key]
             [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-            public int PaymentId { get; set; }                      // system generated
+            public int paymentId { get; set; }                      // system generated
 
             [Required]
             [ForeignKey("Appointment")]
-            public int AppointmentId { get; set; }                  //From List ,foreign key
+            public int appointmentId { get; set; }                  //From List ,foreign key
 
             [Range(0.0, double.MaxValue)]
             [Column(TypeName = "decimal(18,2)")]
             [Required]
-            public decimal AmountPaid { get; set; }               //Calculated
+            public decimal amountPaid { get; set; }               //Calculated
 
             [Required]
-            public string PaymentMethod { get; set; }             //Defult Value [Cash,Card,BankTtansfer]
+            public string paymentMethod { get; set; }             //Defult Value [Cash,Card,BankTtansfer]
 
             [Required]
             [MaxLength(30)]
-            public string PaymentStatus { get; set; } = "Paid";    //Defult Value [Paid,PartiallyPaid, Refunded]
+            public string paymentStatus { get; set; } = "Paid";    //Defult Value [Paid,PartiallyPaid, Refunded]
 
             [Required]
-            public DateTime TransactionDate { get; set; }       //System Genrated
+            public DateTime transactionDate { get; set; }       //System Genrated
         
     }
 }
