@@ -8,13 +8,13 @@ namespace Sea_Trips_System.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Required]
-        public int ReviewId { get; set; } //system generated
+        public int reviewId { get; set; } //system generated
 
         [Required]
         [Range(1, 5)]
-        public int Rating { get; set; } //user input 
+        public int rating { get; set; } //user input 
 
         [MaxLength(1000)]
-        public string? Comment { get; set; }//user input //optional//
+        public string? comment { get; set; }//user input //optional//
     }
 }
