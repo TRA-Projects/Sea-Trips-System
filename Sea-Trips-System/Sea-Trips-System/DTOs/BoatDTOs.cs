@@ -1,6 +1,6 @@
 ﻿namespace Sea_Trips_System.Models
 {
-    public class BoatControllers
+    public class BoatDTOs
     {
     }
 }

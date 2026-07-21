@@ -5,17 +5,17 @@ namespace Sea_Trips_System
 {
     public class SeaTripsContext: DbContext
     {
-     public DbSet<AppointmentControllers> Appointments {  get; set; }
-     public DbSet<ClientControllers> clients {  get; set; }
-     public DbSet<BoatControllers> Boats {  get; set; }
-     public DbSet<DestinationControllers> Destinations {  get; set; }
-     public DbSet<EventControllers> Events {  get; set; }
-     public DbSet<MaintenanceControllers> Maintenances {  get; set; }
-     public DbSet<PaymentControllers> Payments {  get; set; }
-     public DbSet<ReviewControllers> Reviews {  get; set; }
-     public DbSet<StaffControllers> Staffs {  get; set; }
-     public DbSet<TripTypeControllers> TripTypes {  get; set; }
-
+        public DbSet<Appointment> Appointments { get; set; }
+        public DbSet<AppointmentStaff> AppointmentStaffs { get; set; }
+        public DbSet<Client> Clients { get; set; }
+        public DbSet<Boat> Boats { get; set; }
+        public DbSet<Destination> Destinations { get; set; }
+        public DbSet<Event> Events { get; set; }
+        public DbSet<Maintenance> Maintenances { get; set; }
+        public DbSet<Payment> Payments { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Staff> Staffs { get; set; }
+        public DbSet<TripType> TripTypes { get; set; }
         public SeaTripsContext(DbContextOptions<SeaTripsContext> options) : base(options)
         {
         }
