@@ -54,6 +54,34 @@ namespace Sea_Trips_System.Models
             public int? eventId { get; set; }
         }
 
+
+
+        // ── Response DTO — Returned to client with clean readable data ──
+        public class AppointmentResponseDto
+        {
+            public int appointmentId { get; set; }
+            public DateTime startTime { get; set; }
+            public DateTime endTime { get; set; }
+            public string bookingStatus { get; set; }
+            public decimal totalPrice { get; set; }
+            public int numberOfPeople { get; set; }
+
+            public int clientId { get; set; }
+            public string clientName { get; set; }
+
+            public int boatId { get; set; }
+            public string boatName { get; set; }
+
+            public int tripTypeId { get; set; }
+            public string tripTypeName { get; set; }
+
+            public int destinationId { get; set; }
+            public string destinationName { get; set; }
+
+            public string? eventName { get; set; }
+        }
     }
 
 }
+
+
