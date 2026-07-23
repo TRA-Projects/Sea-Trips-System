@@ -70,6 +70,7 @@ namespace Sea_Trips_System.Models
             context.Appointments.Remove(appointment);
             context.SaveChanges();
         }
+        
     }
 
     }
