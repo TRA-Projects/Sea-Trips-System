@@ -34,6 +34,24 @@ namespace Sea_Trips_System.Models
                 .FirstOrDefault(a => a.appointmentId == id);
         }
 
+        // 3. Check boat availability for the given time slot
+        public bool IsBoatBooked(int boatId, DateTime start, DateTime end, int? ignoreAppointmentId = null)
+        {
+            // Checks if the boat is already booked during the requested time slot.
+            // Time overlap conditions:
+            // 1. New start time falls inside an existing trip.
+            // 2. New end time falls inside an existing trip.
+            // 3. New trip completely covers an existing trip.
+            return context.Appointments.Any(a =>
+               a.boatId == boatId &&
+               a.bookingStatus != "Cancelled" &&
+               (ignoreAppointmentId == null || a.appointmentId != ignoreAppointmentId) &&
+               ((start >= a.startTime && start < a.endTime) ||
+                (end > a.startTime && end <= a.endTime) ||
+                (start <= a.startTime && end >= a.endTime)));
+
+
+        }
 
     }
 }
