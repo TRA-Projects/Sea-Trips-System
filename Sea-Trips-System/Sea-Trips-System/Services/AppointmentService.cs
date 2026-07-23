@@ -2,5 +2,13 @@
 {
     public class AppointmentService
     {
+        private AppointmentRepo appointmentRepo;
+
+        public AppointmentService(AppointmentRepo _appointmentRepo)
+        {
+            appointmentRepo = _appointmentRepo;
+        }
+
+
     }
 }
