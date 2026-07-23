@@ -40,5 +40,8 @@ namespace Sea_Trips_System.Models
             double hours = (dto.endTime - dto.startTime).TotalHours;
             appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
 
+
+            // Save via Repo
+            appointmentRepo.Add(appointment);
         }
     }
