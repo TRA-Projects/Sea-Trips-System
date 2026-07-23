@@ -67,7 +67,7 @@ namespace Sea_Trips_System.Models
         public Event Event { get; set; }                     // navigation property
 
         // reverse navigation — one Appointment has many AppointmentStaffs(bridge table)
-         public virtual List<AppointmentStaff> AppointmentStaffs { get; set; }
+         public virtual List<AppointmentStaff> AppointmentStaffs { get; set; } //
 
          public virtual List<Review> Reviews { get; set; }
 
