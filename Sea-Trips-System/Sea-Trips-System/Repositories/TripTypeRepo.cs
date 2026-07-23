@@ -20,6 +20,7 @@ namespace Sea_Trips_System.Models
         }
 
         // Get Trip Type By Id
+        //
         public TripType GetById(int tripTypeId)
         {
             return context.TripTypes
