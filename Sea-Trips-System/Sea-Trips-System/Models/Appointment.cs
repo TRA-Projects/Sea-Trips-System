@@ -38,32 +38,32 @@ namespace Sea_Trips_System.Models
 
         [Required]
         [ForeignKey("Client")]
-        public int ClientId { get; set; }                   
+        public int clientId { get; set; }                   
         public Client Client { get; set; }                   // navigation property
 
         // foreign key — every appointment must belong to exactly one boat:
 
         [Required]
         [ForeignKey("Boat")]
-        public int BoatId { get; set; }                      // chosen from available boats
+        public int boatId { get; set; }                      // chosen from available boats
         public Boat Boat { get; set; }                       // navigation property
 
 
         // foreign key — every appointment must belong to exactly one trip type
         [Required]
         [ForeignKey("TripType")]
-        public int TripTypeId { get; set; }                  // chosen from trip types list
+        public int tripTypeId { get; set; }                  // chosen from trip types list
         public TripType TripType { get; set; }               // navigation property
 
         // foreign key — every appointment must belong to exactly one destination
         [Required]
         [ForeignKey("Destination")]
-        public int DestinationId { get; set; }               // chosen from destinations list
+        public int destinationId { get; set; }               // chosen from destinations list
         public Destination Destination { get; set; }         // navigation property
 
         // foreign key — optional event discount
         [ForeignKey("Event")]
-        public int? EventId { get; set; }                    // optional event selection
+        public int? eventId { get; set; }                    // optional event selection
         public Event Event { get; set; }                     // navigation property
 
         // reverse navigation — one Appointment has many AppointmentStaffs(bridge table)
