@@ -114,5 +114,15 @@ namespace Sea_Trips_System.Models
             return MapToResponseDto(updatedAppointment);
         }
 
+        // ────*** 5. Delete Appointment ****────
+        public bool Delete(int id)
+        {
+            Appointment appointment = appointmentRepo.GetById(id);
+            if (appointment == null)
+                return false;
+
+            appointmentRepo.Delete(appointment);
+            return true;
+        }
     }
 }
