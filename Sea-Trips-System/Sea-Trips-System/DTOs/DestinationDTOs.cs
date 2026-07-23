@@ -2,5 +2,7 @@
 {
     public class DestinationDTOs
     {
+        public string name { get; set; }
+        public string coordinates { get; set; }
     }
 }
