@@ -57,6 +57,12 @@ namespace Sea_Trips_System.Models
             context.Appointments.Add(appointment);
             context.SaveChanges();
         }
+
+        // 5. Save changes
+        public void Update()
+        {
+            context.SaveChanges();
+        }
     }
 
     }
