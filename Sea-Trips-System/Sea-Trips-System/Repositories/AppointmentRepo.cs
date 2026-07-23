@@ -49,9 +49,15 @@ namespace Sea_Trips_System.Models
                ((start >= a.startTime && start < a.endTime) ||
                 (end > a.startTime && end <= a.endTime) ||
                 (start <= a.startTime && end >= a.endTime)));
-
-
         }
 
+             // 4. Add new appointment
+        public void Add(Appointment appointment)
+        {
+            context.Appointments.Add(appointment);
+            context.SaveChanges();
+        }
     }
-}
+
+    }
+
