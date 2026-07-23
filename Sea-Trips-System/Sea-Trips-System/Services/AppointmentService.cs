@@ -43,5 +43,11 @@ namespace Sea_Trips_System.Models
 
             // Save via Repo
             appointmentRepo.Add(appointment);
+
+            // Fetch created model with navigation props and return DTO
+            Appointment savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
+            return MapToResponseDto(savedAppointment);
         }
+
+
     }
