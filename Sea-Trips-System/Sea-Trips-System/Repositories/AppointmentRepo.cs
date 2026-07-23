@@ -22,6 +22,18 @@ namespace Sea_Trips_System.Models
                 .ToList();
         }
 
+        // 2. Get appointment by ID:
+        public Appointment GetById(int id)
+        {
+            return context.Appointments
+                .Include(a => a.Client)
+                .Include(a => a.Boat)
+                .Include(a => a.TripType)
+                .Include(a => a.Destination)
+                .Include(a => a.Event)
+                .FirstOrDefault(a => a.appointmentId == id);
+        }
+
 
     }
 }
