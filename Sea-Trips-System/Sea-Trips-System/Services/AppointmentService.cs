@@ -62,5 +62,17 @@ namespace Sea_Trips_System.Models
 
             return responseList;
         }
+
+        // ────*** 3. Get Appointment By ID ****────
+        public AppointmentResponseDto GetById(int id)
+        {
+            Appointment appointment = appointmentRepo.GetById(id);
+            if (appointment == null)
+                return null;
+
+            return MapToResponseDto(appointment);
+        }
+
+
     }
 }
