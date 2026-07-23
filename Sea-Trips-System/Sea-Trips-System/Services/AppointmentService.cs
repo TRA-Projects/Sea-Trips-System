@@ -124,5 +124,38 @@ namespace Sea_Trips_System.Models
             appointmentRepo.Delete(appointment);
             return true;
         }
+
+        // ────*** Helper Function: Map Model to Response DTO ****────
+
+        //وظيفتها تحويل كائن قاعدة البيانات الأصلي (Appointment) إلى كائن للعرض
+        //(AppointmentResponseDto) لضمان تنظيف البيانات وحمايتها قبل إرسالها للواجهة.
+
+        private AppointmentResponseDto MapToResponseDto(Appointment a)
+        {
+            return new AppointmentResponseDto
+            {
+                appointmentId = a.appointmentId,
+                startTime = a.startTime,
+                endTime = a.endTime,
+                bookingStatus = a.bookingStatus,
+                totalPrice = a.totalPrice,
+                numberOfPeople = a.numberOfPeople,
+
+
+                clientId = a.clientId,
+                clientName = a.Client != null ? a.Client.fullName : "Not Available",  //Ternary Operator
+
+                boatId = a.boatId,
+                boatName = a.Boat != null ? a.Boat.boatName : "Not Available", //Ternary Operator
+
+                tripTypeId = a.tripTypeId,
+                tripTypeName = a.TripType != null ? a.TripType.typeName : "Not Available",  //Ternary Operator
+
+                destinationId = a.destinationId,
+                destinationName = a.Destination != null ? a.Destination.name : "Not Available",  //Ternary Operator
+
+                eventName = a.Event != null ? a.Event.eventName : null
+            };
+        }
     }
 }
