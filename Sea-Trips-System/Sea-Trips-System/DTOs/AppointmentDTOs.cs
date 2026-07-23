@@ -26,5 +26,11 @@ namespace Sea_Trips_System.Models
 
         [Required(ErrorMessage = "Destination ID is required.")]
         public int destinationId { get; set; }
+
+        // Optional discount/event selection
+        public int? eventId { get; set; }
+
+
     }
+
 }
