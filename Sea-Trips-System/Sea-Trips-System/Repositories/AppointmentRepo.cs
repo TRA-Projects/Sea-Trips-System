@@ -63,6 +63,13 @@ namespace Sea_Trips_System.Models
         {
             context.SaveChanges();
         }
+
+        // 6. Delete appointment
+        public void Delete(Appointment appointment)
+        {
+            context.Appointments.Remove(appointment);
+            context.SaveChanges();
+        }
     }
 
     }
