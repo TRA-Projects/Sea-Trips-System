@@ -73,6 +73,46 @@ namespace Sea_Trips_System.Models
             return MapToResponseDto(appointment);
         }
 
+        // ────*** 4. Update Appointment ****────
+
+        //استقبال البيانات الجديدة لتحديث حجز سابق، وتطبيق شروط الأمان وحساب السعر من جديد
+        public AppointmentResponseDto Update(int id, UpdateAppointmentDto dto)
+        {
+            Appointment appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
+            if (appointment == null)
+                return null;
+
+            // Check boat availability ignoring current appointment ID
+            // افحص توفر القارب مع استثناء الحجز الحالي
+
+            bool isBooked = appointmentRepo.IsBoatBooked(dto.boatId, dto.startTime, dto.endTime, id);
+            if (isBooked)
+                return null;
+
+            // تحديث بيانات الحجز بالقيم الجديدة: 
+
+            appointment.startTime = dto.startTime;
+            appointment.endTime = dto.endTime;
+            appointment.numberOfPeople = dto.numberOfPeople;
+            appointment.bookingStatus = dto.bookingStatus;
+            appointment.boatId = dto.boatId;
+            appointment.tripTypeId = dto.tripTypeId;
+            appointment.destinationId = dto.destinationId;
+            appointment.eventId = dto.eventId;
+
+            // Recalculate price(إعادة حساب السعر الإجمالي)
+            double hours = (dto.endTime - dto.startTime).TotalHours;
+            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
+
+            // 1. حفظ التعديلات في قاعدة البيانات
+            appointmentRepo.Update();
+
+            // 2. بالتفاصيل DB ارجع اجيبه من
+            Appointment updatedAppointment = appointmentRepo.GetById(id);
+
+            // 3.   وإرجاعه DTOتحويله لـ  
+            return MapToResponseDto(updatedAppointment);
+        }
 
     }
 }
