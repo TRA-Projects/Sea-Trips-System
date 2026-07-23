@@ -49,5 +49,18 @@ namespace Sea_Trips_System.Models
             return MapToResponseDto(savedAppointment);
         }
 
+        // ────*** 2. Get All Appointments ***────
+        public List<AppointmentResponseDto> GetAll()
+        {
+            List<Appointment> appointments = appointmentRepo.GetAll();
+            List<AppointmentResponseDto> responseList = new List<AppointmentResponseDto>();
 
+            foreach (Appointment item in appointments)
+            {
+                responseList.Add(MapToResponseDto(item));
+            }
+
+            return responseList;
+        }
     }
+}
