@@ -2,5 +2,10 @@
 {
     public class AppointmentRepo
     {
+        private SeaTripsContext context;
+        public AppointmentRepo(SeaTripsContext _context)
+        {
+            context = _context;
+        }
     }
 }
