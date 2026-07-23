@@ -2,5 +2,7 @@
 {
     public class ReviewDTOs
     {
+        public int rating { get; set; }
+        public string? comment { get; set; }
     }
 }
