@@ -36,6 +36,9 @@ namespace Sea_Trips_System.Models
             appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
+            // Calculate Total Price (Duration in hours * Number of People * Rate)
+            double hours = (dto.endTime - dto.startTime).TotalHours;
+            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
 
         }
-}
+    }
