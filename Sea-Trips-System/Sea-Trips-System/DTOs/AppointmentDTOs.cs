@@ -2,7 +2,7 @@
 
 namespace Sea_Trips_System.Models
 {
-    // ── Request DTO — Received when creating a new appointment ─-
+    // ──*** Request DTO — Received when creating a new appointment ***─-
     public class CreateAppointmentDto
     {
         [Required(ErrorMessage = "Start time is required.")]
@@ -31,7 +31,7 @@ namespace Sea_Trips_System.Models
         public int? eventId { get; set; }
 
 
-        // ── Request DTO — Received when updating an existing appointment ───
+        // ──*** Request DTO — Received when updating an existing appointment ***───
         public class UpdateAppointmentDto
         {
         
@@ -56,7 +56,7 @@ namespace Sea_Trips_System.Models
 
 
 
-        // ── Response DTO — Returned to client with clean readable data ──
+        // ──*** Response DTO — Returned to client with clean readable data ***──
         public class AppointmentResponseDto
         {
             public int appointmentId { get; set; }
