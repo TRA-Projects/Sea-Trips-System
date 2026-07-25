@@ -1,6 +1,4 @@
 ﻿using Sea_Trips_System.Models;
-using System.Threading.Channels;
-
 namespace Sea_Trips_System.Repositories
 {
     public class ClientRepo
