@@ -2,9 +2,8 @@
 using Microsoft.AspNetCore.Mvc;
 using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Models;
-using Sea_Trips_System.Services;
 
-namespace Sea_Trips_System.Models
+namespace Sea_Trips_System.Controllers
 {
     [ApiController]
     [Route("maintenance")]
@@ -12,23 +11,63 @@ namespace Sea_Trips_System.Models
     public class MaintenanceControllers : ControllerBase
     {
         private MaintenanceService maintenanceService;
-        public MaintenanceControllers(MaintenanceService _maintenanceService) //dependency injection
+
+
+        // Dependency Injection
+        public MaintenanceControllers(MaintenanceService _maintenanceService)
         {
             maintenanceService = _maintenanceService;
         }
 
+
+
+        // View All Maintenance
         [AllowAnonymous]
         [HttpGet("GetAllMaintenance")]
-        public IActionResult GetAllMaintenance()
+        public IActionResult ViewAllMaintenances()
         {
-            List<MaintenanceResponseDto> result = maintenanceService.GetAllMaintenance();
+            List<MaintenanceResponseDto> result =
+                maintenanceService.ViewAllMaintenances();
+
 
             if (result.Count > 0)
             {
-                return Ok(result); //200 sucessful
+                return Ok(result); // 200 Success
             }
 
-            return NoContent(); //204 no data
+
+            return NoContent(); // 204 No Data
+        }
+
+
+
+
+        // Add Maintenance
+        [HttpPost("AddMaintenance")]
+        public IActionResult AddMaintenance(AddMaintenanceDto dto)
+        {
+            maintenanceService.AddMaintenance(dto);
+
+            return Ok("Maintenance Added Successfully");
+        }
+
+
+
+
+        // Delete Maintenance
+        [HttpDelete("DeleteMaintenance/{id}")]
+        public IActionResult DeleteMaintenance(int id)
+        {
+            bool result = maintenanceService.DeleteMaintenance(id);
+
+
+            if (result)
+            {
+                return Ok("Maintenance Deleted Successfully");
+            }
+
+
+            return NotFound("Maintenance Not Found");
         }
     }
 }

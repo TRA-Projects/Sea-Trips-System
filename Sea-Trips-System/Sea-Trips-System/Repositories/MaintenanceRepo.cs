@@ -4,7 +4,7 @@
     {
         private SeaTripsContext context;
 
-        //Constructor
+        //Dependency Injection
         public MaintenanceRepo(SeaTripsContext _context)
         {
             context = _context;
