@@ -70,6 +70,17 @@ namespace Sea_Trips_System.Models
 
 
 
+            // 5. DELETE: api/Staffs/5
+            [HttpDelete("{id}")]
+            public IActionResult Delete(int id)
+            {
+                bool deleted = staffService.Delete(id);
+                if (!deleted)
+                    return NotFound(new { message = $"Staff with ID {id} was not found." });
+
+                return NoContent(); // 204 No Content
+            }
+
         }
 
 
