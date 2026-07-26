@@ -21,6 +21,8 @@
         //Retrieves all destinations from the repository and maps them to Output DTOs.
         public List<DestinationDTOs.DestinationOutputDTOs> GetAllDestinations()
         {
+
+            //Fetch entities from DB and map each entity to DestinationOutputDTO
             return repo.GetAllDestinations().Select(destintion => new DestinationDTOs.DestinationOutputDTOs
             {
                 destinationId = destintion.destinationId,
