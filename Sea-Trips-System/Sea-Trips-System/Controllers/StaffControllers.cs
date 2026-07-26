@@ -19,7 +19,7 @@ namespace Sea_Trips_System.Models
 
             // 1. GET: api/Staffs
             [HttpGet]
-            public IActionResult GetAll()
+            public ActionResult GetAll()
             {
                 List<StaffResponseDto> result = staffService.GetAll();
                 return Ok(result);
