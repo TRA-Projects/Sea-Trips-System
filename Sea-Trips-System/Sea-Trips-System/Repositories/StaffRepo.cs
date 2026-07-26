@@ -36,6 +36,13 @@
             context.SaveChanges();
         }
 
+        // 5. Delete staff
+
+        public void Delete(Staff staff)
+        {
+            context.Staffs.Remove(staff);
+            context.SaveChanges();
+        }
 
     }
 }
