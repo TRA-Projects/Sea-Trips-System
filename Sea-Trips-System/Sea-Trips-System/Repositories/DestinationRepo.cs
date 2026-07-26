@@ -12,6 +12,14 @@
             context = _context;
         }
 
-       
+        // =====================================================
+        // GET ALL DESTINATIONS
+        // =====================================================
+
+        public List<Destination> GetAllDestinations()
+        {
+            return context.Destinations.ToList();
+        }
+
     }
 }
