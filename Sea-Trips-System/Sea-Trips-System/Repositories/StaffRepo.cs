@@ -29,7 +29,12 @@
             context.SaveChanges();
         }
 
+        // 4. Save changes after update
 
+        public void Update()
+        {
+            context.SaveChanges();
+        }
 
 
     }
