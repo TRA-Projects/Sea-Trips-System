@@ -130,7 +130,8 @@ namespace Sea_Trips_System.Models
 
         public bool DeleteDestination(int id)
         {
-            //
+            //Retrieve the existing destination from DB using the provided ID
+            Destination destination = repo.GetDestinationById(id);
         }
 
     }
