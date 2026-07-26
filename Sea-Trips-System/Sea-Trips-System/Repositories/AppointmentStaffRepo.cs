@@ -49,7 +49,11 @@ namespace Sea_Trips_System.Repositories
                 .Any(aps => aps.appointmentId == appointmentId && aps.staffId == staffId);
         }
 
-
+        public void Add(AppointmentStaff appointmentStaff)
+        {
+            context.AppointmentStaffs.Add(appointmentStaff);
+            context.SaveChanges();
+        }
 
     }
 }
