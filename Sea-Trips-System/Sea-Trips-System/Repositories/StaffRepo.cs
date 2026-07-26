@@ -8,6 +8,13 @@
             context = _context;
         }
 
+        // 1. Get all staff
+
+        public List<Staff> GetAll()
+        {
+            return context.Staffs.ToList();
+        }
+
 
     }
 }
