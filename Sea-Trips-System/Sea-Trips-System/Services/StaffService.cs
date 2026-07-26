@@ -4,7 +4,7 @@ namespace Sea_Trips_System.Models
 {
     public class StaffService
     {
-        private  StaffRepo staffRepo;
+        private StaffRepo staffRepo;
         public StaffService(StaffRepo _staffRepo)
         {
             staffRepo = _staffRepo;
@@ -24,5 +24,29 @@ namespace Sea_Trips_System.Models
             return dtoList;
         }
 
+
+
+
+
+
+
+
+
+
+
+        // ──*** Private Helper: Mapper ──***
+        private StaffResponseDto MapToDto(Staff staff)
+        {
+            return new StaffResponseDto
+            {
+                staffId = staff.staffId,
+                name = staff.name,
+                role = staff.role,
+                licenseNumber = staff.licenseNumber,
+                isAvailable = staff.isAvailable,
+                phone = staff.phone
+            };
+
+        }
     }
 }
