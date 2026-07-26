@@ -3,6 +3,7 @@
 namespace Sea_Trips_System.DTOs
 {
 
+    // DTO for assigning a staff member to an appointment
     public class AssignStaffDto
     {
         [Required(ErrorMessage = "Appointment ID is required.")]
@@ -11,13 +12,14 @@ namespace Sea_Trips_System.DTOs
         [Required(ErrorMessage = "Staff ID is required.")]
         public int staffId { get; set; }
 
-        public string? assignedRole { get; set; }
+        public string? assignedRole { get; set; }        //(e.g., Captain, Guide)
 
 
     }
 
 
 
+    // DTO for returning assigned staff information in responses
     public class AppointmentStaffResponseDto
     {
         public int appointmentStaffId { get; set; }
