@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using static Sea_Trips_System.Models.StaffDTOs;
 
 namespace Sea_Trips_System.Models
 {
@@ -14,7 +15,21 @@ namespace Sea_Trips_System.Models
             {
                 staffService = _staffService;
             }
+
+
+            // 1. GET: api/Staffs
+            [HttpGet]
+            public IActionResult GetAll()
+            {
+                List<StaffResponseDto> result = staffService.GetAll();
+                return Ok(result);
+            }
+
+
+
+
         }
+
 
 
 
