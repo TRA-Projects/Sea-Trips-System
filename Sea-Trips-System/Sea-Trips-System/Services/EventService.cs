@@ -20,7 +20,7 @@ namespace Sea_Trips_System.Services
 
 
 
-        // Get All Events
+       // // Get All Events
         public List<EventOutputDTO> GetAllEvents()
         {
 
@@ -45,7 +45,7 @@ namespace Sea_Trips_System.Services
 
 
 
-        // Get Event By Id
+        /// Get Event By Id//
         public EventAllOutputDTO GetEventById(int id)
         {
 
