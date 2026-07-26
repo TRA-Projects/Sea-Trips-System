@@ -8,13 +8,18 @@ namespace Sea_Trips_System.Services
     {
         // EventRepository repo = new EventRepository();
 
-        private EventRepository repo;
+        private EventRepo eventRepository;
 
-        public EventService(EventRepository _repo)
+
+        public EventService(EventRepo eventRepository)
         {
             repo = _repo;
         }
-        // Get All Events
+
+
+
+
+       // // Get All Events
         public List<EventOutputDTO> GetAllEvents()
 
         {
@@ -30,7 +35,10 @@ namespace Sea_Trips_System.Services
             }).ToList();
         }
 
-        // Get Event By Id
+
+
+
+        /// Get Event By Id//
         public EventAllOutputDTO GetEventById(int id)
         {
             Event e = repo.GetById(id);
