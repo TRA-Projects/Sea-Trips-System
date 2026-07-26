@@ -41,6 +41,14 @@
             context.SaveChanges();
         }
 
-       
+        // =====================================================
+        // UPDATE DESTINATION
+        // =====================================================
+
+        public void Update()
+        {
+            context.SaveChanges();
+        }
+
     }
 }
