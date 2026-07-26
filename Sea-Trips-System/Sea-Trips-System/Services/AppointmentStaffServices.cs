@@ -1,4 +1,5 @@
-﻿using Sea_Trips_System.Models;
+﻿using Sea_Trips_System.DTOs;
+using Sea_Trips_System.Models;
 using Sea_Trips_System.Repositories;
 
 namespace Sea_Trips_System.Services
@@ -6,7 +7,7 @@ namespace Sea_Trips_System.Services
     public class AppointmentStaffServices
     {
 
-        private  AppointmentStaffRepo appointmentStaffRepo ;
+        private AppointmentStaffRepo appointmentStaffRepo;
         private AppointmentRepo appointmentRepo;
         private StaffRepo staffRepo;
 
@@ -24,5 +25,21 @@ namespace Sea_Trips_System.Services
 
 
 
+
+
+        // ── Helper: Mapper ──────────────────────────────────────────
+        private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)
+        {
+            return new AppointmentStaffResponseDto
+            {
+                appointmentStaffId = item.appointmentStaffId,
+                appointmentId = item.appointmentId,
+                staffId = item.staffId,
+                staffName = item.Staff?.name,
+                staffRole = item.Staff?.role,
+                assignedRole = item.assignedRole
+            };
+
+        }
     }
 }
