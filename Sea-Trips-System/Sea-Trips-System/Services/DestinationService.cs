@@ -97,10 +97,15 @@ namespace Sea_Trips_System.Models
         // UPDATE DESTINATION
         // =====================================================
 
+        // Updates an existing destination's details if it exists in the database
+        public bool UpdateDestination(int id, DestinationDTOs.DestinationInputDTOs input)
+        {
+            
+        }
 
-        // =====================================================
-        // DELETE DESTINATION
-        // =====================================================
+            // =====================================================
+            // DELETE DESTINATION
+            // =====================================================
 
-    }
+        }
 }
