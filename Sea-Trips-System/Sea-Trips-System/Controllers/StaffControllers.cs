@@ -22,7 +22,7 @@ namespace Sea_Trips_System.Models
             public ActionResult GetAll()
             {
                 List<StaffResponseDto> result = staffService.GetAll();
-                return Ok(result);
+                return Ok(result);      // OK 200
             }
 
 
