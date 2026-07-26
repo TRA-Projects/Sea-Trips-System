@@ -26,7 +26,15 @@ namespace Sea_Trips_System.Models
 
 
 
+        // 2. Get staff by ID
+        public StaffResponseDto? GetById(int id)
+        {
+            Staff? staff = staffRepo.GetById(id);
+            if (staff == null)
+                return null;
 
+            return MapToDto(staff);
+        }
 
 
 
