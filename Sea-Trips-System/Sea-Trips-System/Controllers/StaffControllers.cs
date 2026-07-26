@@ -38,7 +38,7 @@ namespace Sea_Trips_System.Models
 
                     return NotFound(new { message = $"Staff with ID {id} was not found." });
 
-                return Ok(result);  //OK 200
+                return Ok(result);  // 200 OK
             }
 
 
