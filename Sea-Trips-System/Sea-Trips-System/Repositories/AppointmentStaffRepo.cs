@@ -41,7 +41,11 @@ namespace Sea_Trips_System.Repositories
                 .FirstOrDefault(aps => aps.appointmentStaffId == id);
         }
 
-
+        public bool IsAlreadyAssigned(int appointmentId, int staffId)
+        {
+            return context.AppointmentStaffs
+                .Any(aps => aps.appointmentId == appointmentId && aps.staffId == staffId);
+        }
 
     }
 }
