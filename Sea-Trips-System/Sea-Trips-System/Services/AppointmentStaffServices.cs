@@ -86,9 +86,20 @@ namespace Sea_Trips_System.Services
             AppointmentStaff? savedItem = appointmentStaffRepo.GetById(appointmentStaff.appointmentStaffId);
             return savedItem != null ? MapToDto(savedItem) : null;
         }
-        
-        
-        
+
+
+        // 4. Remove staff assignment from an appointment
+        public bool RemoveStaffAssignment(int id)
+        {
+            AppointmentStaff? item = appointmentStaffRepo.GetById(id);
+            if (item == null)
+                return false;
+
+            appointmentStaffRepo.Delete(item);
+            return true;
+        }
+
+
 
         // ── Helper: Mapper ──────────────────────────────────────────
         private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)
