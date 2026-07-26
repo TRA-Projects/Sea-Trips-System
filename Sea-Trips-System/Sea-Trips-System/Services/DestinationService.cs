@@ -115,9 +115,10 @@ namespace Sea_Trips_System.Models
             existingDestination.estimatedDuration = input.EstimatedDuration;
 
             //Save updates to the database via Repository
-            repo.Update(existingDestination);
+            repo.Update();
 
-            //
+            //Return true indicating the update operation was successful
+            return true;
         }
 
             // =====================================================
