@@ -108,6 +108,11 @@ namespace Sea_Trips_System.Models
             {
                 return false;
             }
+
+            //Update the existing entity fields with the new values from Input DTO
+            existingDestination.name = input.name;
+            existingDestination.coordinates = input.coordinates;
+            existingDestination.estimatedDuration = input.EstimatedDuration;
         }
 
             // =====================================================
