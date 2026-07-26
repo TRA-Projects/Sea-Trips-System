@@ -21,6 +21,16 @@
             return context.Staffs.FirstOrDefault(s => s.staffId == id);
         }
 
+        // 3. Add new staff
+
+        public void Add(Staff staff)
+        {
+            context.Staffs.Add(staff);
+            context.SaveChanges();
+        }
+
+
+
 
     }
 }
