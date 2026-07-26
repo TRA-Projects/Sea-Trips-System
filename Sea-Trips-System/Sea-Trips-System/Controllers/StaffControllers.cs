@@ -20,7 +20,7 @@ namespace Sea_Trips_System.Models
             // 1. GET: api/Staffs
 
             [HttpGet]
-            public ActionResult GetAll()
+            public IActionResult GetAll()
             {
                 List<StaffResponseDto> result = staffService.GetAll();
                 return Ok(result);      // OK 200
@@ -30,7 +30,7 @@ namespace Sea_Trips_System.Models
             // 2. GET: api/Staffs/5
 
             [HttpGet("{id}")]
-            public ActionResult GetById(int id)
+            public IActionResult GetById(int id)
             {
                 StaffResponseDto? result = staffService.GetById(id);
 
@@ -45,7 +45,7 @@ namespace Sea_Trips_System.Models
             // 3. POST: api/Staffs
 
             [HttpPost]
-            public ActionResult Create([FromBody] CreateStaffDto dto)
+            public IActionResult Create([FromBody] CreateStaffDto dto)
             {
                 StaffResponseDto created = staffService.Create(dto);
 
@@ -57,7 +57,7 @@ namespace Sea_Trips_System.Models
             //4. PUT: api/Staffs/5
 
             [HttpPut("{id}")]
-            public ActionResult Update(int id, [FromBody] UpdateStaffDto dto)
+            public IActionResult Update(int id, [FromBody] UpdateStaffDto dto)
             {
                 StaffResponseDto? updated = staffService.Update(id, dto);
 
@@ -67,6 +67,8 @@ namespace Sea_Trips_System.Models
 
                 return Ok(updated); // OK 200
             }
+
+
 
         }
 
