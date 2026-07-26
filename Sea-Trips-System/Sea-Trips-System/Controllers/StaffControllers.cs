@@ -48,6 +48,7 @@ namespace Sea_Trips_System.Models
             public ActionResult Create([FromBody] CreateStaffDto dto)
             {
                 StaffResponseDto created = staffService.Create(dto);
+
                 // يرجع كود 201 Created مع الرابط للحصول على الموظف المضاف
                 return CreatedAtAction(nameof(GetById), new { id = created.staffId }, created);
             }
