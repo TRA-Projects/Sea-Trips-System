@@ -1,4 +1,6 @@
-﻿namespace Sea_Trips_System.Models
+﻿using System.ComponentModel;
+
+namespace Sea_Trips_System.Models
 {
     // Service responsible for handling business logic related to Destinations
     public class DestinationService
@@ -78,6 +80,16 @@
             // Save the new entity to the database via Repository
             repo.Add(destination);
 
+
+           // Map the saved entity(which now contains the generated ID) to the Output DTO and return it
+            DestinationDTOs.DestinationOutputDTOs output = new DestinationDTOs.DestinationOutputDTOs();
+
+            output.destinationId = destination.destinationId;
+            output.name = destination.name;
+            output.coordinates = destination.coordinates;
+            output.estimatedDuration = destination.estimatedDuration;
+
+            return output;
 
         }
 
