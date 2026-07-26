@@ -41,11 +41,15 @@ namespace Sea_Trips_System.Repositories
                 .FirstOrDefault(aps => aps.appointmentStaffId == id);
         }
 
+
+        // 4. Check if a staff member is already assigned to an appointment
         public bool IsAlreadyAssigned(int appointmentId, int staffId)
         {
             return context.AppointmentStaffs
                 .Any(aps => aps.appointmentId == appointmentId && aps.staffId == staffId);
         }
+
+
 
     }
 }
