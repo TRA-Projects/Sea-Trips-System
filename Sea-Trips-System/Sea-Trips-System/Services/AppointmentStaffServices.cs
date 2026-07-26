@@ -24,7 +24,18 @@ namespace Sea_Trips_System.Services
         }
 
 
+        public List<AppointmentStaffResponseDto> GetAll()
+        {
+            List<AppointmentStaff> list = appointmentStaffRepo.GetAll();
+            List<AppointmentStaffResponseDto> dtoList = new List<AppointmentStaffResponseDto>();
 
+            foreach (AppointmentStaff item in list)
+            {
+                dtoList.Add(MapToDto(item));
+            }
+
+            return dtoList;
+        }
 
 
         // ── Helper: Mapper ──────────────────────────────────────────
