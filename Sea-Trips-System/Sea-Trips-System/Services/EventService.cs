@@ -9,10 +9,10 @@ namespace Sea_Trips_System.Services
     public class EventService
     {
 
-        private EventRepository eventRepository;
+        private EventRepo eventRepository;
 
 
-        public EventService(EventRepository eventRepository)
+        public EventService(EventRepo eventRepository)
         {
             this.eventRepository = eventRepository;
         }
