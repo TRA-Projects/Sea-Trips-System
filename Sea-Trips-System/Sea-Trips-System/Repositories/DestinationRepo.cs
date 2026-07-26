@@ -31,8 +31,19 @@
             return context.Destinations.FirstOrDefault(d => d.destinationId == id);
         }
 
-        
 
+        // =====================================================
+        // ADD DESTINATION
+        // =====================================================
+
+        public void Add(Destination destination)
+        {
+            //add new destination in dbset
+            context.Destinations.Add(destination);
+            context.SaveChanges();
+        }
+
+       
 
 
 
