@@ -33,6 +33,13 @@ namespace Sea_Trips_System.Repositories
                 .ToList();
         }
 
+        public AppointmentStaff? GetById(int id)
+        {
+            return context.AppointmentStaffs
+                .Include(aps => aps.Staff)
+                .FirstOrDefault(aps => aps.appointmentStaffId == id);
+        }
+
 
     }
 }
