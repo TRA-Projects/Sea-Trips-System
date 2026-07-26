@@ -13,6 +13,8 @@ namespace Sea_Trips_System.Repositories
             context = _context;
         }
 
+
+        // 1. Get all staff assignments with navigation properties loaded
         public List<AppointmentStaff> GetAll()
         {
             return context.AppointmentStaffs
@@ -20,5 +22,7 @@ namespace Sea_Trips_System.Repositories
                 .Include(aps => aps.Appointment)
                 .ToList();
         }
+
+
     }
 }
