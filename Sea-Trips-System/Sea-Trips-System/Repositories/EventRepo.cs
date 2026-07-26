@@ -3,12 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sea_Trips_System.Repositories
 {
-    public class EventRepository
+    public class EventRepo
     {
         private SeaTripsContext context;
 
 
-        public EventRepository(SeaTripsContext context)
+        public EventRepo(SeaTripsContext context)
         {
             this.context = context;
         }
