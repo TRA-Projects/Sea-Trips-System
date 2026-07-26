@@ -121,9 +121,17 @@ namespace Sea_Trips_System.Models
             return true;
         }
 
-            // =====================================================
-            // DELETE DESTINATION
-            // =====================================================
+        // =====================================================
+        // DELETE DESTINATION
+        // =====================================================
 
+
+        // Deletes a specific destination by its ID if it exists.
+
+        public bool DeleteDestination(int id)
+        {
+            //
         }
+
+    }
 }
