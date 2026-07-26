@@ -15,6 +15,12 @@
             return context.Staffs.ToList();
         }
 
+        // 2. Get staff by ID
+        public Staff? GetById(int id)
+        {
+            return context.Staffs.FirstOrDefault(s => s.staffId == id);
+        }
+
 
     }
 }
