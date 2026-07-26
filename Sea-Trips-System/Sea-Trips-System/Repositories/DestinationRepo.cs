@@ -50,5 +50,14 @@
             context.SaveChanges();
         }
 
+        // =====================================================
+        // DELETE DESTINATION
+        // =====================================================
+
+        public void Delete(Destination destination)
+        {
+            context.Destinations.Remove(destination);
+            context.SaveChanges();
+        }
     }
 }
