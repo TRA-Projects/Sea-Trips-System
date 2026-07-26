@@ -36,6 +36,12 @@
         // GET DESTINATION BY ID
         // =====================================================
 
+        // Retrieves one destination by ID
+        public DestinationDTOs.DestinationOutputDTOs GetDestinationById(int id)
+        {
+            Destination destination = repo.GetDestinationById(id);
+
+        }
 
         // =====================================================
         // CREATE DESTINATION
