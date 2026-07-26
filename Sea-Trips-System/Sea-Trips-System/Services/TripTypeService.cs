@@ -1,22 +1,25 @@
 ﻿
 using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Models;
+using Sea_Trips_System.Repositories;
 
 namespace Sea_Trips_System.Services
 {
     public class TripTypeService
     {
-        private readonly TripTypeRepo tripTypeRepo;
+        // TripTypeRepo repo = new TripTypeRepo();
 
-        public TripTypeService(TripTypeRepo tripTypeRepo)
+        private TripTypeRepo repo;
+
+        public TripTypeService(TripTypeRepo _repo)
         {
-            this.tripTypeRepo = tripTypeRepo;
+            repo = _repo;
         }
 
         // Get All
         public List<TripTypeOutputDTO> GetAll()
         {
-            List<TripType> tripTypes = tripTypeRepo.GetAll();
+            List<TripType> tripTypes = repo.GetAll();
 
             List<TripTypeOutputDTO> result = new();
 
@@ -37,7 +40,7 @@ namespace Sea_Trips_System.Services
         // Get By Id
         public TripTypeDetailsDTO GetById(int id)
         {
-            TripType tripType = tripTypeRepo.GetById(id);
+            TripType tripType = repo.GetById(id);
 
             if (tripType == null)
                 return null;
@@ -61,7 +64,7 @@ namespace Sea_Trips_System.Services
             tripType.basePrice = dto.basePrice;
             tripType.description = dto.description;
 
-            tripTypeRepo.Add(tripType);
+            repo.Add(tripType);
 
             return tripType.tripTypeId;
         }
@@ -69,7 +72,7 @@ namespace Sea_Trips_System.Services
         // Update
         public bool Update(int id, TripTypeInputDTO dto)
         {
-            TripType tripType = tripTypeRepo.GetById(id);
+            TripType tripType = repo.GetById(id);
 
             if (tripType == null)
                 return false;
@@ -78,7 +81,7 @@ namespace Sea_Trips_System.Services
             tripType.basePrice = dto.basePrice;
             tripType.description = dto.description;
 
-            tripTypeRepo.Update();
+            repo.Update();
 
             return true;
         }
@@ -86,12 +89,12 @@ namespace Sea_Trips_System.Services
         // Delete
         public bool Delete(int id)
         {
-            TripType tripType = tripTypeRepo.GetById(id);
+            TripType tripType = repo.GetById(id);
 
             if (tripType == null)
                 return false;
 
-            tripTypeRepo.Delete(tripType);
+            repo.Delete(tripType);
 
             return true;
         }
