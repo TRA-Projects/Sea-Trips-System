@@ -42,11 +42,21 @@
             //search about this destination that matched this id and get it from database
             Destination destination = repo.GetDestinationById(id);
             
-            //validation if there is no destionation return null
+            //validation if destionation not found return null
             if (destination == null)
             {
                 return null;
             }
+
+            //map the entity data to the Output DTO //create new object from this entity and put data inside it
+            DestinationDTOs.DestinationOutputDTOs  output = new DestinationDTOs.DestinationOutputDTOs();
+            output.destinationId = destination.destinationId;
+            output.name = destination.name;
+            output.coordinates = destination.coordinates;
+            output.estimatedDuration = destination.estimatedDuration;
+
+                        
+
         }
 
         // =====================================================
