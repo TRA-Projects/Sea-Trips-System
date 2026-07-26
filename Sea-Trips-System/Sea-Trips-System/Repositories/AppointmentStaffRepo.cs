@@ -57,6 +57,7 @@ namespace Sea_Trips_System.Repositories
         }
 
 
+        // 6. Delete a staff assignment
         public void Delete(AppointmentStaff appointmentStaff)
         {
             context.AppointmentStaffs.Remove(appointmentStaff);
