@@ -12,10 +12,23 @@
             context = _context;
         }
 
-        ////get all destinations from DB//
+        // =====================================================
+        // GET ALL DESTINATIONS
+        // =====================================================
+
         public List<Destination> GetAllDestinations()
         {
             return context.Destinations.ToList();
         }
+
+        // =====================================================
+        // GET DESTINATION BY ID
+        // =====================================================
+        
+        public Destination GetDestinationById(int id)
+        {
+            return context.Destinations.FirstOrDefault(d => d.destinationId == id);
+        }
+
     }
 }
