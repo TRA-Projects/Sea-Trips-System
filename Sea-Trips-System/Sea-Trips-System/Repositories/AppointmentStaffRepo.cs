@@ -33,6 +33,7 @@ namespace Sea_Trips_System.Repositories
                 .ToList();
         }
 
+        // 3. Find specific assignment record by primary key
         public AppointmentStaff? GetById(int id)
         {
             return context.AppointmentStaffs
