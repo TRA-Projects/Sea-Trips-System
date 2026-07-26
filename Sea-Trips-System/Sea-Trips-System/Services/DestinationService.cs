@@ -3,6 +3,11 @@
     // Service responsible for handling business logic related to Destinations
     public class DestinationService
     {
-
+        // Repository used to interact with the database
+        private DestinationRepo repo;
+        public DestinationService(DestinationRepo _repo)
+        {
+            repo = _repo;
+        }
     }
 }
