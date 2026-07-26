@@ -32,5 +32,7 @@ namespace Sea_Trips_System.Repositories
                 .Where(aps => aps.appointmentId == appointmentId)
                 .ToList();
         }
+
+
     }
 }
