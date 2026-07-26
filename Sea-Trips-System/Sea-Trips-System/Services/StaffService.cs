@@ -71,6 +71,16 @@ namespace Sea_Trips_System.Models
             return MapToDto(staff);
         }
 
+        // 5. Delete staff
+        public bool Delete(int id)
+        {
+            Staff? staff = staffRepo.GetById(id);
+            if (staff == null)
+                return false;
+
+            staffRepo.Delete(staff);
+            return true;
+        }
 
         // ──*** Private Helper: Mapper ──***
         private StaffResponseDto MapToDto(Staff staff)
