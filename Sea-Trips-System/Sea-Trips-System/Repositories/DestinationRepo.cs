@@ -12,7 +12,7 @@
             context = _context;
         }
 
-        //get all destinations from DB
+        ////get all destinations from DB//
         public List<Destination> GetAllDestinations()
         {
             return context.Destinations.ToList();
