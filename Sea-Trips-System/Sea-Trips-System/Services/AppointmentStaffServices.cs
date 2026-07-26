@@ -55,6 +55,41 @@ namespace Sea_Trips_System.Services
 
 
 
+        // 3. Assign staff member to an appointment
+        public AppointmentStaffResponseDto? AssignStaff(AssignStaffDto dto)
+        {
+            // A) Ensure the appointment exists
+            Appointment? appointment = appointmentRepo.GetById(dto.appointmentId);
+            if (appointment == null)
+                return null;
+
+            // B) Ensure the staff member exists
+            Staff? staff = staffRepo.GetById(dto.staffId);
+            if (staff == null)
+                return null;
+
+            // C) Ensure staff member is not already assigned to this appointment
+            if (appointmentStaffRepo.IsAlreadyAssigned(dto.appointmentId, dto.staffId))
+                return null;
+
+            // D) Create and save new assignment
+            AppointmentStaff appointmentStaff = new AppointmentStaff
+            {
+                appointmentId = dto.appointmentId,
+                staffId = dto.staffId,
+                assignedRole = dto.assignedRole ?? staff.role // Fallback to staff's default role if unassigned
+            };
+
+            appointmentStaffRepo.Add(appointmentStaff);
+
+            // Fetch created record with includes to project onto DTO
+            AppointmentStaff? savedItem = appointmentStaffRepo.GetById(appointmentStaff.appointmentStaffId);
+            return savedItem != null ? MapToDto(savedItem) : null;
+        }
+        
+        
+        
+
         // ── Helper: Mapper ──────────────────────────────────────────
         private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)
         {
