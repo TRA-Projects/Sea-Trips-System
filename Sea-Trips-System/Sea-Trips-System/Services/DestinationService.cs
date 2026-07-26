@@ -142,6 +142,9 @@ namespace Sea_Trips_System.Models
 
             //Delete the entity from database via Repository
             repo.Delete(destination);
+
+            //return true indicating the delete operation was successful
+            return true;
         }
 
     }
