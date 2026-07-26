@@ -39,6 +39,7 @@ namespace Sea_Trips_System.Services
         }
 
 
+        // 2. Get assigned staff by appointment ID
         public List<AppointmentStaffResponseDto> GetByAppointmentId(int appointmentId)
         {
             List<AppointmentStaff> list = appointmentStaffRepo.GetByAppointmentId(appointmentId);
