@@ -23,5 +23,13 @@ namespace Sea_Trips_System.Models
             public string phone { get; set; }
         }
 
+        // ──*** Request DTO — Received when updating existing staff member ***─-
+
+        public class UpdateStaffDto
+        {
+
+        }
+
+
     }
 }
