@@ -6,7 +6,7 @@ namespace Sea_Trips_System.Repositories
     public class AppointmentStaffRepo
     {
 
-        private  SeaTripsContext context;
+        private SeaTripsContext context;
 
         public AppointmentStaffRepo(SeaTripsContext _context)
         {
@@ -24,5 +24,13 @@ namespace Sea_Trips_System.Repositories
         }
 
         // 2. Get all staff assigned to a specific appointment ID
+
+        public List<AppointmentStaff> GetByAppointmentId(int appointmentId)
+        {
+            return context.AppointmentStaffs
+                .Include(aps => aps.Staff)
+                .Where(aps => aps.appointmentId == appointmentId)
+                .ToList();
+        }
     }
 }
