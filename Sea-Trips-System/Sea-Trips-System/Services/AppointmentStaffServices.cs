@@ -10,8 +10,17 @@ namespace Sea_Trips_System.Services
         private AppointmentRepo appointmentRepo;
         private StaffRepo staffRepo;
 
-       
 
+        public AppointmentStaffServices(AppointmentStaffRepo _appointmentStaffRepo,
+                                       AppointmentRepo _appointmentRepo,
+                                       StaffRepo _staffRepo)
+
+        {
+            appointmentStaffRepo = _appointmentStaffRepo;
+            appointmentRepo = _appointmentRepo;
+            staffRepo = _staffRepo;
+
+        }
 
 
 
