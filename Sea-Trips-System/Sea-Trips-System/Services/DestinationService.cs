@@ -113,6 +113,11 @@ namespace Sea_Trips_System.Models
             existingDestination.name = input.name;
             existingDestination.coordinates = input.coordinates;
             existingDestination.estimatedDuration = input.EstimatedDuration;
+
+            //Save updates to the database via Repository
+            repo.Update(existingDestination);
+
+            //
         }
 
             // =====================================================
