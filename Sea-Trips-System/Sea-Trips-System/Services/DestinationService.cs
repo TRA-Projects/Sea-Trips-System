@@ -41,7 +41,12 @@
         {
             //search about this destination that matched this id and get it from database
             Destination destination = repo.GetDestinationById(id);
-
+            
+            //validation if there is no destionation return null
+            if (destination == null)
+            {
+                return null;
+            }
         }
 
         // =====================================================
