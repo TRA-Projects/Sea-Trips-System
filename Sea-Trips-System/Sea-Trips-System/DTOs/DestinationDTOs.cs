@@ -4,6 +4,7 @@ namespace Sea_Trips_System.Models
 {
     public class DestinationDTOs
     {
+        //data came from clients
         public class DestinationInputDTOs
         {
             [Required(ErrorMessage = "Value should not be null.")]
