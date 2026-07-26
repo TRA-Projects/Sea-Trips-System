@@ -12,6 +12,8 @@ namespace Sea_Trips_System.Models
 
             [MaxLength(100, ErrorMessage = "coordinates cannot exceed 100 characters.")]
             public string coordinates { get; set; }
+            [Required]
+            public TimeSpan EstimatedDuration { get; set; }
         }
 
         public class DestinationOutputDTOs
