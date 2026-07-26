@@ -39,6 +39,7 @@
         // Retrieves one destination by ID
         public DestinationDTOs.DestinationOutputDTOs GetDestinationById(int id)
         {
+            //search about this destination that matched this id and get it from database
             Destination destination = repo.GetDestinationById(id);
 
         }
