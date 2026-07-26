@@ -21,5 +21,20 @@
             return context.Destinations.ToList();
         }
 
+
+        // =====================================================
+        // GET DESTINATION BY ID
+        // =====================================================
+
+        public Destination GetDestinationById(int id)
+        {
+            return context.Destinations.FirstOrDefault(d => d.destinationId == id);
+        }
+
+        
+
+
+
+
     }
 }
