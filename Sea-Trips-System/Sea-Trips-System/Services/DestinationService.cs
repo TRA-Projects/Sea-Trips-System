@@ -102,6 +102,12 @@ namespace Sea_Trips_System.Models
         {
             // fetch the existing destination from DB using the provided ID
             Destination existingDestination = repo.GetDestinationById(id);
+
+            //Validation: If destination does not exist, return false
+            if (existingDestination == null)
+            {
+                return false;
+            }
         }
 
             // =====================================================
