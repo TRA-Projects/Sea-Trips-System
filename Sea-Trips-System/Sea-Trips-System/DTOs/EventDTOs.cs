@@ -1,21 +1,29 @@
-﻿using Sea_Trips_System.Models;
+﻿
+using System.ComponentModel.DataAnnotations;
+using Sea_Trips_System.Models;
 
 namespace Sea_Trips_System.DTOs
 {
+    // ── Request DTOs — what the client sends ─────────────────────────────────
 
-    // Used when adding a new Event
+
     public class EventInputDTO
     {
+        [Required(ErrorMessage = "Event Name is required.")]
+        [StringLength(100, ErrorMessage = "Event Name cannot exceed 100 characters.")]
         public string eventName { get; set; }
 
+        [Range(0, 100, ErrorMessage = "Discount Rate must be between 0 and 100.")]
         public decimal discountRate { get; set; }
 
+        [Required(ErrorMessage = "Event status is required.")]
         public bool isActive { get; set; }
     }
 
 
+    // ── Response DTOs — what the API sends back ───────────────────────────────
 
-    // Used when displaying Event list
+    // Used when displaying all Events
     public class EventOutputDTO
     {
         public int eventId { get; set; }
@@ -28,9 +36,7 @@ namespace Sea_Trips_System.DTOs
     }
 
 
-
-
-    // Used when displaying Event details with Appointments
+    // Used when displaying one Event with its Appointments
     public class EventAllOutputDTO
     {
         public int eventId { get; set; }
@@ -41,9 +47,12 @@ namespace Sea_Trips_System.DTOs
 
         public bool isActive { get; set; }
 
-
-        // Relationship: One Event has many Appointments
+        // Related Appointments
         public List<Appointment> Appointments { get; set; }
     }
-
 }
+
+
+
+
+
