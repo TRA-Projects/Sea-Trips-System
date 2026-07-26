@@ -5,9 +5,14 @@
     {
         // Repository used to interact with the database
         private DestinationRepo repo;
+
+        // Injects DestinationRepo using Dependency Injection
+
         public DestinationService(DestinationRepo _repo)
         {
             repo = _repo;
         }
+
+        
     }
 }
