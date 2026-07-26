@@ -10,16 +10,17 @@ namespace Sea_Trips_System.Controllers
     [Route("event")]
     [Authorize]
     public class EventController : ControllerBase
+
     {
 
         private EventService eventService;
 
-
-        public EventController(EventService eventService)
+        public EventController(EventService _eventService)  //dependency injection
         {
-            this.eventService = eventService;
+            eventService = _eventService;
         }
 
+    
 
 
         // Get All Events

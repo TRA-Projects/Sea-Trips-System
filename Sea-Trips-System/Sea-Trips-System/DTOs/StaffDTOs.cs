@@ -6,7 +6,7 @@ namespace Sea_Trips_System.Models
     {
         // ──*** Request DTO — Received when creating a new staff member ***─-
 
-       public class CreateAppointmentDto
+       public class CreateStaffDto
         {
             [Required(ErrorMessage ="Staff name is required.")]
             [StringLength(100)]
