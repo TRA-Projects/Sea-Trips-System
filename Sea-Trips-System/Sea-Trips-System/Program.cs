@@ -1,5 +1,8 @@
 
 using Microsoft.EntityFrameworkCore;
+using Sea_Trips_System.Models;
+using Sea_Trips_System.Repositories;
+using Sea_Trips_System.Services;
 
 namespace Sea_Trips_System
 {
@@ -8,12 +11,30 @@ namespace Sea_Trips_System
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-            // add DB
 
-            builder.Services.AddDbContext<SeaTripsContext>(options =>
-            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             // Add services to the container.
 
+            // 1 - register context
+            builder.Services.AddDbContext<SeaTripsContext>(options =>
+            options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
+            // service lifetime:
+            //Repo
+            builder.Services.AddScoped<AppointmentRepo>();   // Register AppointmentRepo in DI Container. 
+            builder.Services.AddScoped<ClientRepo>();         // Register ClientRepo in DI Container.
+
+
+
+
+            //service
+            builder.Services.AddScoped<ClientService>();                // Register ClientService in DI Container.
+            builder.Services.AddScoped<AppointmentService>();           // Register AppointmentService in DI Container.
+
+
+
+
+
+            //controller
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();

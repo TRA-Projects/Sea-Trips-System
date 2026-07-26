@@ -11,21 +11,21 @@ namespace Sea_Trips_System.Models
 
         [Required]
         [StringLength(100)]
-        public string? name { get; set; }          // user input
+        public string name { get; set; }          // user input
 
         [Required]
-        public string? role { get; set; }          // user input
+        public string role { get; set; }          // user input (e.g., Captain, Sailor, Guide)
 
         [StringLength(50)]
-        public string? licenseNumber { get; set; }  // user input
+        public string? licenseNumber { get; set; }  // optional user input
 
         [Required]
-        public bool isAvailable { get; set; }      // system updated
+        public bool isAvailable { get; set; } = true;    // system updated
 
 
         [Required]
         [StringLength(20)]
-        public string? phone { get; set; }         // user input
+        public string phone { get; set; }         // user input
 
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////

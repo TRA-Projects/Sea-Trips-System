@@ -1,67 +1,99 @@
 ﻿
+using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Models;
-using Sea_Trips_System.Repositories;
 
-namespace Sea_Trips_System.Models
+namespace Sea_Trips_System.Services
 {
     public class TripTypeService
     {
-        private TripTypeRepo tripTypeRepo;
+        private readonly TripTypeRepo tripTypeRepo;
 
         public TripTypeService(TripTypeRepo tripTypeRepo)
         {
             this.tripTypeRepo = tripTypeRepo;
         }
 
-        // Get All Trip Types
-        public List<TripType> GetAll()
+        // Get All
+        public List<TripTypeOutputDTO> GetAll()
         {
-            return tripTypeRepo.GetAll();
+            List<TripType> tripTypes = tripTypeRepo.GetAll();
+
+            List<TripTypeOutputDTO> result = new();
+
+            foreach (var item in tripTypes)
+            {
+                result.Add(new TripTypeOutputDTO
+                {
+                    TripTypeId = item.tripTypeId,
+                    TypeName = item.typeName,
+                    BasePrice = item.basePrice,
+                    Description = item.description
+                });
+            }
+
+            return result;
         }
 
-        // Get Trip Type By Id
-        public TripType GetById(int tripTypeId)
+        // Get By Id
+        public TripTypeDetailsDTO GetById(int id)
         {
-            return tripTypeRepo.GetById(tripTypeId);
+            TripType tripType = tripTypeRepo.GetById(id);
+
+            if (tripType == null)
+                return null;
+
+            return new TripTypeDetailsDTO
+            {
+                TripTypeId = tripType.tripTypeId,
+                TypeName = tripType.typeName,
+                BasePrice = tripType.basePrice,
+                Description = tripType.description,
+                AppointmentCount = tripType.Appointments.Count
+            };
         }
 
-        // Add New Trip Type
-        public void AddTripType(string typeName, decimal basePrice, string description)
+        // Add
+        public int Create(TripTypeInputDTO dto)
         {
             TripType tripType = new TripType();
 
-            tripType.typeName = typeName;
-            tripType.basePrice = basePrice;
-            tripType.description = description;
+            tripType.typeName = dto.typeName;
+            tripType.basePrice = dto.basePrice;
+            tripType.description = dto.description;
 
             tripTypeRepo.Add(tripType);
+
+            return tripType.tripTypeId;
         }
 
-        // Get Last Trip Type Id
-        public int GetLastTripTypeId()
+        // Update
+        public bool Update(int id, TripTypeInputDTO dto)
         {
-            List<TripType> all = tripTypeRepo.GetAll();
-            return all[all.Count - 1].tripTypeId;
-        }
+            TripType tripType = tripTypeRepo.GetById(id);
 
-        // Update Trip Type
-        public void UpdateTripType(int tripTypeId, string typeName, decimal basePrice, string description)
-        {
-            TripType tripType = tripTypeRepo.GetById(tripTypeId);
+            if (tripType == null)
+                return false;
 
-            tripType.typeName = typeName;
-            tripType.basePrice = basePrice;
-            tripType.description = description;
+            tripType.typeName = dto.typeName;
+            tripType.basePrice = dto.basePrice;
+            tripType.description = dto.description;
 
             tripTypeRepo.Update();
+
+            return true;
         }
 
-        // Delete Trip Type
-        public void DeleteTripType(int tripTypeId)
+        // Delete
+        public bool Delete(int id)
         {
-            TripType tripType = tripTypeRepo.GetById(tripTypeId);
+            TripType tripType = tripTypeRepo.GetById(id);
+
+            if (tripType == null)
+                return false;
 
             tripTypeRepo.Delete(tripType);
+
+            return true;
         }
     }
 }
