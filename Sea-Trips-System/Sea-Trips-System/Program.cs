@@ -22,13 +22,16 @@ namespace Sea_Trips_System
             //Repo
             builder.Services.AddScoped<AppointmentRepo>();   // Register AppointmentRepo in DI Container. 
             builder.Services.AddScoped<ClientRepo>();         // Register ClientRepo in DI Container.
+            builder.Services.AddScoped<StaffRepo>();          // Register StaffRepo in DI Container.
 
 
 
 
             //service
-            builder.Services.AddScoped<ClientService>();                // Register ClientService in DI Container.
             builder.Services.AddScoped<AppointmentService>();           // Register AppointmentService in DI Container.
+            builder.Services.AddScoped<ClientService>();                // Register ClientService in DI Container.
+            builder.Services.AddScoped<StaffService>();          // Register StaffRepo in DI Container.
+
 
 
 
