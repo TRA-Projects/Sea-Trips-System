@@ -27,6 +27,9 @@ namespace Sea_Trips_System.Models
             [Required]
             public DateTime createdAt { get; set; }   ////system generated 
 
+            [Required]
+            public string passwordHash { get; set; }          // system generated — BCrypt hash
+
 
         /// ////////////////////////////////////////////////////////////////////////////////////////////
         //one to many
