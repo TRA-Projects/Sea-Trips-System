@@ -27,8 +27,28 @@ namespace Sea_Trips_System.Models
 
         public class UpdateStaffDto
         {
+            [Required(ErrorMessage = "Staff name is required.")]
+            [StringLength(100)]
+            public string name { get; set; }
+
+            [Required(ErrorMessage = "Role is required.")]
+            public string role { get; set; }
+
+            [StringLength(50)]
+            public string? licenseNumber { get; set; }
+
+            [Required]
+            public bool isAvailable { get; set; }
+
+            [Required(ErrorMessage = "Phone number is required.")]
+            [StringLength(20)]
+            public string phone { get; set; }
 
         }
+
+        // ──*** Response DTO — Returned to client ***──
+
+
 
 
     }
