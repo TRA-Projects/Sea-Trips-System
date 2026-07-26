@@ -48,7 +48,15 @@ namespace Sea_Trips_System.Models
 
         // ──*** Response DTO — Returned to client ***──
 
-
+        public class StaffResponseDto
+        {
+            public int staffId { get; set; }
+            public string name { get; set; }
+            public string role { get; set; }
+            public string? licenseNumber { get; set; }
+            public bool isAvailable { get; set; }
+            public string phone { get; set; }
+        }
 
 
     }
