@@ -37,7 +37,21 @@ namespace Sea_Trips_System.Models
         }
 
 
+        // 3. Create new staff member
+        public StaffResponseDto Create(CreateStaffDto dto)
+        {
+            Staff staff = new Staff
+            {
+                name = dto.name,
+                role = dto.role,
+                licenseNumber = dto.licenseNumber,
+                phone = dto.phone,
+                isAvailable = true // الموظف يكون متاح تلقائياً عند الإضافة
+            };
 
+            staffRepo.Add(staff);
+            return MapToDto(staff);
+        }
 
 
 
