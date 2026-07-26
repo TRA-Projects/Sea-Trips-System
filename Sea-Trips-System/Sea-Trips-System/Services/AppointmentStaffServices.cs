@@ -24,6 +24,7 @@ namespace Sea_Trips_System.Services
         }
 
 
+        // 1. Get all staff assigned to appointments
         public List<AppointmentStaffResponseDto> GetAll()
         {
             List<AppointmentStaff> list = appointmentStaffRepo.GetAll();
