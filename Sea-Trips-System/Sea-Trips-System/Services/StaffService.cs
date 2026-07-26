@@ -31,7 +31,7 @@ namespace Sea_Trips_System.Models
         {
             Staff? staff = staffRepo.GetById(id);
             if (staff == null)
-                return null;
+                return null;  //Not found 404
 
             return MapToDto(staff);
         }
@@ -46,7 +46,7 @@ namespace Sea_Trips_System.Models
                 role = dto.role,
                 licenseNumber = dto.licenseNumber,
                 phone = dto.phone,
-                isAvailable = true // الموظف يكون متاح تلقائياً عند الإضافة
+                isAvailable = true   
             };
 
             staffRepo.Add(staff);
