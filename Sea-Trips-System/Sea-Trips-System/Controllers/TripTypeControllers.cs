@@ -8,14 +8,21 @@ namespace Sea_Trips_System.Controllers
     [ApiController]
     [Route("triptype")]
     [Authorize]
-    public class TripTypeController : ControllerBase
-    {
-        private readonly TripTypeService tripTypeService;
 
-        public TripTypeController(TripTypeService tripTypeService)
+    public class TripTypeController : ControllerBase
+
+
+    {
+
+       private TripTypeService tripTypeService;
+
+    public TripTypeController(TripTypeService _tripTypeService)  //dependency injection
         {
-            this.tripTypeService = tripTypeService;
-        }
+        tripTypeService = _tripTypeService;
+    }
+
+
+        // Get All TripType
 
         [AllowAnonymous]
         [HttpGet("GetAllTripTypes")]
@@ -29,6 +36,9 @@ namespace Sea_Trips_System.Controllers
             return Ok(result);
         }
 
+
+        // Get TripType By Id
+
         [AllowAnonymous]
         [HttpGet("GetTripTypeById/{id}")]
         public IActionResult GetTripTypeById(int id)
@@ -41,6 +51,9 @@ namespace Sea_Trips_System.Controllers
             return Ok(tripType);
         }
 
+
+        //Add TripType
+
         [Authorize(Roles = "Admin")]
         [HttpPost("AddDTO")]
         public IActionResult AddDTO([FromBody] TripTypeInputDTO dto)
@@ -49,6 +62,8 @@ namespace Sea_Trips_System.Controllers
 
             return Ok(new { TripTypeId = id });
         }
+
+        //// Update 
 
         [Authorize(Roles = "Admin")]
         [HttpPut("Update/{id}")]
@@ -61,6 +76,8 @@ namespace Sea_Trips_System.Controllers
 
             return Ok("Updated Successfully");
         }
+
+        //Delete
 
         [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
