@@ -56,5 +56,12 @@ namespace Sea_Trips_System.Repositories
             context.SaveChanges();
         }
 
+
+        public void Delete(AppointmentStaff appointmentStaff)
+        {
+            context.AppointmentStaffs.Remove(appointmentStaff);
+            context.SaveChanges();
+        }
+
     }
 }
