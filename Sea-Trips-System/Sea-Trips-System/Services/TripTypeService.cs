@@ -24,10 +24,10 @@ namespace Sea_Trips_System.Services
             {
                 result.Add(new TripTypeOutputDTO
                 {
-                    TripTypeId = item.tripTypeId,
-                    TypeName = item.typeName,
-                    BasePrice = item.basePrice,
-                    Description = item.description
+                    tripTypeId = item.tripTypeId,
+                    typeName = item.typeName,
+                    basePrice = item.basePrice,
+                    description = item.description
                 });
             }
 
@@ -44,11 +44,11 @@ namespace Sea_Trips_System.Services
 
             return new TripTypeDetailsDTO
             {
-                TripTypeId = tripType.tripTypeId,
-                TypeName = tripType.typeName,
-                BasePrice = tripType.basePrice,
-                Description = tripType.description,
-                AppointmentCount = tripType.Appointments.Count
+                tripTypeId = tripType.tripTypeId,
+                typeName = tripType.typeName,
+                basePrice = tripType.basePrice,
+                description = tripType.description,
+                appointmentCount = tripType.Appointments.Count
             };
         }
 
