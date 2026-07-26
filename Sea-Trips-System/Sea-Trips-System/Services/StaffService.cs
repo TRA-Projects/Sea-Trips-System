@@ -54,6 +54,22 @@ namespace Sea_Trips_System.Models
         }
 
 
+        // 4. Update staff details
+        public StaffResponseDto? Update(int id, UpdateStaffDto dto)
+        {
+            Staff? staff = staffRepo.GetById(id);
+            if (staff == null)
+                return null;
+
+            staff.name = dto.name;
+            staff.role = dto.role;
+            staff.licenseNumber = dto.licenseNumber;
+            staff.phone = dto.phone;
+            staff.isAvailable = dto.isAvailable;
+
+            staffRepo.Update();
+            return MapToDto(staff);
+        }
 
 
         // ──*** Private Helper: Mapper ──***
