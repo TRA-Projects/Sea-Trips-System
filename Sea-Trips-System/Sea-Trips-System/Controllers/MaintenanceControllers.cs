@@ -21,7 +21,7 @@ namespace Sea_Trips_System.Models
         [HttpGet("GetAllMaintenance")]
         public IActionResult GetAllMaintenance()
         {
-            List<MaintenanceAllOutputDTO> result = maintenanceService.GetAllMaintenance();
+            List<MaintenanceResponseDto> result = maintenanceService.GetAllMaintenance();
 
             if (result.Count > 0)
             {

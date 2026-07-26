@@ -1,25 +1,28 @@
-﻿namespace Sea_Trips_System.Models
+﻿using Sea_Trips_System.DTOs;
+
+namespace Sea_Trips_System.Models
 {
     public class MaintenanceService
     {
         private MaintenanceRepo repo;
-    
-       public MaintenanceService(MaintenanceRepo _repo)
+
+        public MaintenanceService(MaintenanceRepo _repo)
         {
             repo = _repo;
         }
 
-        public List<MaintenanceAllOutputDTO> GetAllMaintenance()
+        public List<MaintenanceResponseDto> GetAllMaintenance()
         {
             return repo.GetAllMaintenance()
-                       .Select(Maintenance => new MaintenanceAllOutputDTO
+                       .Select(m => new MaintenanceResponseDto
                        {
-                           description = Maintenance.description,
-                           startDate = Maintenance.startDate,
-                           maintenanceId = Maintenance.maintenanceId
+                           MaintenanceId = m.maintenanceId,
+                           Description = m.description,
+                           StartDate = m.startDate,
+                           EndDate = m.endDate,
+                           BoatId = m.boatId
                        })
                        .ToList();
         }
-
     }
 }
