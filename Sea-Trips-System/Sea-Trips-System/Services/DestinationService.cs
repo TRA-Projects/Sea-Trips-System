@@ -66,11 +66,19 @@
         // =====================================================
 
         // Creates a new destination
-        public int CreateDestination(DestinationDTOs.DestinationInputDTOs input)
+        public DestinationDTOs.DestinationOutputDTOs CreateDestination(DestinationDTOs.DestinationInputDTOs input)
         {
-            // 1. Create a new Destination entity and map data from the Input DTO
+            // Create a new Destination entity and map data from the Input DTO
             Destination destination = new Destination();
-            
+
+            destination.name = input.name;
+            destination.coordinates = input.coordinates;
+            destination.estimatedDuration = input.EstimatedDuration;
+
+            // Save the new entity to the database via Repository
+            repo.Add(destination);
+
+
         }
 
         // =====================================================
