@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Sea_Trips_System.Models;
 using Sea_Trips_System.Repositories;
+using Sea_Trips_System.Services;
 
 namespace Sea_Trips_System
 {
