@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
 {
@@ -72,4 +73,4 @@ namespace Sea_Trips_System.Models
         }
     }
 }
-}
+
