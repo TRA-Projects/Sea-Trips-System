@@ -100,7 +100,8 @@ namespace Sea_Trips_System.Models
         // Updates an existing destination's details if it exists in the database
         public bool UpdateDestination(int id, DestinationDTOs.DestinationInputDTOs input)
         {
-            
+            // fetch the existing destination from DB using the provided ID
+            Destination existingDestination = repo.GetDestinationById(id);
         }
 
             // =====================================================
