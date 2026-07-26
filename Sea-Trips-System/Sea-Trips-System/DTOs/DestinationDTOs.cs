@@ -16,7 +16,7 @@ namespace Sea_Trips_System.Models
             [Required]
             public TimeSpan EstimatedDuration { get; set; }
         }
-
+        //data response to clients
         public class DestinationOutputDTOs
         {
             public int destinationId { get; set; }
