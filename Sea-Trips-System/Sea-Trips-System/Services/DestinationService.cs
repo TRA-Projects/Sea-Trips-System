@@ -65,6 +65,13 @@
         // CREATE DESTINATION
         // =====================================================
 
+        // Creates a new destination
+        public int CreateDestination(DestinationDTOs.DestinationInputDTOs input)
+        {
+
+            DestinationDTOs.DestinationInputDTOs i = new DestinationDTOs.DestinationInputDTOs();
+            
+        }
 
         // =====================================================
         // UPDATE DESTINATION
