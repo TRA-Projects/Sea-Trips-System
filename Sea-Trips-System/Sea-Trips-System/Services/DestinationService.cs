@@ -68,8 +68,8 @@
         // Creates a new destination
         public int CreateDestination(DestinationDTOs.DestinationInputDTOs input)
         {
-
-            DestinationDTOs.DestinationInputDTOs i = new DestinationDTOs.DestinationInputDTOs();
+            // 1. Create a new Destination entity and map data from the Input DTO
+            Destination destination = new Destination();
             
         }
 
