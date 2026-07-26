@@ -54,6 +54,20 @@ namespace Sea_Trips_System.Models
             }
 
 
+            //4. PUT: api/Staffs/5
+
+            [HttpPut("{id}")]
+            public ActionResult Update(int id, [FromBody] UpdateStaffDto dto)
+            {
+                StaffResponseDto? updated = staffService.Update(id, dto);
+
+                if (updated == null)   //NotFound 404
+
+                    return NotFound(new { message = $"Staff with ID {id} was not found." });
+
+                return Ok(updated); // OK 200
+            }
+
         }
 
 
