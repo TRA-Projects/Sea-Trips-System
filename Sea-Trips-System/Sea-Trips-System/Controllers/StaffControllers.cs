@@ -18,11 +18,27 @@ namespace Sea_Trips_System.Models
 
 
             // 1. GET: api/Staffs
+
             [HttpGet]
             public ActionResult GetAll()
             {
                 List<StaffResponseDto> result = staffService.GetAll();
                 return Ok(result);      // OK 200
+            }
+
+
+            // 2. GET: api/Staffs/5
+
+            [HttpGet("{id}")]
+            public ActionResult GetById(int id)
+            {
+                StaffResponseDto? result = staffService.GetById(id);
+
+                if (result == null) //404 NotFound
+
+                    return NotFound(new { message = $"Staff with ID {id} was not found." });
+
+                return Ok(result);  //OK 200
             }
 
 
