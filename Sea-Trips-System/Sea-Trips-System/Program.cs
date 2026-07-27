@@ -27,6 +27,8 @@ namespace Sea_Trips_System
             builder.Services.AddScoped<TripTypeRepo>();         // Register TripTypeRepo in DI Container.
             builder.Services.AddScoped<EventRepo>();        // Register EventRepo in DI Container...
             builder.Services.AddScoped<BoatRepo>();         // Register BoatRepo in DI Container.
+            builder.Services.AddScoped<DestinationRepo>(); // Register DestinationRepo in DI Container.
+            builder.Services.AddScoped<ReviewRepo>();      // Register ReviewRepo in DI Container.
 
 
 
@@ -40,6 +42,8 @@ namespace Sea_Trips_System
             builder.Services.AddScoped<ClientService>();                // Register ClientService in DI Container.
             builder.Services.AddScoped<StaffService>();          // Register StaffRepo in DI Container.
             builder.Services.AddScoped<BoatService>();         // Register BoatService in DI Container.
+            builder.Services.AddScoped<DestinationService>();   // Register DestinationService in DI Container.
+            builder.Services.AddScoped<ReviewService>();        // Register ReviewService in DI Container.
             builder.Services.AddScoped<TripTypeService>();      //Register TripTypeService in DI Container.
             builder.Services.AddScoped<EventService>();        //Register EventService in DI Container.
 
