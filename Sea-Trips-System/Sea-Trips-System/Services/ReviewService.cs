@@ -37,6 +37,9 @@
                     destinationName = r.Appointment?.Destination?.name
                 });
             }
+
+            // 4. Return the mapped DTO list
+            return resultList;
         }
     }
 }
