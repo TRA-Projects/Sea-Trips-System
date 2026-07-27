@@ -128,6 +128,9 @@ namespace Sea_Trips_System.Models
                 return NotFound(); // HTTP 404 Not Found
             }
 
+            // 3. Return HTTP 200 OK with a success message confirming the update
+            return Ok("Updated successfully"); // HTTP 200 OK
+
         }
     }
 }
