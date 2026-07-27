@@ -2,6 +2,7 @@
 
 namespace Sea_Trips_System.Models
 {
+    //1.// Mark class as an API Controller and set the base URL route to "destination"
     [ApiController]
     [Route("Destination")]
     public class DestinationControllers:ControllerBase
