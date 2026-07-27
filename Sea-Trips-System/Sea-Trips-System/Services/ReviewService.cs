@@ -2,5 +2,8 @@
 {
     public class ReviewService
     {
+        // 1. Declare the target Repository instance
+        private ReviewRepo reviewRepo;
+
     }
 }
