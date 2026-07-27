@@ -24,7 +24,7 @@ namespace Sea_Trips_System.Models
             // Include Appointment & Destination to get full details
             return context.Reviews
                 .Include(r => r.Appointment)
-                    .ThenInclude(a => a.Destination)
+                .ThenInclude(a => a.Destination)
                 .ToList();
         }
 
@@ -37,7 +37,7 @@ namespace Sea_Trips_System.Models
         {
             return context.Reviews
                 .Include(r => r.Appointment)
-                    .ThenInclude(a => a.Destination)
+                .ThenInclude(a => a.Destination)
                 .FirstOrDefault(r => r.reviewId == id);
         }
 
@@ -50,9 +50,25 @@ namespace Sea_Trips_System.Models
         {
             return context.Reviews
                 .Include(r => r.Appointment)
-                    .ThenInclude(a => a.Destination)
+                .ThenInclude(a => a.Destination)
                 .Where(r => r.Appointment.destinationId == destinationId) // تصفية التقييمات للوجهة المحددة
                 .ToList();
         }
+
+        // =====================================================
+        // ADD REVIEW
+        // =====================================================
+        public void Add(Review review)
+        {
+            // add new review in dbset
+            context.Reviews.Add(review);
+            context.SaveChanges();
+        }
+        // =====================================================
+        // UPDATE REVIEW
+        // =====================================================
+        // =====================================================
+        // DELETE REVIEW
+        // =====================================================
     }
 }
