@@ -67,5 +67,7 @@ namespace Sea_Trips_System.Models
         // =====================================================
         // GET REVIEWS BY DESTINATION ID
         // =====================================================
+
+        // Define as an HTTP GET endpoint taking destinationId from Route
     }
 }
