@@ -39,5 +39,11 @@ namespace Sea_Trips_System.Models
             // 3. Return 204 No Content status code if the list is empty (request succeeded, but no data to return)
             return NoContent(); // 204 no data
         }
+
+        // =====================================================
+        // GET REVIEW BY ID
+        // =====================================================
+
+
     }
 }
