@@ -115,6 +115,16 @@
             return GetReviewById(newReview.reviewId);
         }
 
+        // =====================================================
+        // 5. UPDATE REVIEW
+        // =====================================================
+        public bool UpdateReview(int id, ReviewDTOs.ReviewInputDTOs input)
+        {
+            // 1. Find the existing review in the database
+            Review existingReview = reviewRepo.GetReviewById(id);
+        }
+
+
 
     }
 }
