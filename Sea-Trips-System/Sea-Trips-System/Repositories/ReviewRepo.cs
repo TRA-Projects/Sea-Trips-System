@@ -74,5 +74,10 @@ namespace Sea_Trips_System.Models
         // =====================================================
         // DELETE REVIEW
         // =====================================================
+        public void Delete(Review review)
+        {
+            context.Reviews.Remove(review);
+            context.SaveChanges();
+        }
     }
 }
