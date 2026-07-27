@@ -22,7 +22,7 @@ namespace Sea_Trips_System.Models
         // Define this action as an HTTP GET endpoint with the route "GetAllDestinations"
         // GET: GetAllDestinations
         [AllowAnonymous]
-        [HttpGet("GetAllDestinations")]
+        [HttpGet("GetAllDestinations")]//
         public IActionResult GetAllDestinations()
         {
             // 1. Call the service layer to fetch all destinations mapped as DTOs
