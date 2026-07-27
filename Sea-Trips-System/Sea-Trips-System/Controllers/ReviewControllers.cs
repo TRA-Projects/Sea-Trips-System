@@ -102,6 +102,9 @@ namespace Sea_Trips_System.Models
         {
             // 1. Send the input DTO to the service layer to create and save the review in DB
             ReviewDTOs.ReviewOnputDTOs createdReview = reviewService.CreateReview(input);
+
+            // 2. Return HTTP 200 OK with the created review object containing its generated ID
+            return Ok(createdReview); // HTTP 200 OK
         }
     }
 }
