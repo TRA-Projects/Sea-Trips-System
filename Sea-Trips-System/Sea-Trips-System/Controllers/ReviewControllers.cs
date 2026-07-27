@@ -29,7 +29,12 @@ namespace Sea_Trips_System.Models
             // 1. Call the service layer to fetch all reviews mapped as DTOs
             List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetAllReviews();
 
-
+            // 2. Check if the returned list contains any review items
+            if (result.Count > 0)
+            {
+                // Return 200 OK status code along with the list of reviews
+                return Ok(result); // 200 success
+            }
         }
     }
 }
