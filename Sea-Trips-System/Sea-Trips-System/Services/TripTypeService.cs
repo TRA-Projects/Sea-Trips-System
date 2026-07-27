@@ -19,22 +19,15 @@ namespace Sea_Trips_System.Services
         // Get All
         public List<TripTypeOutputDTO> GetAll()
         {
-            List<TripType> tripTypes = repo.GetAll();
-
-            List<TripTypeOutputDTO> result = new();
-
-            foreach (var item in tripTypes)
-            {
-                result.Add(new TripTypeOutputDTO
-                {
-                    tripTypeId = item.tripTypeId,
-                    typeName = item.typeName,
-                    basePrice = item.basePrice,
-                    description = item.description
-                });
-            }
-
-            return result;
+            return repo.GetAll()
+                       .Select(TripType => new TripTypeOutputDTO
+                       {
+                           tripTypeId = TripType.tripTypeId,
+                           typeName = TripType.typeName,
+                           basePrice = TripType.basePrice,
+                           description = TripType.description
+                       })
+                       .ToList();
         }
 
         // Get By Id
