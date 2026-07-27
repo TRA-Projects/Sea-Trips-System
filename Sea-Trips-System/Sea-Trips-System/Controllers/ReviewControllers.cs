@@ -77,6 +77,12 @@ namespace Sea_Trips_System.Models
         {
             // 1. Call the service layer to fetch reviews filtered by destination ID
             List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetReviewsByDestinationId(destinationId);
+
+            // 2. Check if any reviews exist for this destination
+            if (result.Count > 0)
+            {
+                return Ok(result); // 200 success
+            }
         }
     }
 }
