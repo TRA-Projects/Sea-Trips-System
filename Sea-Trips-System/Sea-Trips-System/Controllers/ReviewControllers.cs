@@ -136,5 +136,7 @@ namespace Sea_Trips_System.Models
         // =====================================================
         // DELETE REVIEW
         // =====================================================
+
+        // Define as an HTTP DELETE endpoint taking the target review ID from Route
     }
 }
