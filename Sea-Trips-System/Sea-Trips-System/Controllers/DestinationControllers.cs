@@ -82,7 +82,10 @@ namespace Sea_Trips_System.Models
         [HttpPut("UpdateDestination/{id}")]
         public IActionResult UpdateDestination([FromRoute] int id, [FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
+            // 1. Call the service layer to update the destination record
             bool updated = destinationService.UpdateDestination(id, input);
+
+
 
             if (!updated)
             {
