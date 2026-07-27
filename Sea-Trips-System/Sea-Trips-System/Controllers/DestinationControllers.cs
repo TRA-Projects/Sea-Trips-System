@@ -36,6 +36,7 @@ namespace Sea_Trips_System.Models
         [HttpGet("GetDestinationById/{id}")]
         public IActionResult GetDestinationById([FromRoute] int id)
         {
+            // 1. Call the service layer to fetch the destination DTO by its unique ID
             DestinationDTOs.DestinationOutputDTOs destination = destinationService.GetDestinationById(id);
 
             if (destination == null)
