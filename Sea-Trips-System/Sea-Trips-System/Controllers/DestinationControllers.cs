@@ -21,6 +21,7 @@ namespace Sea_Trips_System.Models
             // 1. Call the service layer to fetch all destinations mapped as DTOs
             List<DestinationDTOs.DestinationOutputDTOs>  result = destinationService.GetAllDestinations();
 
+            // 2. Check if the returned list contains any destination items
             if (result.Count > 0)
             {
                 return Ok(result); //200 success
