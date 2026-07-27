@@ -86,7 +86,7 @@ namespace Sea_Trips_System.Models
             bool updated = destinationService.UpdateDestination(id, input);
 
 
-
+            // 2. Safety Check: If the destination ID does not exist in the database, return 404
             if (!updated)
             {
                 return NotFound(); // HTTP 404 Not Found
