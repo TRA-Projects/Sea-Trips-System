@@ -32,7 +32,7 @@ namespace Sea_Trips_System.Models
             // 2. Check if the returned list contains any review items
             if (result.Count > 0)
             {
-                // Return 200 OK status code along with the list of reviews
+                // Return 200 OK status code along with the list of reviews..
                 return Ok(result); // 200 success
             }
         }
