@@ -100,7 +100,8 @@ namespace Sea_Trips_System.Models
         [HttpPost("AddReview")]
         public IActionResult AddReview([FromBody] ReviewDTOs.ReviewInputDTOs input)
         {
-
+            // 1. Send the input DTO to the service layer to create and save the review in DB
+            ReviewDTOs.ReviewOnputDTOs createdReview = reviewService.CreateReview(input);
         }
     }
 }
