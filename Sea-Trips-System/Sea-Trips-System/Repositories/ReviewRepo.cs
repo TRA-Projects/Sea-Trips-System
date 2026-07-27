@@ -32,12 +32,27 @@ namespace Sea_Trips_System.Models
         // GET REVIEW BY ID
         // =====================================================
 
+        // 2. Get a single review by its ID
         public Review GetReviewById(int id)
         {
             return context.Reviews
                 .Include(r => r.Appointment)
                     .ThenInclude(a => a.Destination)
                 .FirstOrDefault(r => r.reviewId == id);
+        }
+
+        // =====================================================
+        // GET REVIEW BY ID
+        // =====================================================
+
+        // 3. Get all reviews for a specific destination ID
+        public List<Review> GetReviewsByDestinationId(int destinationId)
+        {
+            return context.Reviews
+                .Include(r => r.Appointment)
+                    .ThenInclude(a => a.Destination)
+                .Where(r => r.Appointment.destinationId == destinationId) // تصفية التقييمات للوجهة المحددة
+                .ToList();
         }
     }
 }
