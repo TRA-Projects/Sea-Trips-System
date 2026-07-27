@@ -73,7 +73,7 @@ namespace Sea_Trips_System.Models
 
 
             // 2. Return HTTP 200 OK with the created destination object containing its generated ID
-            return Ok(createdDestination); 
+            return Ok(createdDestination); // HTTP 200 OK
         }
     }
 }
