@@ -128,6 +128,13 @@
             {
                 return false;
             }
+
+
+            // 3. Update entity properties with new values from input DTO
+            existingReview.rating = input.rating;
+            existingReview.comment = input.comment;
+            existingReview.AppointmentId = input.AppointmentId;
+
         }
 
 
