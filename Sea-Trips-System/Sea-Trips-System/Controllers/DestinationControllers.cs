@@ -97,7 +97,7 @@ namespace Sea_Trips_System.Models
         }
 
         // Define as an HTTP DELETE endpoint taking the target destination ID from Route
-
+        // URL Example: http://localhost:5153/destination/Delete/3
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
