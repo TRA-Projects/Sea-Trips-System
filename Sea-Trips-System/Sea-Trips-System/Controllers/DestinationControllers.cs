@@ -71,6 +71,8 @@ namespace Sea_Trips_System.Models
             // 1. Send the input DTO to the service layer to map to an Entity and save in DB
             DestinationDTOs.DestinationOutputDTOs createdDestination = destinationService.CreateDestination(input);
 
+
+            // 2. Return HTTP 200 OK with the created destination object containing its generated ID
             return Ok(createdDestination); 
         }
     }
