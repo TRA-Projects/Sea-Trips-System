@@ -27,7 +27,7 @@ namespace Sea_Trips_System.Models
                 // Return 200 OK status code along with the list of destinations
                 return Ok(result); //200 success
             }
-
+            // 3. Return 204 No Content status code if the list is empty (request succeeded, but no data to return)
             return NoContent(); //204 no data
         }
     }
