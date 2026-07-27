@@ -51,6 +51,14 @@
         {
             // 1. Fetch the specific review entity by ID via repository
             Review review = reviewRepo.GetReviewById(id);
+
+            // 2. Safety Check: If review does not exist, return null (handled as 404 in Controller)
+            if (review == null)
+            {
+                return null;
+            }
         }
+
+
     }
 }
