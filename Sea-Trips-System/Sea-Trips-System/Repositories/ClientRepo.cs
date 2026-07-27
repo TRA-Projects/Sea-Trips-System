@@ -5,7 +5,7 @@ namespace Sea_Trips_System.Repositories
     {
         //1. Constructor & Dependency Injection
 
-        private SeaTripsContext context;
+        private SeaTripsContext context;                                        //private variable that save the connection of database in class..
 
         public ClientRepo(SeaTripsContext _context)     
         {
