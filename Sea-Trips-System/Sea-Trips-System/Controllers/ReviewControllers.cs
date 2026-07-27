@@ -9,5 +9,11 @@ namespace Sea_Trips_System.Models
     [Authorize] // Requires authentication for all endpoints by default
     public class ReviewControllers: ControllerBase
     {
+        private ReviewService reviewService;
+        // Constructor Injection: Injecting ReviewService instance
+        public ReviewControllers(ReviewService _reviewService)
+        {
+            reviewService = _reviewService;
+        }
     }
 }
