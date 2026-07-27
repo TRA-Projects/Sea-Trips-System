@@ -94,6 +94,6 @@ namespace Sea_Trips_System.Models
         // =====================================================
 
         // Define as an HTTP POST endpoint for creating new review records
-
+        // URL Example: http://localhost:5153/Review/AddReview
     }
 }
