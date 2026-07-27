@@ -75,7 +75,8 @@ namespace Sea_Trips_System.Models
         [HttpGet("GetReviewsByDestination/{destinationId}")]
         public IActionResult GetReviewsByDestinationId([FromRoute] int destinationId)
         {
-
+            // 1. Call the service layer to fetch reviews filtered by destination ID
+            List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetReviewsByDestinationId(destinationId);
         }
     }
 }
