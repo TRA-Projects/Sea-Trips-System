@@ -112,5 +112,7 @@ namespace Sea_Trips_System.Models
         // =====================================================
 
         // Define as an HTTP PUT endpoint taking the target ID from Route and new data from Body
+        // URL Example: http://localhost:5153/Review/UpdateReview/3
+        // PUT: UpdateReview/3
     }
 }
