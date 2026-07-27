@@ -78,6 +78,7 @@ namespace Sea_Trips_System.Models
 
 
         // Define as an HTTP PUT endpoint taking the target ID from Route and new data from Body
+        // URL Example: http://localhost:5153/destination/UpdateDestination/3
         [HttpPut("UpdateDestination/{id}")]
         public IActionResult UpdateDestination([FromRoute] int id, [FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
