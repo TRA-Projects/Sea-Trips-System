@@ -83,6 +83,8 @@ namespace Sea_Trips_System.Models
             {
                 return Ok(result); // 200 success
             }
+            // 3. Return 204 No Content if no reviews exist for this destination
+            return NoContent(); // 204 no data
         }
     }
 }
