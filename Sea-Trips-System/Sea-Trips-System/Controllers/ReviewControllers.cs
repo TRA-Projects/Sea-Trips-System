@@ -45,5 +45,13 @@ namespace Sea_Trips_System.Models
         // =====================================================
 
         // Define as an HTTP GET endpoint with a route parameter {id}
+        // URL Example: http://localhost:5153/Review/GetReviewById/3..
+        // GET: GetReviewById/3
+        [AllowAnonymous] // Allow public access to view a specific review
+        [HttpGet("GetReviewById/{id}")]
+        public IActionResult GetReviewById([FromRoute] int id)
+        {
+
+        }
     }
 }
