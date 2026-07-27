@@ -63,5 +63,9 @@ namespace Sea_Trips_System.Models
             // 3. Return HTTP 200 OK along with the found review DTO data
             return Ok(review); // 200 OK
         }
+
+        // =====================================================
+        // GET REVIEWS BY DESTINATION ID
+        // =====================================================
     }
 }
