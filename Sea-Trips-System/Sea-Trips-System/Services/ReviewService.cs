@@ -135,6 +135,11 @@
             existingReview.comment = input.comment;
             existingReview.AppointmentId = input.AppointmentId;
 
+            // 4. Save changes in the database via repository
+            reviewRepo.Update();
+
+            return true;
+
         }
 
 
