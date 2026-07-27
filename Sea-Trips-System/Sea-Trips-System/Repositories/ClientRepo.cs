@@ -5,9 +5,9 @@ namespace Sea_Trips_System.Repositories
     {
         //1. Constructor & Dependency Injection
 
-        private SeaTripsContext context;
+        private SeaTripsContext context;                                        //private variable that save the connection of database in class..
 
-        public ClientRepo(SeaTripsContext _context)     
+        public ClientRepo(SeaTripsContext _context)      //recieve the connecton that's come from DB and inject it to the constructor ---"Dependency injection"---
         {
             context = _context;
         }
@@ -52,7 +52,7 @@ namespace Sea_Trips_System.Repositories
         public void Delete(Client client)           //Removes a client record from the database.
         {
             context.Clients.Remove(client);
-            context.SaveChanges();
+            context.SaveChanges();           //save the change in DB
         }
     }
 }
