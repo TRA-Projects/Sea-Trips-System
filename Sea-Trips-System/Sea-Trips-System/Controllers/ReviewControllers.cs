@@ -22,7 +22,7 @@ namespace Sea_Trips_System.Models
 
         // Define this action as an HTTP GET endpoint with the route "GetAllReviews"
         // GET: GetAllReviews.....
-        [AllowAnonymous] // Allow public access to view all reviews
+        [AllowAnonymous] // Allow public access to view all reviews..
         [HttpGet("GetAllReviews")]
         public IActionResult GetAllReviews()
         {
