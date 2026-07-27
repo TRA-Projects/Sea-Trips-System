@@ -67,6 +67,8 @@ namespace Sea_Trips_System.Models
         [HttpPost("AddDestination")]
         public IActionResult AddDestination([FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
+
+            // 1. Send the input DTO to the service layer to map to an Entity and save in DB
             DestinationDTOs.DestinationOutputDTOs createdDestination = destinationService.CreateDestination(input);
 
             return Ok(createdDestination); 
