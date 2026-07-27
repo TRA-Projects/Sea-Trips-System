@@ -32,6 +32,7 @@ namespace Sea_Trips_System.Models
         }
 
         // Define as an HTTP GET endpoint with a route parameter {id}
+        // URL Example: http://localhost:5153/destination/GetDestinationById/3
         [HttpGet("GetDestinationById/{id}")]
         public IActionResult GetDestinationById([FromRoute] int id)
         {
