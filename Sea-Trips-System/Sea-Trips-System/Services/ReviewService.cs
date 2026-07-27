@@ -110,6 +110,9 @@
             };
             // 2. Send the new entity to the repository to save in DB and generate ID
             reviewRepo.Add(newReview);
+
+            // 3. Re-fetch the saved review by ID to return complete data including Navigation Properties
+            return GetReviewById(newReview.reviewId);
         }
 
 
