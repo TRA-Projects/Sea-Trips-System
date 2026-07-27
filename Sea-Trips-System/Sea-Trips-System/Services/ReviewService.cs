@@ -57,6 +57,16 @@
             {
                 return null;
             }
+
+            // 3. Map the retrieved entity to Output DTO and return
+            return new ReviewDTOs.ReviewOnputDTOs
+            {
+                reviewId = review.reviewId,
+                rating = review.rating,
+                comment = review.comment,
+                AppointmentId = review.AppointmentId,
+                destinationName = review.Appointment?.Destination?.name
+            };
         }
 
 
