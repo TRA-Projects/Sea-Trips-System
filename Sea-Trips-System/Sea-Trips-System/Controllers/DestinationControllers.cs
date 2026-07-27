@@ -96,5 +96,19 @@ namespace Sea_Trips_System.Models
             return Ok("Updated successfully"); // HTTP 200 OK
         }
 
+        // Define as an HTTP DELETE endpoint taking the target destination ID from Route
+
+        [HttpDelete("Delete/{id}")]
+        public IActionResult Delete([FromRoute] int id)
+        {
+            bool deleted = destinationService.DeleteDestination(id);
+
+            if (!deleted)
+            {
+                return NotFound(); // HTTP 404 Not Found
+            }
+
+            return Ok("Deleted successfully"); // HTTP 200 OK
+        }
     }
 }
