@@ -1,15 +1,17 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
 namespace Sea_Trips_System.Models
-{ 
+{
+
     public class TripTypeRepo
     {
         private SeaTripsContext context;
 
-        public TripTypeRepo(SeaTripsContext context)
+        public TripTypeRepo(SeaTripsContext _context) // Dependency Injection
         {
-            this.context = context;
+            context = _context;
         }
+       
 
         // Get All Trip Types
         public List<TripType> GetAll()

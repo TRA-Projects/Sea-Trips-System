@@ -3,16 +3,17 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Sea_Trips_System.Repositories
 {
+
     public class EventRepo
     {
         private SeaTripsContext context;
 
-
-        public EventRepo(SeaTripsContext context)
+        public EventRepo(SeaTripsContext _context)
         {
-            this.context = context;
+            context = _context;
         }
 
+   
 
 
         // Get All Events
