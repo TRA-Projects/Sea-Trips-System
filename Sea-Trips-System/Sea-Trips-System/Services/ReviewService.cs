@@ -49,7 +49,7 @@
 
         public ReviewDTOs.ReviewOnputDTOs GetReviewById(int id)
         {
-            // A. Fetch the specific review entity by ID via repository
+            // 1. Fetch the specific review entity by ID via repository
             Review review = reviewRepo.GetReviewById(id);
         }
     }
