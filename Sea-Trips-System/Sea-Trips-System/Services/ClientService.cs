@@ -35,16 +35,17 @@ namespace Sea_Trips_System.Services
             //  تشفير كلمة المرور قبل الحفظ في قاعدة البيانات
             client.passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password);
 
-            clientRepo.Add(client);
+            clientRepo.Add(client);   //save the client 
 
-            ClientResponseDto response = new ClientResponseDto();
+            //responce 
+            ClientResponseDto response = new ClientResponseDto();           //creat new object from ClientResponseDto  ...
             response.clientId = client.clientId;
             response.fullName = client.fullName;
             response.phone = client.phone;
             response.email = client.email;
             response.createdAt = client.createdAt;
 
-            return response;
+            return response;              //return the responce to the function 
         }
 
         // ── 2. Client Login / تسجيل دخول العميل ──────────────────────────────
