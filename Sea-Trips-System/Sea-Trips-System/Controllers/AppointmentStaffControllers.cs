@@ -45,5 +45,21 @@ namespace Sea_Trips_System.Controllers
 
             return Ok(result);
         }
+
+
+        // 4. DELETE: api/AppointmentStaffs/5
+        [HttpDelete("{id}")]
+        public IActionResult RemoveAssignment(int id)
+        {
+            bool deleted = appointmentStaffService.RemoveStaffAssignment(id);
+            if (!deleted)
+                return NotFound(new { message = $"Assignment with ID {id} was not found." });
+
+            return NoContent();
+        }
+
+
+
+
     }
 }
