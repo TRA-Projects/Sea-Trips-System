@@ -18,6 +18,7 @@ namespace Sea_Trips_System.Models
         [HttpGet("GetAllDestinations")]
         public IActionResult GetAllDestinations()
         {
+            // 1. Call the service layer to fetch all destinations mapped as DTOs
             var result = destinationService.GetAllDestinations();
 
             if (result.Count > 0)
