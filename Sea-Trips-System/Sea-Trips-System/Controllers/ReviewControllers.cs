@@ -86,9 +86,14 @@ namespace Sea_Trips_System.Models
             // 3. Return 204 No Content if no reviews exist for this destination
             return NoContent(); // 204 no data
 
-            // =====================================================
-            // ADD REVIEW
-            // =====================================================
+            
         }
+
+        // =====================================================
+        // ADD REVIEW
+        // =====================================================
+
+        // Define as an HTTP POST endpoint for creating new review records
+
     }
 }
