@@ -23,6 +23,7 @@ namespace Sea_Trips_System.Models
         public class ReviewOnputDTOs
         {
             public int reviewId { get; set; } // system generated
+            public int rating { get; set; }
         }
     }
 }
