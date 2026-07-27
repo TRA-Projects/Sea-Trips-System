@@ -30,5 +30,19 @@ namespace Sea_Trips_System.Models
             // 3. Return 204 No Content status code if the list is empty (request succeeded, but no data to return)
             return NoContent(); //204 no data
         }
+
+        // Define as an HTTP GET endpoint with a route parameter {id}
+        [HttpGet("GetDestinationById/{id}")]
+        public IActionResult GetDestinationById([FromRoute] int id)
+        {
+            DestinationDTOs.DestinationOutputDTOs destination = destinationService.GetDestinationById(id);
+
+            if (destination == null)
+            {
+                return NotFound(); // 404 Not Found
+            }
+
+            return Ok(destination); // 200 OK
+        }
     }
 }
