@@ -44,6 +44,6 @@ namespace Sea_Trips_System.Models
         // GET REVIEW BY ID
         // =====================================================
 
-
+        // Define as an HTTP GET endpoint with a route parameter {id}
     }
 }
