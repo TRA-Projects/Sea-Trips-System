@@ -4,5 +4,11 @@
     {
         //cotext==>repo // Database Context
         private SeaTripsContext context;
+
+        // Dependency Injection // Constructor
+        public ReviewRepo(SeaTripsContext _context)
+        {
+            context = _context;
+        }
     }
 }
