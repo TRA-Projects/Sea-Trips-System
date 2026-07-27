@@ -17,7 +17,7 @@ namespace Sea_Trips_System.Services
         // ── 1. Create Client / تسجيل أو إضافة عميل جديد ─────────────────────────
         public ClientResponseDto CreateClient(CreateClientDto dto)
         {
-            // Business rule: email must not already be registered
+            // Business rule: email and phone must not already be registered
             if (clientRepo.GetClientByEmail(dto.email) != null)
             {
                 return null;
@@ -25,12 +25,12 @@ namespace Sea_Trips_System.Services
 
             if (clientRepo.GetClientByPhone(dto.phone) != null)
                 return null;
-
-            Client client = new Client();
+            
+            Client client = new Client();           //creat new object from Client class ...
             client.fullName = dto.fullName;
             client.phone = dto.phone;
             client.email = dto.email;
-            client.createdAt = DateTime.Now;
+            client.createdAt = DateTime.Now;          //system generated 
 
             //  تشفير كلمة المرور قبل الحفظ في قاعدة البيانات
             client.passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password);
