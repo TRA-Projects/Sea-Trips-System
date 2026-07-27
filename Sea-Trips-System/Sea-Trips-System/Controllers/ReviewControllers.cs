@@ -53,6 +53,12 @@ namespace Sea_Trips_System.Models
         {
             // 1. Call the service layer to fetch the review DTO by its unique ID
             ReviewDTOs.ReviewOnputDTOs review = reviewService.GetReviewById(id);
+
+            // 2. Safety Check: If no review was found with this ID, return a 404 response
+            if (review == null)
+            {
+                return NotFound(); // 404 Not Found
+            }
         }
     }
 }
