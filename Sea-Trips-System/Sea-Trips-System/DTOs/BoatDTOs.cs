@@ -19,6 +19,9 @@ namespace Sea_Trips_System.DTOs
         public decimal hourlyRate { get; set; }
 
         public string status { get; set; } = "Available";
+
+    
+
     }
 
     // DTO لتحديث بيانات القارب
@@ -48,6 +51,8 @@ namespace Sea_Trips_System.DTOs
         public int capacity { get; set; }
         public string status { get; set; } = string.Empty;
         public decimal hourlyRate { get; set; }
+        public decimal price { get; set; }   //calculated
+
 
         // add token to the boat 
         public string boatToken { get; set; }

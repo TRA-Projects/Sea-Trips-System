@@ -77,6 +77,28 @@ namespace Sea_Trips_System.Services
             return result;
         }
 
+        public BoatResponseDto GetBoatWithPrice(int boatId, int hours)
+        {
+            Boat boat = boatRepo.GetById(boatId);
+            if (boat == null)
+            {
+                return null;
+            }
+
+            // حساب السعر الإجمالي   
+            decimal totalPrice = boat.hourlyRate * hours;
+
+            return new BoatResponseDto
+            {
+                boatId = boat.boatId,
+                boatName = boat.boatName,
+                capacity = boat.capacity,
+                status = boat.status,
+                hourlyRate = boat.hourlyRate,
+                price = totalPrice    // إضافة السعر المحسوب هنا
+            };
+        }
+
         // ── 4. UpdateBoat ────────────────────────────────────────────────────
         public BoatResponseDto UpdateBoat(int id, UpdateBoatDto dto)
         {
