@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Services;
 
 namespace Sea_Trips_System.Controllers
@@ -14,6 +15,17 @@ namespace Sea_Trips_System.Controllers
         {
             appointmentStaffService = _appointmentStaffService;
         }
+
+
+        // 1. GET: api/AppointmentStaffs
+
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            List<AppointmentStaffResponseDto> result = appointmentStaffService.GetAll();
+            return Ok(result);
+        }
+
 
 
     }
