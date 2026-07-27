@@ -107,6 +107,7 @@ namespace Sea_Trips_System.Models
             // 1. Call the service layer to attempt deleting the destination record
             bool deleted = destinationService.DeleteDestination(id);
 
+            // 2. Safety Check: If the destination ID was not found, return 404
             if (!deleted)
             {
                 return NotFound(); // HTTP 404 Not Found
