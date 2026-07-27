@@ -70,5 +70,14 @@
         }
 
 
+        // =====================================================
+        // 3. GET REVIEWS BY DESTINATION ID
+        // =====================================================
+        public List<ReviewDTOs.ReviewOnputDTOs> GetReviewsByDestinationId(int destinationId)
+        {
+
+        }
+
+
     }
 }
