@@ -26,7 +26,7 @@ namespace Sea_Trips_System.Models
             return context.Reviews
                 .Include(r => r.Appointment)// .Include(r => r.Appointment): يجلب البيانات من جدول المواعيد المرفق بالتقييم
                 .ThenInclude(a => a.Destination)// .ThenInclude(a => a.Destination): ينزل خطوة إضافية ويجلب بيانات الوجهة المرتبطة بذاك الموعد
-                .ToList();
+                .ToList();// .ToList(): يحول النتيجة المجلوبة لقائمة أشار إليها الكود
 
         }
 
