@@ -9,7 +9,7 @@ namespace Sea_Trips_System.Models
     {
         private DestinationService destinationService;
 
-        // Dependency Injection
+        // Constructor Injection: Injecting DestinationService instance
         public DestinationControllers(DestinationService _destinationService)
         {
             destinationService = _destinationService;
