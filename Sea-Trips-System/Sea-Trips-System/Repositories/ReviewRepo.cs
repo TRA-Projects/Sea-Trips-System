@@ -19,13 +19,15 @@ namespace Sea_Trips_System.Models
         // ======================================================
 
         // 1. Get all reviews with their related Appointment and Destination details
+
         public List<Review> GetAllReviews()
         {
             // Include Appointment & Destination to get full details
             return context.Reviews
-                .Include(r => r.Appointment)
+                .Include(r => r.Appointment)// .Include(r => r.Appointment): يجلب البيانات من جدول المواعيد المرفق بالتقييم
                 .ThenInclude(a => a.Destination)
                 .ToList();
+
         }
 
         // =====================================================
@@ -42,7 +44,7 @@ namespace Sea_Trips_System.Models
         }
 
         // =====================================================
-        // GET REVIEW BY ID
+        // GET REVIEWS BY DESTINATION ID
         // =====================================================
 
         // 3. Get all reviews for a specific destination ID
