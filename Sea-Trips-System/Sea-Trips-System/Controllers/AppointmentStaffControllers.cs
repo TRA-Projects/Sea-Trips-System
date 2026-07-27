@@ -6,16 +6,14 @@ namespace Sea_Trips_System.Controllers
 
     [ApiController]
     [Route("api/[controller]")]
-    public class AppointmentStaffControllers : ControllerBase
+    public class AppointmentStaffsController : ControllerBase
     {
+        private readonly AppointmentStaffServices appointmentStaffService;
 
-        private readonly AppointmentStaffService appointmentStaffService;
-
-        public AppointmentStaffsController (AppointmentStaffService _appointmentStaffService)
+        public AppointmentStaffsController(AppointmentStaffServices _appointmentStaffService)
         {
             appointmentStaffService = _appointmentStaffService;
         }
-
 
 
     }
