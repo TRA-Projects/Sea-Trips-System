@@ -96,11 +96,15 @@ namespace Sea_Trips_System.Models
             return Ok("Updated successfully"); // HTTP 200 OK
         }
 
+
+
         // Define as an HTTP DELETE endpoint taking the target destination ID from Route
         // URL Example: http://localhost:5153/destination/Delete/3
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
+
+            // 1. Call the service layer to attempt deleting the destination record
             bool deleted = destinationService.DeleteDestination(id);
 
             if (!deleted)
