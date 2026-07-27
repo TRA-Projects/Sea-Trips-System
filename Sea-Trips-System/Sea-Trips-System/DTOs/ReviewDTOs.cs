@@ -15,7 +15,14 @@ namespace Sea_Trips_System.Models
             public string? comment { get; set; }// user input (optional)
 
             [Required(ErrorMessage = "Appointment ID is required.")]
-            public int AppointmentId { get; set; }
+            public int AppointmentId { get; set; }// foreign key input
+        }
+
+
+        // Output DTO for returning review data to the clien
+        public class ReviewOnputDTOs
+        {
+            public int reviewId { get; set; } // system generated
         }
     }
 }
