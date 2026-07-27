@@ -13,8 +13,8 @@ namespace Sea_Trips_System.Services
 
 
         public AppointmentStaffServices(AppointmentStaffRepo _appointmentStaffRepo,
-                                       AppointmentRepo _appointmentRepo,
-                                       StaffRepo _staffRepo)
+                                         AppointmentRepo _appointmentRepo,
+                                         StaffRepo _staffRepo)
 
         {
             appointmentStaffRepo = _appointmentStaffRepo;
@@ -58,17 +58,17 @@ namespace Sea_Trips_System.Services
         // 3. Assign staff member to an appointment
         public AppointmentStaffResponseDto? AssignStaff(AssignStaffDto dto)
         {
-            // A) Ensure the appointment exists
+            // A) التأكد من وجود الحجز
             Appointment? appointment = appointmentRepo.GetById(dto.appointmentId);
             if (appointment == null)
                 return null;
 
-            // B) Ensure the staff member exists
+            // B) التأكد من وجود الموظف
             Staff? staff = staffRepo.GetById(dto.staffId);
             if (staff == null)
                 return null;
 
-            // C) Ensure staff member is not already assigned to this appointment
+            // C) منع التكرار: التأكد أن الموظف غير معين مسبقاً بنفس هذا الحجز
             if (appointmentStaffRepo.IsAlreadyAssigned(dto.appointmentId, dto.staffId))
                 return null;
 
