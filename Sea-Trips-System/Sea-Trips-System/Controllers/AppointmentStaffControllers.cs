@@ -35,6 +35,15 @@ namespace Sea_Trips_System.Controllers
             return Ok(result);
         }
 
+        // 3. POST: api/AppointmentStaffs
+        [HttpPost]
+        public IActionResult AssignStaff([FromBody] AssignStaffDto dto)
+        {
+            AppointmentStaffResponseDto? result = appointmentStaffService.AssignStaff(dto);
+            if (result == null)
+                return BadRequest(new { message = "Unable to assign staff. Ensure the appointment and staff exist and are not already linked." });
 
+            return Ok(result);
+        }
     }
 }
