@@ -40,7 +40,8 @@ namespace Sea_Trips_System
             builder.Services.AddScoped<ClientService>();                // Register ClientService in DI Container.
             builder.Services.AddScoped<StaffService>();          // Register StaffRepo in DI Container.
             builder.Services.AddScoped<BoatService>();         // Register BoatService in DI Container.
-
+            builder.Services.AddScoped<TripTypeService>();      //Register TripTypeService in DI Container.
+            builder.Services.AddScoped<EventService>();        //Register EventService in DI Container.
 
 
 
