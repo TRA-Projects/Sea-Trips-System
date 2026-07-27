@@ -56,19 +56,19 @@ namespace Sea_Trips_System.Services
             if (client == null)
                 return null;
 
-            // 2. :closed_lock_with_key: التحقق من مطابقة كلمة المرور المدخلة مع المشفّرة في قاعدة البيانات
-            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.password, client.passwordHash);
+            // 2. التحقق من مطابقة كلمة المرور المدخلة مع المشفّرة في قاعدة البيانات
+            bool isPasswordValid = BCrypt.Net.BCrypt.Verify(dto.password, client.passwordHash);   //check the enterd password with hashpassword 
             if (!isPasswordValid)
                 return null; // كلمة المرور غير صحيحة
 
-            ClientResponseDto response = new ClientResponseDto();
+            ClientResponseDto response = new ClientResponseDto();             //creat new object from ClientResponseDto  ...
             response.clientId = client.clientId;
             response.fullName = client.fullName;
             response.phone = client.phone;
             response.email = client.email;
             response.createdAt = client.createdAt;
 
-            return response;
+            return response;        
         }
 
         // ── 3. Get Client By ID / جلب بيانات عميل معين ─────────────────────────
