@@ -75,7 +75,8 @@
         // =====================================================
         public List<ReviewDTOs.ReviewOnputDTOs> GetReviewsByDestinationId(int destinationId)
         {
-
+            // 1. Fetch review entities filtered by Destination ID
+            List<Review> reviews = reviewRepo.GetReviewsByDestinationId(destinationId);
         }
 
 
