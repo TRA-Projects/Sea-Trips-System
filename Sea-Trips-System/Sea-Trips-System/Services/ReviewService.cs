@@ -33,7 +33,7 @@
                     comment = r.comment,
                     AppointmentId = r.AppointmentId,
 
-                    // Safe-navigation access to destination name (Review -> Appointment -> Destination)
+                    // Safe-navigation access to destination name (Review -> Appointment -> Destination)//
                     destinationName = r.Appointment?.Destination?.name
                 });
             }
