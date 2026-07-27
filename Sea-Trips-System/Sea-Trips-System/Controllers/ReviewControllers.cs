@@ -119,6 +119,8 @@ namespace Sea_Trips_System.Models
         [HttpPut("UpdateReview/{id}")]
         public IActionResult UpdateReview([FromRoute] int id, [FromBody] ReviewDTOs.ReviewInputDTOs input)
         {
+            // 1. Call the service layer to update the review record
+            bool updated = reviewService.UpdateReview(id, input);
 
         }
     }
