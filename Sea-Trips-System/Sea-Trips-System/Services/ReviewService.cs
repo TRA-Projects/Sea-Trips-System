@@ -80,6 +80,34 @@
 
             // 2. Map the list of entities to Output DTOs
             List<ReviewDTOs.ReviewOnputDTOs> resultList = new List<ReviewDTOs.ReviewOnputDTOs>();
+            foreach (var r in reviews)
+            {
+                resultList.Add(new ReviewDTOs.ReviewOnputDTOs
+                {
+                    reviewId = r.reviewId,
+                    rating = r.rating,
+                    comment = r.comment,
+                    AppointmentId = r.AppointmentId,
+                    destinationName = r.Appointment?.Destination?.name
+                });
+            }
+            return resultList;
+        }
+
+
+        // =====================================================
+        // 4. CREATE NEW REVIEW
+        // =====================================================
+
+        public ReviewDTOs.ReviewOnputDTOs CreateReview(ReviewDTOs.ReviewInputDTOs input)
+        {
+            // 1. Map the incoming Input DTO to a new Review Entity
+            Review newReview = new Review
+            {
+                rating = input.rating,
+                comment = input.comment,
+                AppointmentId = input.AppointmentId
+            };
         }
 
 
