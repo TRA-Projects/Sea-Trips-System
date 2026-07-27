@@ -13,6 +13,8 @@ namespace Sea_Trips_System.Models
 
             [MaxLength(1000, ErrorMessage = "Comment cannot exceed 1000 characters.")]
             public string? comment { get; set; }// user input (optional)
+
+            [Required(ErrorMessage = "Appointment ID is required.")]
             public int AppointmentId { get; set; }
         }
     }
