@@ -7,9 +7,9 @@ namespace Sea_Trips_System.Services
 {
     public class ClientService
     {
-        private ClientRepo clientRepo;
+        private ClientRepo clientRepo;                              //private variable that save the connection of clientRepo in class..
 
-        public ClientService(ClientRepo _clientRepo)
+        public ClientService(ClientRepo _clientRepo)            //recieve the connecton that's come from clientRepo and inject it to the constructor ---"Dependency injection"---
         {
             clientRepo = _clientRepo;
         }
