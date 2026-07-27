@@ -15,5 +15,9 @@ namespace Sea_Trips_System.Models
         {
             reviewService = _reviewService;
         }
+
+        // =====================================================
+        // GET ALL REVIEWS
+        // =====================================================
     }
 }
