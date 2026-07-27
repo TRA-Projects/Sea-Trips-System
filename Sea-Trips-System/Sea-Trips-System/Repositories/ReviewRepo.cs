@@ -17,6 +17,8 @@ namespace Sea_Trips_System.Models
         // ======================================================
         // GET ALL REVIEWS
         // ======================================================
+
+        // 1. Get all reviews with their related Appointment and Destination details
         public List<Review> GetAllReviews()
         {
             // Include Appointment & Destination to get full details
@@ -24,6 +26,18 @@ namespace Sea_Trips_System.Models
                 .Include(r => r.Appointment)
                     .ThenInclude(a => a.Destination)
                 .ToList();
+        }
+
+        // =====================================================
+        // GET REVIEW BY ID
+        // =====================================================
+
+        public Review GetReviewById(int id)
+        {
+            return context.Reviews
+                .Include(r => r.Appointment)
+                    .ThenInclude(a => a.Destination)
+                .FirstOrDefault(r => r.reviewId == id);
         }
     }
 }
