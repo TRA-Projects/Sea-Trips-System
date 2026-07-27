@@ -26,6 +26,7 @@ namespace Sea_Trips_System.Models
             public int rating { get; set; }
             public string? comment { get; set; }
             public int AppointmentId { get; set; }
+            public string? destinationName { get; set; }
         }
     }
 }

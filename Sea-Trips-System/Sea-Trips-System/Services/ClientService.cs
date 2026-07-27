@@ -35,6 +35,9 @@ namespace Sea_Trips_System.Services
 
             clientRepo.Add(client);
 
+            //SEND EMAIL
+
+
             ClientResponseDto response = new ClientResponseDto();
             response.clientId = client.clientId;
             response.fullName = client.fullName;

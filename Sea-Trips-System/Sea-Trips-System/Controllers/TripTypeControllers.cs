@@ -36,6 +36,17 @@ namespace Sea_Trips_System.Controllers
             return Ok(result);
         }
 
+        //[AllowAnonymous]
+        //[HttpGet("GetAllTripTypes/{destination}")]
+        //public IActionResult GetFilteredTripTypes(string destination, double price)
+        //{
+        //    List<TripTypeOutputDTO> result = tripTypeService.GetAll();
+
+        //    if (result.Count == 0)
+        //        return NoContent();
+
+        //    return Ok(result);
+        //}
 
         // Get TripType By Id
 
