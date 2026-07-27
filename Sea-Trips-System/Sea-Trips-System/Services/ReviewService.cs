@@ -77,6 +77,9 @@
         {
             // 1. Fetch review entities filtered by Destination ID
             List<Review> reviews = reviewRepo.GetReviewsByDestinationId(destinationId);
+
+            // 2. Map the list of entities to Output DTOs
+            List<ReviewDTOs.ReviewOnputDTOs> resultList = new List<ReviewDTOs.ReviewOnputDTOs>();
         }
 
 
