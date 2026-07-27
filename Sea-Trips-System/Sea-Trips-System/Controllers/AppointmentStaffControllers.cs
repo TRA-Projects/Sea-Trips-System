@@ -27,6 +27,14 @@ namespace Sea_Trips_System.Controllers
         }
 
 
+        // 2. GET: api/AppointmentStaffs/appointment/5
+        [HttpGet("appointment/{appointmentId}")]
+        public IActionResult GetByAppointmentId(int appointmentId)
+        {
+            List<AppointmentStaffResponseDto> result = appointmentStaffService.GetByAppointmentId(appointmentId);
+            return Ok(result);
+        }
+
 
     }
 }
