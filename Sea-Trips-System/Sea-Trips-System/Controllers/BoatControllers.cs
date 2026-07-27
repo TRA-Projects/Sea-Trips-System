@@ -5,6 +5,7 @@ using Sea_Trips_System.Services;
 
 namespace Sea_Trips_System.Controllers
 {
+
     [ApiController]
     [Route("Boat")]
     public class BoatController : ControllerBase

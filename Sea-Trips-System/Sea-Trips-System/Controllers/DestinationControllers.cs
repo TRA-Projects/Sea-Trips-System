@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;// <-- 1. إضافة الهيدر الخاص بالحماية
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sea_Trips_System.Models
 {
+    [Authorize]
     //1.// Mark class as an API Controller and set the base URL route to "destination"
     [ApiController]
     [Route("Destination")]
@@ -19,6 +21,7 @@ namespace Sea_Trips_System.Models
 
         // Define this action as an HTTP GET endpoint with the route "GetAllDestinations"
         // GET: GetAllDestinations
+        [AllowAnonymous]
         [HttpGet("GetAllDestinations")]
         public IActionResult GetAllDestinations()
         {
