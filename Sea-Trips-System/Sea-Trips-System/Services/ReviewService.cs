@@ -41,5 +41,16 @@
             // 4. Return the mapped DTO list
             return resultList;
         }
+
+
+        // =====================================================
+        // 2. GET REVIEW BY ID
+        // =====================================================
+
+        public ReviewDTOs.ReviewOnputDTOs GetReviewById(int id)
+        {
+            // A. Fetch the specific review entity by ID via repository
+            Review review = reviewRepo.GetReviewById(id);
+        }
     }
 }
