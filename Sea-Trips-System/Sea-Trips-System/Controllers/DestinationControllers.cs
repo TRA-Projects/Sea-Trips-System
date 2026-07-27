@@ -44,7 +44,7 @@ namespace Sea_Trips_System.Models
             {
                 return NotFound(); // 404 Not Found
             }
-
+            // 3. Return HTTP 200 OK along with the found destination DTO data
             return Ok(destination); // 200 OK
         }
     }
