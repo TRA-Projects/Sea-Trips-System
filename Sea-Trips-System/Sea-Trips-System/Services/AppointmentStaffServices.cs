@@ -55,7 +55,7 @@ namespace Sea_Trips_System.Services
 
 
 
-        // 3. Assign staff member to an appointment
+        // 3. تعيين موظف على حجز جديد
         public AppointmentStaffResponseDto? AssignStaff(AssignStaffDto dto)
         {
             // A) التأكد من وجود الحجز
@@ -77,7 +77,7 @@ namespace Sea_Trips_System.Services
             {
                 appointmentId = dto.appointmentId,
                 staffId = dto.staffId,
-                assignedRole = dto.assignedRole ?? staff.role // Fallback to staff's default role if unassigned
+                assignedRole = dto.assignedRole ?? staff.role // إذا ما حدد دور خاص نستخدم دوره الأساسي
             };
 
             appointmentStaffRepo.Add(appointmentStaff);
@@ -88,7 +88,7 @@ namespace Sea_Trips_System.Services
         }
 
 
-        // 4. Remove staff assignment from an appointment
+        // 4. إلغاء تعيين موظف من حجز  
         public bool RemoveStaffAssignment(int id)
         {
             AppointmentStaff? item = appointmentStaffRepo.GetById(id);
