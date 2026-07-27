@@ -145,7 +145,8 @@ namespace Sea_Trips_System.Models
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
-
+            // 1. Call the service layer to attempt deleting the review record
+            bool deleted = reviewService.DeleteReview(id);
         }
     }
 }
