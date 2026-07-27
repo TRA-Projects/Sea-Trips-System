@@ -7,7 +7,7 @@ namespace Sea_Trips_System.Models
         //Input DTO for receiving review data from the user/client
         public class ReviewInputDTOs
         {
-            [Required(ErrorMessage = "Rating is required.")]
+            [Required(ErrorMessage = "Rating is required.")]/
             public int rating { get; set; }
             public string? comment { get; set; }
             public int AppointmentId { get; set; }
