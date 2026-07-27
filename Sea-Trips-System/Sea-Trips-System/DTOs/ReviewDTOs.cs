@@ -11,7 +11,7 @@ namespace Sea_Trips_System.Models
             [Range(1, 5, ErrorMessage = "Rating must be between 1 and 5.")]
             public int rating { get; set; }// user input
 
-            [MaxLength(1000, ErrorMessage = "Comment cannot exceed 1000 characters.")
+            [MaxLength(1000, ErrorMessage = "Comment cannot exceed 1000 characters.")]
             public string? comment { get; set; }
             public int AppointmentId { get; set; }
         }
