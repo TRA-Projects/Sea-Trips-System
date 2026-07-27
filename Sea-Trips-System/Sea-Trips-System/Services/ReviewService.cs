@@ -122,6 +122,12 @@
         {
             // 1. Find the existing review in the database
             Review existingReview = reviewRepo.GetReviewById(id);
+
+            // 2. If review is not found, return false
+            if (existingReview == null)
+            {
+                return false;
+            }
         }
 
 
