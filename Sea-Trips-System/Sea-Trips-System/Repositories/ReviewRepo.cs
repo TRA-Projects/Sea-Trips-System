@@ -14,9 +14,9 @@ namespace Sea_Trips_System.Models
         }
 
 
-        // =====================================================
+        // ======================================================
         // GET ALL REVIEWS
-        // =====================================================
+        // ======================================================
         public List<Review> GetAllReviews()
         {
             // Include Appointment & Destination to get full details
