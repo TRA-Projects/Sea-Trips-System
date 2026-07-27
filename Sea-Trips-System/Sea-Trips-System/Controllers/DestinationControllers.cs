@@ -75,5 +75,21 @@ namespace Sea_Trips_System.Models
             // 2. Return HTTP 200 OK with the created destination object containing its generated ID
             return Ok(createdDestination); // HTTP 200 OK
         }
+
+
+        // Define as an HTTP PUT endpoint taking the target ID from Route and new data from Body
+        [HttpPut("UpdateDestination/{id}")]
+        public IActionResult UpdateDestination([FromRoute] int id, [FromBody] DestinationDTOs.DestinationInputDTOs input)
+        {
+            bool updated = destinationService.UpdateDestination(id, input);
+
+            if (!updated)
+            {
+                return NotFound(); // HTTP 404 Not Found
+            }
+
+            return Ok("Updated successfully"); // HTTP 200 OK
+        }
+
     }
 }
