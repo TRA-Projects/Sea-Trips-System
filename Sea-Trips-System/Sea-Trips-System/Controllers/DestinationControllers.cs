@@ -113,6 +113,8 @@ namespace Sea_Trips_System.Models
                 return NotFound(); // HTTP 404 Not Found
             }
 
+
+            // 3. Return HTTP 200 OK with a confirmation message that deletion succeeded
             return Ok("Deleted successfully"); // HTTP 200 OK
         }
     }
