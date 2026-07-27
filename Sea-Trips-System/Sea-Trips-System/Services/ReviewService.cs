@@ -142,6 +142,28 @@
 
         }
 
+        // =====================================================
+        // 6. DELETE REVIEW
+        // =====================================================
+
+        public bool DeleteReview(int id)
+        {
+            // 1. Find the target review to delete
+            Review existingReview = reviewRepo.GetReviewById(id);
+
+
+            // 2. If review is not found, return false
+            if (existingReview == null)
+            {
+                return false;
+            }
+
+            // 3. Execute deletion via repository
+            reviewRepo.Delete(existingReview);
+
+            return true;
+        }
+
 
 
     }
