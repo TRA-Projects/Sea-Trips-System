@@ -11,5 +11,13 @@
             reviewRepo = _reviewRepo;
         }
 
+        // =====================================================
+        // 1. GET ALL REVIEWS
+        // =====================================================
+        public List<ReviewDTOs.ReviewOnputDTOs> GetAllReviews()
+        {
+            // A. Fetch all review entities from the database via repository
+            List<Review> reviews = reviewRepo.GetAllReviews();
+        }
     }
 }
