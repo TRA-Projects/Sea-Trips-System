@@ -16,8 +16,11 @@
         // =====================================================
         public List<ReviewDTOs.ReviewOnputDTOs> GetAllReviews()
         {
-            // A. Fetch all review entities from the database via repository
+            // 1. Fetch all review entities from the database via repository
             List<Review> reviews = reviewRepo.GetAllReviews();
+
+            // 2. Create an empty list to store the mapped Output DTOs
+            List<ReviewDTOs.ReviewOnputDTOs> resultList = new List<ReviewDTOs.ReviewOnputDTOs>();
         }
     }
 }
