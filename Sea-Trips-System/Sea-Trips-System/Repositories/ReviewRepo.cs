@@ -60,7 +60,7 @@ namespace Sea_Trips_System.Models
         // =====================================================
         public void Add(Review review)
         {
-            // add new review in dbset
+            // add new review in Dbset
             context.Reviews.Add(review);
             context.SaveChanges();
         }
