@@ -17,9 +17,11 @@ namespace Sea_Trips_System.Services
         // ── 1. Create Client / تسجيل أو إضافة عميل جديد ─────────────────────────
         public ClientResponseDto CreateClient(CreateClientDto dto)
         {
-            // التحقق من أن الإيميل ورقم الهاتف غير مسجلين مسبقاً
-            if (!string.IsNullOrEmpty(dto.email) && clientRepo.GetClientByEmail(dto.email) != null)
+            // Business rule: email must not already be registered
+            if (clientRepo.GetClientByEmail(dto.email) != null)
+            {
                 return null;
+            }
 
             if (clientRepo.GetClientByPhone(dto.phone) != null)
                 return null;
