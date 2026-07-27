@@ -1,7 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;// <-- 1. إضافة الهيدر الخاص بالحماية
+using Microsoft.AspNetCore.Mvc;
 
 namespace Sea_Trips_System.Models
 {
+    [Authorize]
     //1.// Mark class as an API Controller and set the base URL route to "destination"
     [ApiController]
     [Route("Destination")]
@@ -19,6 +21,7 @@ namespace Sea_Trips_System.Models
 
         // Define this action as an HTTP GET endpoint with the route "GetAllDestinations"
         // GET: GetAllDestinations
+        [AllowAnonymous]
         [HttpGet("GetAllDestinations")]
         public IActionResult GetAllDestinations()
         {
@@ -44,6 +47,7 @@ namespace Sea_Trips_System.Models
 
 
         // GET: GetDestinationById/3
+        [AllowAnonymous]
         [HttpGet("GetDestinationById/{id}")]
         public IActionResult GetDestinationById([FromRoute] int id)
         {
@@ -68,6 +72,7 @@ namespace Sea_Trips_System.Models
         // URL Example: http://localhost:5153/destination/AddDestination
 
         // POST: AddDestination
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddDestination")]
         public IActionResult AddDestination([FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
@@ -85,6 +90,7 @@ namespace Sea_Trips_System.Models
         // URL Example: http://localhost:5153/destination/UpdateDestination/3
 
         // PUT: UpdateDestination/3
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateDestination/{id}")]
         public IActionResult UpdateDestination([FromRoute] int id, [FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
@@ -108,6 +114,7 @@ namespace Sea_Trips_System.Models
         // URL Example: http://localhost:5153/destination/Delete/3
 
         // DELETE: Delete/3
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
