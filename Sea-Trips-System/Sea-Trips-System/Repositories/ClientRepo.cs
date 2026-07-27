@@ -52,7 +52,7 @@ namespace Sea_Trips_System.Repositories
         public void Delete(Client client)           //Removes a client record from the database.
         {
             context.Clients.Remove(client);
-            context.SaveChanges();
+            context.SaveChanges();           //save the change in DB
         }
     }
 }
