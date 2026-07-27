@@ -51,7 +51,8 @@ namespace Sea_Trips_System.Models
         [HttpGet("GetReviewById/{id}")]
         public IActionResult GetReviewById([FromRoute] int id)
         {
-
+            // 1. Call the service layer to fetch the review DTO by its unique ID
+            ReviewDTOs.ReviewOnputDTOs review = reviewService.GetReviewById(id);
         }
     }
 }
