@@ -122,6 +122,12 @@ namespace Sea_Trips_System.Models
             // 1. Call the service layer to update the review record
             bool updated = reviewService.UpdateReview(id, input);
 
+            // 2. Safety Check: If the review ID does not exist in the database, return 404
+            if (!updated)
+            {
+                return NotFound(); // HTTP 404 Not Found
+            }
+
         }
     }
 }
