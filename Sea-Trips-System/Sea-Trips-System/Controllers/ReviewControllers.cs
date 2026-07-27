@@ -106,5 +106,9 @@ namespace Sea_Trips_System.Models
             // 2. Return HTTP 200 OK with the created review object containing its generated ID
             return Ok(createdReview); // HTTP 200 OK
         }
+
+        // =====================================================
+        // UPDATE REVIEW
+        // =====================================================
     }
 }
