@@ -28,6 +28,8 @@ namespace Sea_Trips_System.Models
         {
             // 1. Call the service layer to fetch all reviews mapped as DTOs
             List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetAllReviews();
+
+
         }
     }
 }
