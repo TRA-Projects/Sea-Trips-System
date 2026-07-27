@@ -39,6 +39,7 @@ namespace Sea_Trips_System.Models
             // 1. Call the service layer to fetch the destination DTO by its unique ID
             DestinationDTOs.DestinationOutputDTOs destination = destinationService.GetDestinationById(id);
 
+            // 2. Safety Check: If no destination was found with this ID, return a 404 response
             if (destination == null)
             {
                 return NotFound(); // 404 Not Found
