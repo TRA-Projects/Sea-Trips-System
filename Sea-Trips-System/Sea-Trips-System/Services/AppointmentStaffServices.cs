@@ -12,9 +12,11 @@ namespace Sea_Trips_System.Services
         private StaffRepo staffRepo;
 
 
-        public AppointmentStaffServices(AppointmentStaffRepo _appointmentStaffRepo,
-                                         AppointmentRepo _appointmentRepo,
-                                         StaffRepo _staffRepo)
+        //Constructor
+        public AppointmentStaffServices(
+                AppointmentStaffRepo _appointmentStaffRepo,  //DI
+                AppointmentRepo _appointmentRepo,        //DI
+                StaffRepo _staffRepo)           //DI
 
         {
             appointmentStaffRepo = _appointmentStaffRepo;
@@ -80,11 +82,11 @@ namespace Sea_Trips_System.Services
                 assignedRole = dto.assignedRole ?? staff.role // إذا ما حدد دور خاص نستخدم دوره الأساسي
             };
 
-            appointmentStaffRepo.Add(appointmentStaff);
+            appointmentStaffRepo.Add(appointmentStaff);  
 
             // Fetch created record with includes to project onto DTO
             AppointmentStaff? savedItem = appointmentStaffRepo.GetById(appointmentStaff.appointmentStaffId);
-            return savedItem != null ? MapToDto(savedItem) : null;
+            return savedItem != null ? MapToDto(savedItem) : null;       //Ternary Operator
         }
 
 
@@ -100,9 +102,11 @@ namespace Sea_Trips_System.Services
         }
 
 
-
+        //================================================================
         // ── Helper: Mapper ──────────────────────────────────────────
-        private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)
+        //================================================================
+
+        private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)  //تنشئ DTO جديد وتنسخ فيه البيانات.
         {
             return new AppointmentStaffResponseDto
             {
