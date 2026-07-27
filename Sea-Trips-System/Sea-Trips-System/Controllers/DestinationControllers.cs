@@ -2,6 +2,8 @@
 
 namespace Sea_Trips_System.Models
 {
+    [ApiController]
+    [Route("Destination")]
     public class DestinationControllers:ControllerBase
     {
         private DestinationService destinationService;
@@ -9,7 +11,7 @@ namespace Sea_Trips_System.Models
         // Dependency Injection
         public DestinationControllers(DestinationService _destinationService)
         {
-            destinationService = _destinationService;//
+            destinationService = _destinationService;
         }
 
 
