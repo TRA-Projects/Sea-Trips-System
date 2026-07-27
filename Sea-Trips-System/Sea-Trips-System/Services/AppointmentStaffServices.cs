@@ -12,9 +12,11 @@ namespace Sea_Trips_System.Services
         private StaffRepo staffRepo;
 
 
-        public AppointmentStaffServices(AppointmentStaffRepo _appointmentStaffRepo,
-                                       AppointmentRepo _appointmentRepo,
-                                       StaffRepo _staffRepo)
+        //Constructor
+        public AppointmentStaffServices(
+                AppointmentStaffRepo _appointmentStaffRepo,  //DI
+                AppointmentRepo _appointmentRepo,        //DI
+                StaffRepo _staffRepo)           //DI
 
         {
             appointmentStaffRepo = _appointmentStaffRepo;
@@ -55,20 +57,20 @@ namespace Sea_Trips_System.Services
 
 
 
-        // 3. Assign staff member to an appointment
+        // 3. تعيين موظف على حجز جديد
         public AppointmentStaffResponseDto? AssignStaff(AssignStaffDto dto)
         {
-            // A) Ensure the appointment exists
+            // A) التأكد من وجود الحجز
             Appointment? appointment = appointmentRepo.GetById(dto.appointmentId);
             if (appointment == null)
                 return null;
 
-            // B) Ensure the staff member exists
+            // B) التأكد من وجود الموظف
             Staff? staff = staffRepo.GetById(dto.staffId);
             if (staff == null)
                 return null;
 
-            // C) Ensure staff member is not already assigned to this appointment
+            // C) منع التكرار: التأكد أن الموظف غير معين مسبقاً بنفس هذا الحجز
             if (appointmentStaffRepo.IsAlreadyAssigned(dto.appointmentId, dto.staffId))
                 return null;
 
@@ -77,18 +79,18 @@ namespace Sea_Trips_System.Services
             {
                 appointmentId = dto.appointmentId,
                 staffId = dto.staffId,
-                assignedRole = dto.assignedRole ?? staff.role // Fallback to staff's default role if unassigned
+                assignedRole = dto.assignedRole ?? staff.role // إذا ما حدد دور خاص نستخدم دوره الأساسي
             };
 
-            appointmentStaffRepo.Add(appointmentStaff);
+            appointmentStaffRepo.Add(appointmentStaff);  
 
             // Fetch created record with includes to project onto DTO
             AppointmentStaff? savedItem = appointmentStaffRepo.GetById(appointmentStaff.appointmentStaffId);
-            return savedItem != null ? MapToDto(savedItem) : null;
+            return savedItem != null ? MapToDto(savedItem) : null;       //Ternary Operator
         }
 
 
-        // 4. Remove staff assignment from an appointment
+        // 4. إلغاء تعيين موظف من حجز  
         public bool RemoveStaffAssignment(int id)
         {
             AppointmentStaff? item = appointmentStaffRepo.GetById(id);
@@ -100,9 +102,11 @@ namespace Sea_Trips_System.Services
         }
 
 
-
+        //================================================================
         // ── Helper: Mapper ──────────────────────────────────────────
-        private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)
+        //================================================================
+
+        private AppointmentStaffResponseDto MapToDto(AppointmentStaff item)  //تنشئ DTO جديد وتنسخ فيه البيانات.
         {
             return new AppointmentStaffResponseDto
             {

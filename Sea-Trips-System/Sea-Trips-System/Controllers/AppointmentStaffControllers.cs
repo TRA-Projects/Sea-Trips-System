@@ -9,7 +9,9 @@ namespace Sea_Trips_System.Controllers
     [Route("api/[controller]")]
     public class AppointmentStaffsController : ControllerBase
     {
-        private readonly AppointmentStaffServices appointmentStaffService;
+
+        //يستقبل (Service) عن طريق DI  و يحفظه لاستخدامه.
+        private  AppointmentStaffServices appointmentStaffService;
 
         public AppointmentStaffsController(AppointmentStaffServices _appointmentStaffService)
         {
@@ -37,7 +39,7 @@ namespace Sea_Trips_System.Controllers
 
         // 3. POST: api/AppointmentStaffs
         [HttpPost]
-        public IActionResult AssignStaff([FromBody] AssignStaffDto dto)
+        public IActionResult AssignStaff([FromBody] AssignStaffDto dto)  //(FromBody): ياخذ البيانات DTOs من json body
         {
             AppointmentStaffResponseDto? result = appointmentStaffService.AssignStaff(dto);
             if (result == null)
