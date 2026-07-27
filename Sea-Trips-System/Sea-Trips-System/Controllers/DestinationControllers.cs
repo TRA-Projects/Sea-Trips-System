@@ -18,7 +18,7 @@ namespace Sea_Trips_System.Models
 
 
         // Define this action as an HTTP GET endpoint with the route "GetAllDestinations"
-
+        // GET: GetAllDestinations
         [HttpGet("GetAllDestinations")]
         public IActionResult GetAllDestinations()
         {
