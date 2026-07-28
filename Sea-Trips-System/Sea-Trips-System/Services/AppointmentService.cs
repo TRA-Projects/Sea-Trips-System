@@ -45,7 +45,7 @@ namespace Sea_Trips_System.Models
             appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
-            TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
+            //TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
               
             // Calculate Total Price (Duration in hours * Number of People * Rate)
             double hours = (dto.endTime - dto.startTime).TotalHours;
@@ -77,7 +77,7 @@ namespace Sea_Trips_System.Models
         // ────*** 3. Get Appointment By ID ****────
         public AppointmentResponseDto GetById(int id)
         {
-            Appointment appointment = appointmentRepo.GetById(id);
+            Appointment? appointment = appointmentRepo.GetById(id);
             if (appointment == null)
                 return null;
 
@@ -89,17 +89,20 @@ namespace Sea_Trips_System.Models
         //استقبال البيانات الجديدة لتحديث حجز سابق، وتطبيق شروط الأمان وحساب السعر من جديد
         public AppointmentResponseDto? Update(int id, UpdateAppointmentDto dto)
         {
-            Appointment appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
+            Appointment? appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
             if (appointment == null)
                 return null;
 
-            // Check boat availability ignoring current appointment ID
             // افحص توفر القارب مع استثناء الحجز الحالي
 
             bool isBooked = appointmentRepo.IsBoatBooked(dto.boatId, dto.startTime, dto.endTime, id);
             if (isBooked)
                 return null;
 
+
+            TripType? trip = tripTypeRepo.GetById(dto.tripTypeId);
+            if (trip == null)
+                return null;
             // تحديث بيانات الحجز بالقيم الجديدة: 
 
             appointment.startTime = dto.startTime;
@@ -126,7 +129,7 @@ namespace Sea_Trips_System.Models
         // ────*** 5. Delete Appointment ****────
         public bool Delete(int id)
         {
-            Appointment appointment = appointmentRepo.GetById(id);
+            Appointment? appointment = appointmentRepo.GetById(id);
             if (appointment == null)
                 return false;
 
@@ -139,17 +142,12 @@ namespace Sea_Trips_System.Models
         // دالة تأكيد الحجز وتغيير حالته بعد الدفع
         public bool ConfirmAppointment(int appointmentId)
         {
-            // 1. البحث عن الحجز برقم الـ ID
             Appointment? appointment = appointmentRepo.GetById(appointmentId);
 
-            // إذا لم ينوجد الحجز ترجع false
             if (appointment == null)
                 return false;
 
-            // 2. تغيير حالة الحجز من Pending إلى Confirmed
-            appointment.bookingStatus = "Confirmed"; // أو "Paid" حسب التسمية المفضلة لديكِ
-
-            // 3. حفظ التعديل عبر الـ Repo
+            appointment.bookingStatus = "Confirmed"; 
             appointmentRepo.Update(appointment);
 
             return true;
