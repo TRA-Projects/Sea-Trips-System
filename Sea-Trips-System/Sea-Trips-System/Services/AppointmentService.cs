@@ -131,6 +131,28 @@ namespace Sea_Trips_System.Models
             return true;
         }
 
+        // ────*** 6. Confirm appointment ****────
+
+
+        // دالة تأكيد الحجز وتغيير حالته بعد الدفع
+        public bool ConfirmAppointment(int appointmentId)
+        {
+            // 1. البحث عن الحجز برقم الـ ID
+            Appointment? appointment = appointmentRepo.GetById(appointmentId);
+
+            // إذا لم ينوجد الحجز ترجع false
+            if (appointment == null)
+                return false;
+
+            // 2. تغيير حالة الحجز من Pending إلى Confirmed
+            appointment.bookingStatus = "Confirmed"; // أو "Paid" حسب التسمية المفضلة لديكِ
+
+            // 3. حفظ التعديل عبر الـ Repo
+            appointmentRepo.Update(appointment);
+
+            return true;
+        }
+
         // ────*** Helper Function: Map Model to Response DTO ****────
 
         //وظيفتها تحويل كائن قاعدة البيانات الأصلي (Appointment) إلى كائن للعرض
