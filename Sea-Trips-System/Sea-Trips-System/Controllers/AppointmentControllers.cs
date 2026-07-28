@@ -3,8 +3,7 @@ using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
 {
-    public class AppointmentControllers
-    {
+
 
         [ApiController]
         [Route("api/[controller]")]
@@ -85,5 +84,5 @@ namespace Sea_Trips_System.Models
             }
         }
     }
-}
+
 
