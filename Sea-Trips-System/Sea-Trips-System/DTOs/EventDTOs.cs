@@ -47,8 +47,7 @@ namespace Sea_Trips_System.DTOs
 
         public bool isActive { get; set; }
 
-        // Related Appointments
-        public List<Appointment> Appointments { get; set; }
+       
     }
 }
 
