@@ -27,10 +27,6 @@ namespace Sea_Trips_System.Models
         [Required(ErrorMessage = "Destination ID is required.")]
         public int destinationId { get; set; }
 
-        // Optional discount/event selection
-        public int? eventId { get; set; }
-
-
         // ──*** Request DTO — Received when updating an existing appointment ***───
         public class UpdateAppointmentDto
         {
@@ -51,7 +47,7 @@ namespace Sea_Trips_System.Models
             public int boatId { get; set; }
             public int tripTypeId { get; set; }
             public int destinationId { get; set; }
-            public int? eventId { get; set; }
+    
         }
 
 
@@ -78,7 +74,6 @@ namespace Sea_Trips_System.Models
             public int destinationId { get; set; }
             public string destinationName { get; set; }
 
-            public string? eventName { get; set; }
         }
     }
 

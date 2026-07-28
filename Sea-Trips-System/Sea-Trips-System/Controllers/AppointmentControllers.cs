@@ -1,15 +1,14 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
 {
-
-
-        [ApiController]
-        [Route("api/[controller]")]
-
-        //Dependency Injection
-        public class AppointmentsController : ControllerBase
+    [Authorize]
+    [ApiController]
+    [Route("api/[controller]")]
+    //Dependency Injection
+    public class AppointmentsController : ControllerBase
         {
             private AppointmentService appointmentService;
 
@@ -72,9 +71,10 @@ namespace Sea_Trips_System.Models
                 return Ok(new { message = "Booking status updated to Confirmed successfully!" });
             }
 
-            // DELETE: api/Appointments/5
-            [HttpDelete("{id}")]
-            public IActionResult Delete(int id)
+        // DELETE: api/Appointments/5
+        [Authorize(Roles = "Admin,Staff")]
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
             {
                 bool deleted = appointmentService.Delete(id);
                 if (!deleted)

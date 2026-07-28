@@ -1,17 +1,22 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sea_Trips_System.DTOs;
+using Sea_Trips_System.Models;
+using Sea_Trips_System.Services;
+using System.Collections.Generic;
+using System.Security.Claims;
 
-namespace Sea_Trips_System.Models
+namespace Sea_Trips_System.Controllers
 {
-    // Mark class as an API Controller and set the base URL route to "Review"
     [ApiController]
-    [Route("Review")]
+    [Route("api/[controller]")] // المسار القياسي: api/Review
     [Authorize] // Requires authentication for all endpoints by default
-    public class ReviewControllers: ControllerBase
+    public class ReviewController : ControllerBase
     {
-        private ReviewService reviewService;
+        private readonly ReviewService reviewService;
+
         // Constructor Injection: Injecting ReviewService instance
-        public ReviewControllers(ReviewService _reviewService)
+        public ReviewController(ReviewService _reviewService)
         {
             reviewService = _reviewService;
         }
@@ -19,143 +24,111 @@ namespace Sea_Trips_System.Models
         // =====================================================
         // GET ALL REVIEWS
         // =====================================================
-
-        // Define this action as an HTTP GET endpoint with the route "GetAllReviews"
-        // GET: GetAllReviews.....
-        [AllowAnonymous] // Allow public access to view all reviews..
-        [HttpGet("GetAllReviews")]
+        [AllowAnonymous] // Allow public access to view all reviews
+        [HttpGet]
         public IActionResult GetAllReviews()
         {
-            // 1. Call the service layer to fetch all reviews mapped as DTOs
             List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetAllReviews();
 
-            // 2. Check if the returned list contains any review items
-            if (result.Count > 0)
+            if (result == null || result.Count == 0)
             {
-                // Return 200 OK status code along with the list of reviews..
-                return Ok(result); // 200 success
+                return NoContent(); // 204 No Content
             }
 
-            // 3. Return 204 No Content status code if the list is empty (request succeeded, but no data to return)
-            return NoContent(); // 204 no data
+            return Ok(result); // 200 OK
         }
 
         // =====================================================
         // GET REVIEW BY ID
         // =====================================================
-
-        // Define as an HTTP GET endpoint with a route parameter {id}
-        // URL Example: http://localhost:5153/Review/GetReviewById/3..
-        // GET: GetReviewById/3..
         [AllowAnonymous] // Allow public access to view a specific review
-        [HttpGet("GetReviewById/{id}")]
+        [HttpGet("{id}")]
         public IActionResult GetReviewById([FromRoute] int id)
         {
-            // 1. Call the service layer to fetch the review DTO by its unique ID
             ReviewDTOs.ReviewOnputDTOs review = reviewService.GetReviewById(id);
 
-            // 2. Safety Check: If no review was found with this ID, return a 404 response
             if (review == null)
             {
-                return NotFound(); // 404 Not Found
+                return NotFound(new { message = $"Review with ID {id} was not found." }); // 404 Not Found
             }
 
-            // 3. Return HTTP 200 OK along with the found review DTO data
             return Ok(review); // 200 OK
         }
 
         // =====================================================
         // GET REVIEWS BY DESTINATION ID
         // =====================================================
-
-        // Define as an HTTP GET endpoint taking destinationId from Route
-        // URL Example: http://localhost:5153/Review/GetReviewsByDestination/5
-        // GET: GetReviewsByDestination/5
         [AllowAnonymous] // Allow public access to view reviews for a destination
-        [HttpGet("GetReviewsByDestination/{destinationId}")]
+        [HttpGet("destination/{destinationId}")]
         public IActionResult GetReviewsByDestinationId([FromRoute] int destinationId)
         {
-            // 1. Call the service layer to fetch reviews filtered by destination ID
             List<ReviewDTOs.ReviewOnputDTOs> result = reviewService.GetReviewsByDestinationId(destinationId);
 
-            // 2. Check if any reviews exist for this destination
-            if (result.Count > 0)
+            if (result == null || result.Count == 0)
             {
-                return Ok(result); // 200 success
+                return NoContent(); // 204 No Content
             }
-            // 3. Return 204 No Content if no reviews exist for this destination
-            return NoContent(); // 204 no data
 
-            
+            return Ok(result); // 200 OK
         }
 
         // =====================================================
         // ADD REVIEW
         // =====================================================
-
-        // Define as an HTTP POST endpoint for creating new review records
-        // URL Example: http://localhost:5153/Review/AddReview
-        // POST: AddReview
         [Authorize(Roles = "User,Admin")] // Allows authenticated Users or Admins to post a review
-        [HttpPost("AddReview")]
+        [HttpPost]
         public IActionResult AddReview([FromBody] ReviewDTOs.ReviewInputDTOs input)
         {
-            // 1. Send the input DTO to the service layer to create and save the review in DB
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // اختيارية: إذا كنت بحاجة لربط المراجعة بالمستخدم الحالي المسجل دخول عبر الـ Token
+            var userId = User.FindFirst("userId")?.Value ?? User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
             ReviewDTOs.ReviewOnputDTOs createdReview = reviewService.CreateReview(input);
 
-            // 2. Return HTTP 200 OK with the created review object containing its generated ID
-            return Ok(createdReview); // HTTP 200 OK
+            if (createdReview == null)
+                return BadRequest(new { message = "Failed to create review." });
+
+            // 1. استخدام reviewId (أو اسم معرف التقييم الخاص بك في DTO)
+            return CreatedAtAction(nameof(GetReviewById), new { id = createdReview.reviewId }, createdReview); // 201 Created
         }
 
         // =====================================================
         // UPDATE REVIEW
         // =====================================================
-
-        // Define as an HTTP PUT endpoint taking the target ID from Route and new data from Body
-        // URL Example: http://localhost:5153/Review/UpdateReview/3
-        // PUT: UpdateReview/3
-
         [Authorize(Roles = "User,Admin")] // Allows Users or Admins to update reviews
-        [HttpPut("UpdateReview/{id}")]
+        [HttpPut("{id}")]
         public IActionResult UpdateReview([FromRoute] int id, [FromBody] ReviewDTOs.ReviewInputDTOs input)
         {
-            // 1. Call the service layer to update the review record
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             bool updated = reviewService.UpdateReview(id, input);
 
-            // 2. Safety Check: If the review ID does not exist in the database, return 404
             if (!updated)
             {
-                return NotFound(); // HTTP 404 Not Found
+                return NotFound(new { message = $"Review with ID {id} was not found." }); // 404 Not Found
             }
 
-            // 3. Return HTTP 200 OK with a success message confirming the update
-            return Ok("Updated successfully"); // HTTP 200 OK
-
+            return Ok(new { message = "Review updated successfully." }); // 200 OK
         }
 
         // =====================================================
         // DELETE REVIEW
         // =====================================================
-
-        // Define as an HTTP DELETE endpoint taking the target review ID from Route
-        // URL Example: http://localhost:5153/Review/Delete/3
-        // DELETE: Delete/3
-
         [Authorize(Roles = "Admin")] // Restrict review deletion to Admins only
-        [HttpDelete("Delete/{id}")]
+        [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
-            // 1. Call the service layer to attempt deleting the review record
             bool deleted = reviewService.DeleteReview(id);
 
-            // 2. Safety Check: If the review ID was not found, return 404
             if (!deleted)
             {
-                return NotFound(); // HTTP 404 Not Found
+                return NotFound(new { message = $"Review with ID {id} was not found." }); // 404 Not Found
             }
 
-            // 3. Return HTTP 200 OK with a confirmation message that deletion succeeded
-            return Ok("Deleted successfully"); // HTTP 200 OK
+            return Ok(new { message = "Review deleted successfully." }); // 200 OK
         }
     }
 }

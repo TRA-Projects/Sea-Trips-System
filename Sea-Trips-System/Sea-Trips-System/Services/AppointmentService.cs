@@ -42,7 +42,6 @@ namespace Sea_Trips_System.Models
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
-            appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
             //TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
@@ -112,7 +111,6 @@ namespace Sea_Trips_System.Models
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
-            appointment.eventId = dto.eventId;
 
             // Recalculate price(إعادة حساب السعر الإجمالي)
             double hours = (dto.endTime - dto.startTime).TotalHours;
@@ -182,7 +180,7 @@ namespace Sea_Trips_System.Models
                 destinationId = a.destinationId,
                 destinationName = a.Destination != null ? a.Destination.name : "Not Available",  //Ternary Operator
 
-                eventName = a.Event != null ? a.Event.eventName : null
+         
             };
         }
     }

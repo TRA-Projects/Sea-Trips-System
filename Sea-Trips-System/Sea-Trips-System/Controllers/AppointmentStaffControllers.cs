@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Services;
 
 namespace Sea_Trips_System.Controllers
 {
-
+    [Authorize]
     [ApiController]
     [Route("api/[controller]")]
     public class AppointmentStaffsController : ControllerBase
@@ -50,6 +51,7 @@ namespace Sea_Trips_System.Controllers
 
 
         // 4. DELETE: api/AppointmentStaffs/5
+        [Authorize(Roles = "Admin,Staff")]
         [HttpDelete("{id}")]
         public IActionResult RemoveAssignment(int id)
         {

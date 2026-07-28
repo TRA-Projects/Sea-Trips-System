@@ -61,11 +61,6 @@ namespace Sea_Trips_System.Models
         public int destinationId { get; set; }               // chosen from destinations list
         public Destination Destination { get; set; }         // navigation property
 
-        // foreign key — optional event discount
-        [ForeignKey("Event")]
-        public int? eventId { get; set; }                    // optional event selection
-        public Event Event { get; set; }                     // navigation property
-
         // reverse navigation — one Appointment has many AppointmentStaffs(bridge table)
          public virtual List<AppointmentStaff> AppointmentStaffs { get; set; } //
 
