@@ -5,10 +5,13 @@ namespace Sea_Trips_System.Models
     public class AppointmentService
     {
         private AppointmentRepo appointmentRepo;
+        private TripTypeRepo tripTypeRepo;
 
-        public AppointmentService(AppointmentRepo _appointmentRepo)
+        public AppointmentService(AppointmentRepo _appointmentRepo, TripTypeRepo _tripTypeRepo)
+ 
         {
             appointmentRepo = _appointmentRepo;
+            tripTypeRepo = _tripTypeRepo;
         }
 
 
@@ -29,16 +32,18 @@ namespace Sea_Trips_System.Models
             appointment.startTime = dto.startTime;
             appointment.endTime = dto.endTime;
             appointment.numberOfPeople = dto.numberOfPeople;
-            appointment.clientId = dto.clientId;
+           // appointment.clientId = dto.clientId;
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
             appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
+            TripType trip = tripTypeRepo.GetById(dto.tripTypeId);
+              
             // Calculate Total Price (Duration in hours * Number of People * Rate)
             double hours = (dto.endTime - dto.startTime).TotalHours;
-            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
+            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * Convert.ToDouble( trip.basePrice));
 
 
             // Save via Repo
@@ -46,6 +51,7 @@ namespace Sea_Trips_System.Models
 
             // Fetch created model with navigation props and return DTO
             Appointment savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
+            //SEND EMAIL 
             return MapToResponseDto(savedAppointment);
         }
 

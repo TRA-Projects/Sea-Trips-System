@@ -37,6 +37,10 @@ namespace Sea_Trips_System.Services
 
             clientRepo.Add(client);   //save the client 
 
+            //SEND EMAIL
+
+
+            ClientResponseDto response = new ClientResponseDto();
             //responce 
             ClientResponseDto response = new ClientResponseDto();           //creat new object from ClientResponseDto  ...
             response.clientId = client.clientId;

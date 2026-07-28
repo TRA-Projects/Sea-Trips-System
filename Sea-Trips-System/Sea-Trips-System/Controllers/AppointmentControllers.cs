@@ -42,6 +42,7 @@ namespace Sea_Trips_System.Models
             [HttpPost]
             public IActionResult Create([FromBody] CreateAppointmentDto dto)
             {
+                //get client id from token  call authservice.getIdFromToken(extracted token from heaDER    )
                 var created = appointmentService.Create(dto);
                 if (created == null)
                     return BadRequest(new { message = "Failed to create appointment. Please check time validity or boat availability." });

@@ -43,6 +43,7 @@ namespace Sea_Trips_System.Models
             };
 
             repo.AddPayment(payment);
+            //CHANGE APPOINMNET STATUS
         }
 
         // Refund Payment
