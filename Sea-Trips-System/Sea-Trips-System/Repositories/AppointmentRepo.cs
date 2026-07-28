@@ -18,7 +18,6 @@ namespace Sea_Trips_System.Models
                 .Include(a => a.Boat)
                 .Include(a => a.TripType)
                 .Include(a => a.Destination)
-                .Include(a => a.Event)
                 .ToList();
         }
 
@@ -29,8 +28,7 @@ namespace Sea_Trips_System.Models
                 .Include(a => a.Client)
                 .Include(a => a.Boat)
                 .Include(a => a.TripType)
-                .Include(a => a.Destination)
-                .Include(a => a.Event)
+                .Include(a => a.Destination)        
                 .FirstOrDefault(a => a.appointmentId == id);
         }
 

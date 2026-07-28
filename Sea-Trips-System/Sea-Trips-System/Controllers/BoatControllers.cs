@@ -2,12 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Sea_Trips_System.DTOs;
 using Sea_Trips_System.Services;
+using System.Collections.Generic;
 
 namespace Sea_Trips_System.Controllers
 {
-
     [ApiController]
-    [Route("Boat")]
+    [Route("api/[controller]")]         
     public class BoatController : ControllerBase
     {
         private readonly BoatService boatService;
@@ -18,20 +18,24 @@ namespace Sea_Trips_System.Controllers
         }
 
         // ── 1. Create Boat ───────────────────────────────────────────────────
-        [HttpPost("CreateBoat")]
-        [Authorize(Roles = "Admin,Organizer")]
+        [HttpPost]
+        [Authorize(Roles = "Admin,Organizer,Staff")]
         public IActionResult CreateBoat([FromBody] CreateBoatDto dto)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
             BoatResponseDto createdBoat = boatService.CreateBoat(dto);
 
             if (createdBoat == null)
-                return BadRequest(new { message = "Boat name already exists." });
+                return BadRequest(new { message = "Boat name already exists or invalid data." });
 
-            return Ok(createdBoat);
+            return CreatedAtAction(nameof(GetBoatById), new { id = createdBoat.boatId }, createdBoat);
         }
 
         // ── 2. Get Boat By ID ────────────────────────────────────────────────
-        [HttpGet("GetBoatById/{id}")]
+        [HttpGet("{id}")]
+        [AllowAnonymous]      // متاح للعملاء والزوار لتصفح تفاصيل القوارب
         public IActionResult GetBoatById(int id)
         {
             BoatResponseDto boat = boatService.GetBoatById(id);
@@ -43,7 +47,8 @@ namespace Sea_Trips_System.Controllers
         }
 
         // ── 3. Get All Boats ─────────────────────────────────────────────────
-        [HttpGet("GetAllBoats")]
+        [HttpGet]
+        [AllowAnonymous]             // متاح للعملاء والزوار لتصفح القوارب المتاحة
         public IActionResult GetAllBoats()
         {
             List<BoatResponseDto> boats = boatService.GetAllBoats();
@@ -51,8 +56,8 @@ namespace Sea_Trips_System.Controllers
         }
 
         // ── 4. Update Boat ───────────────────────────────────────────────────
-        [HttpPut("UpdateBoat/{id}")]
-        [Authorize(Roles = "Admin,Organizer")]
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Admin,Organizer,Staff")]
         public IActionResult UpdateBoat(int id, [FromBody] UpdateBoatDto dto)
         {
             BoatResponseDto updatedBoat = boatService.UpdateBoat(id, dto);
@@ -64,7 +69,7 @@ namespace Sea_Trips_System.Controllers
         }
 
         // ── 5. Delete Boat ───────────────────────────────────────────────────
-        [HttpDelete("DeleteBoat/{id}")]
+        [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteBoat(int id)
         {

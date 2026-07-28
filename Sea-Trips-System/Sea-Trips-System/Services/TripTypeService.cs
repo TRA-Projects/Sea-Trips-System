@@ -34,39 +34,36 @@ namespace Sea_Trips_System.Services
         }
 
         // 2. Get By Id - جلب تفاصيل نوع رحلة بواسطة الـ ID
-        public TripTypeAllOutputDTO GetById(int id)
+        // ◄◄ تم تغيير نوع الإرجاع إلى TripResponseDto ليتوافق مع Controller
+        public TripResponseDto GetById(int id)
         {
             TripType tripType = tripRepo.GetById(id);
 
             if (tripType == null)
                 return null;
 
-            return new TripTypeAllOutputDTO
+            return new TripResponseDto
             {
                 tripTypeId = tripType.tripTypeId,
                 typeName = tripType.typeName,
                 basePrice = tripType.basePrice,
-                description = tripType.description,
-              
+                description = tripType.description
             };
         }
 
-        // 3. Add / Create TripType - إنشاء رحلة وتحديث حالة القارب وحساب السعر
-        public TripResponseDto CreateTrip(CreateTripDto dto)
+        // 3. Create TripType - إنشاء رحلة وإرجاع الـ ID
+        // ◄◄ تم تغيير اسم الدالة إلى Create ونوع الإرجاع إلى int ليتوافق مع Controller
+        public int Create(CreateTripDto dto)
         {
-            // 1. جلب بيانات القارب للتحقق من وجوده وحالته
+            // 1. جلب بيانات القارب للتحقق من وجوده وحالته (في حال كان DTO يحوي boatId)
             Boat boat = boatRepo.GetById(dto.boatId);
 
-            // 2. التحقق من وجود القارب ومن أنه متاح للحجز (Available)
             if (boat == null || boat.status != "Available")
             {
-                return null; // لا يمكن الحجز لأن القارب محجوز مسبقاً أو غير موجود
+                return 0; // القارب غير متاح
             }
 
-            // 3. حساب السعر الإجمالي (السعر الأساسي + سعر القارب بالساعة * عدد الساعات)
-            decimal calculatedPrice = dto.basePrice + (boat.hourlyRate * (decimal)dto.hours);
-
-            // 4. إنشاء نوع الرحلة الجديد وحفظه
+            // 2. إنشاء نوع الرحلة الجديد وحفظه
             TripType tripType = new TripType
             {
                 typeName = dto.typeName,
@@ -76,20 +73,12 @@ namespace Sea_Trips_System.Services
 
             tripRepo.Add(tripType);
 
-            // 5. تغيير حالة القارب إلى محجوز (Booked) وحفظ التعديل
+            // 3. تحديث حالة القارب إلى محجوز
             boat.status = "Booked";
             boatRepo.Update();
 
-            // 6. إرجاع النتيجة متضمنة السعر المحسوب
-            return new TripResponseDto
-            {
-                tripTypeId = tripType.tripTypeId,
-                typeName = tripType.typeName,
-                basePrice = tripType.basePrice,
-                description = tripType.description,
-                price = calculatedPrice, // ◄◄ السعر النهائي المحسوب
-                status = "Confirmed"
-            };
+            // 4. إرجاع الـ ID الخاص بالـ TripType الجديد
+            return tripType.tripTypeId;
         }
 
         // 4. Update - تعديل نوع رحلة موجود

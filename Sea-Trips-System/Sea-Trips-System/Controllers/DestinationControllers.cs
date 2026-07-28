@@ -1,136 +1,112 @@
-﻿using Microsoft.AspNetCore.Authorization;// <-- 1. إضافة الهيدر الخاص بالحماية
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sea_Trips_System.DTOs;
+using Sea_Trips_System.Models;
+using Sea_Trips_System.Services;
+using System.Collections.Generic;
 
-namespace Sea_Trips_System.Models
+namespace Sea_Trips_System.Controllers
 {
-    [Authorize]
-    //1.// Mark class as an API Controller and set the base URL route to "destination"
     [ApiController]
-    [Route("Destination")]
-    public class DestinationControllers:ControllerBase
+    [Route("api/[controller]")] //
+    public class DestinationsController : ControllerBase
     {
-        private DestinationService destinationService;
+        private readonly DestinationService destinationService;
 
         // Constructor Injection: Injecting DestinationService instance
-        public DestinationControllers(DestinationService _destinationService)
+        public DestinationsController(DestinationService _destinationService)
         {
             destinationService = _destinationService;
         }
 
-
-
-        // Define this action as an HTTP GET endpoint with the route "GetAllDestinations"
-        // GET: GetAllDestinations
-        [AllowAnonymous]
-        [HttpGet("GetAllDestinations")]
+        // GET: api/Destinations
+        [AllowAnonymous] 
+        [HttpGet]
         public IActionResult GetAllDestinations()
         {
-            // 1. Call the service layer to fetch all destinations mapped as DTOs
-            List<DestinationDTOs.DestinationOutputDTOs>  result = destinationService.GetAllDestinations();
+            // 1. Fetch all destinations mapped as DTOs
+            List<DestinationDTOs.DestinationOutputDTOs> result = destinationService.GetAllDestinations();
 
-
-            // 2. Check if the returned list contains any destination items
-            if (result.Count > 0)
+            // 2. Check if the returned list contains any items
+            if (result != null && result.Count > 0)
             {
-                // Return 200 OK status code along with the list of destinations
-                return Ok(result); //200 success
+                return Ok(result); // 200 OK
             }
 
-
-            // 3. Return 204 No Content status code if the list is empty (request succeeded, but no data to return)
-            return NoContent(); //204 no data
+            // 3. Return 204 No Content if list is empty
+            return NoContent(); // 204 No Content
         }
 
-
-        // Define as an HTTP GET endpoint with a route parameter {id}
-        // URL Example: http://localhost:5153/destination/GetDestinationById/3
-
-
-        // GET: GetDestinationById/3
-        [AllowAnonymous]
-        [HttpGet("GetDestinationById/{id}")]
+        // GET: api/Destinations/3
+        [AllowAnonymous] 
+        [HttpGet("{id}")]
         public IActionResult GetDestinationById([FromRoute] int id)
         {
-            // 1. Call the service layer to fetch the destination DTO by its unique ID
+            // 1. Fetch destination DTO by ID
             DestinationDTOs.DestinationOutputDTOs destination = destinationService.GetDestinationById(id);
 
-
-            // 2. Safety Check: If no destination was found with this ID, return a 404 response
+            // 2. Safety Check
             if (destination == null)
             {
-                return NotFound(); // 404 Not Found
-
+                return NotFound(new { message = $"Destination with ID {id} was not found." }); // 404 Not Found
             }
 
-            // 3. Return HTTP 200 OK along with the found destination DTO data
             return Ok(destination); // 200 OK
         }
 
-
-
-        // Define as an HTTP POST endpoint for creating new destination records
-        // URL Example: http://localhost:5153/destination/AddDestination
-
-        // POST: AddDestination
-        [Authorize(Roles = "Admin")]
-        [HttpPost("AddDestination")]
+     
+        [Authorize(Roles = "Admin,Organizer")] 
+        [HttpPost]
         public IActionResult AddDestination([FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
 
-            // 1. Send the input DTO to the service layer to map to an Entity and save in DB
+            // 1. Send input DTO to service layer
             DestinationDTOs.DestinationOutputDTOs createdDestination = destinationService.CreateDestination(input);
 
+            if (createdDestination == null)
+                return BadRequest(new { message = "Failed to create destination." });
 
-            // 2. Return HTTP 200 OK with the created destination object containing its generated ID
-            return Ok(createdDestination); // HTTP 200 OK
+            // 2. Return HTTP 201 Created
+            return CreatedAtAction(nameof(GetDestinationById), new { id = createdDestination.destinationId }, createdDestination);
         }
 
-
-        // Define as an HTTP PUT endpoint taking the target ID from Route and new data from Body
-        // URL Example: http://localhost:5153/destination/UpdateDestination/3
-
-        // PUT: UpdateDestination/3
-        [Authorize(Roles = "Admin")]
-        [HttpPut("UpdateDestination/{id}")]
+       
+        [Authorize(Roles = "Admin,Organizer")]
+        [HttpPut("{id}")]
         public IActionResult UpdateDestination([FromRoute] int id, [FromBody] DestinationDTOs.DestinationInputDTOs input)
         {
-            // 1. Call the service layer to update the destination record
+            if (!ModelState.IsValid)
+                return BadRequest(ModelState);
+
+            // 1. Update record in service layer
             bool updated = destinationService.UpdateDestination(id, input);
 
-
-            // 2. Safety Check: If the destination ID does not exist in the database, return 404
+            // 2. Safety Check
             if (!updated)
             {
-                return NotFound(); // HTTP 404 Not Found
+                return NotFound(new { message = $"Destination with ID {id} was not found." }); // 404 Not Found
             }
 
-            // 3. Return HTTP 200 OK with a success message confirming the update
-            return Ok("Updated successfully"); // HTTP 200 OK
+            return Ok(new { message = "Destination updated successfully." }); // 200 OK
         }
 
-
-
-        // Define as an HTTP DELETE endpoint taking the target destination ID from Route
-        // URL Example: http://localhost:5153/destination/Delete/3
-
-        // DELETE: Delete/3
-        [Authorize(Roles = "Admin")]
-        [HttpDelete("Delete/{id}")]
+        // DELETE: api/Destinations/3
+        [Authorize(Roles = "Admin")] 
+        [HttpDelete("{id}")]
         public IActionResult Delete([FromRoute] int id)
         {
-
-            // 1. Call the service layer to attempt deleting the destination record
+            // 1. Attempt deletion
             bool deleted = destinationService.DeleteDestination(id);
 
-            // 2. Safety Check: If the destination ID was not found, return 404
+            // 2. Safety Check
             if (!deleted)
             {
-                return NotFound(); // HTTP 404 Not Found
+                return NotFound(new { message = $"Destination with ID {id} was not found." }); // 404 Not Found
             }
 
-
-            // 3. Return HTTP 200 OK with a confirmation message that deletion succeeded
-            return Ok("Deleted successfully"); // HTTP 200 OK
+            return Ok(new { message = "Destination deleted successfully." }); // 200 OK
         }
     }
 }

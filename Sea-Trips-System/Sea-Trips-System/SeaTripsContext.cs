@@ -10,7 +10,6 @@ namespace Sea_Trips_System
         public DbSet<Client> Clients { get; set; }
         public DbSet<Boat> Boats { get; set; }
         public DbSet<Destination> Destinations { get; set; }
-        public DbSet<Event> Events { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
         public DbSet<Payment> Payments { get; set; }
         public DbSet<Review> Reviews { get; set; }
