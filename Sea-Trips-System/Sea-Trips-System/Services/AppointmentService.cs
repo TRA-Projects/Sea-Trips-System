@@ -87,7 +87,7 @@ namespace Sea_Trips_System.Models
         // ────*** 4. Update Appointment ****────
 
         //استقبال البيانات الجديدة لتحديث حجز سابق، وتطبيق شروط الأمان وحساب السعر من جديد
-        public AppointmentResponseDto Update(int id, UpdateAppointmentDto dto)
+        public AppointmentResponseDto? Update(int id, UpdateAppointmentDto dto)
         {
             Appointment appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
             if (appointment == null)
@@ -113,16 +113,14 @@ namespace Sea_Trips_System.Models
 
             // Recalculate price(إعادة حساب السعر الإجمالي)
             double hours = (dto.endTime - dto.startTime).TotalHours;
-            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
+            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * Convert.ToDouble(trip.basePrice));
 
             // 1. حفظ التعديلات في قاعدة البيانات
-            appointmentRepo.Update();
+            appointmentRepo.Update(appointment);
 
-            // 2. بالتفاصيل DB ارجع اجيبه من
-            Appointment updatedAppointment = appointmentRepo.GetById(id);
-
-            // 3.   وإرجاعه DTOتحويله لـ  
-            return MapToResponseDto(updatedAppointment);
+            // 2. تجديد البيانات بالتفاصيل وإرجاع الـ DTO
+            Appointment? updatedAppointment = appointmentRepo.GetById(id);
+            return updatedAppointment != null ? MapToResponseDto(updatedAppointment) : null;
         }
 
         // ────*** 5. Delete Appointment ****────
@@ -137,7 +135,6 @@ namespace Sea_Trips_System.Models
         }
 
         // ────*** 6. Confirm appointment ****────
-
 
         // دالة تأكيد الحجز وتغيير حالته بعد الدفع
         public bool ConfirmAppointment(int appointmentId)
