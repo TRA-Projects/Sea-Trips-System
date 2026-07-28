@@ -11,7 +11,7 @@ namespace Sea_Trips_System.Controllers
     [ApiController]
     [Route("api/[controller]")] // المسار القياسي: api/Review
     [Authorize] // Requires authentication for all endpoints by default
-    public class ReviewController : ControllerBase
+    public class ReviewController : BaseController
     {
         private readonly ReviewService reviewService;
 

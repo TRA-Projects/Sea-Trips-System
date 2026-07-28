@@ -8,7 +8,7 @@ namespace Sea_Trips_System.Controllers
     [Authorize]
     [ApiController]
     [Route("api/[controller]")]
-    public class AppointmentStaffsController : ControllerBase
+    public class AppointmentStaffsController : BaseController
     {
 
         //يستقبل (Service) عن طريق DI  و يحفظه لاستخدامه.

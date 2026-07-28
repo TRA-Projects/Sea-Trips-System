@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sea_Trips_System.Controllers;
 using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
@@ -8,8 +9,8 @@ namespace Sea_Trips_System.Models
     [ApiController]
     [Route("api/[controller]")]
     //Dependency Injection
-    public class AppointmentsController : ControllerBase
-        {
+    public class AppointmentsController : BaseController
+    {
             private AppointmentService appointmentService;
 
             public AppointmentsController(AppointmentService _appointmentService)
@@ -59,29 +60,29 @@ namespace Sea_Trips_System.Models
                 return Ok(updated);
             }
 
-            // POST : api/Appointments/5/confirm
-            [HttpPut("{id}/confirm")]
-            public IActionResult ConfirmBooking(int id)
-            {
-                bool isConfirmed = appointmentService.ConfirmAppointment(id);
+                // POST : api/Appointments/5/confirm
+                [HttpPut("{id}/confirm")]
+                public IActionResult ConfirmBooking(int id)
+                {
+                    bool isConfirmed = appointmentService.ConfirmAppointment(id);
 
-                if (!isConfirmed)
-                    return NotFound(new { message = $"Appointment with ID {id} was not found." });
+                    if (!isConfirmed)
+                        return NotFound(new { message = $"Appointment with ID {id} was not found." });
 
-                return Ok(new { message = "Booking status updated to Confirmed successfully!" });
-            }
+                    return Ok(new { message = "Booking status updated to Confirmed successfully!" });
+                }
 
-        // DELETE: api/Appointments/5
-        [Authorize(Roles = "Admin,Staff")]
-        [HttpDelete("{id}")]
-        public IActionResult Delete(int id)
-            {
-                bool deleted = appointmentService.Delete(id);
-                if (!deleted)
-                    return NotFound(new { message = $"Appointment with ID {id} was not found." });
+            // DELETE: api/Appointments/5
+            [Authorize(Roles = "Admin,Staff")]
+            [HttpDelete("{id}")]
+            public IActionResult Delete(int id)
+                {
+                    bool deleted = appointmentService.Delete(id);
+                    if (!deleted)
+                        return NotFound(new { message = $"Appointment with ID {id} was not found." });
 
-                return NoContent();
-            }
+                    return NoContent();
+                }
         }
     }
 

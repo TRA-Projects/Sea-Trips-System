@@ -10,7 +10,7 @@ namespace Sea_Trips_System.Controllers
     [ApiController]
     [Route("api/[controller]")] 
     [Authorize]
-    public class MaintenanceController : ControllerBase 
+    public class MaintenanceController : BaseController
     {
         private readonly MaintenanceService maintenanceService;
 

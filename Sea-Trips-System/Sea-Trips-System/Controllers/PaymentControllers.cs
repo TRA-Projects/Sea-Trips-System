@@ -11,7 +11,7 @@ namespace Sea_Trips_System.Controllers
     [ApiController]
     [Route("api/[controller]")] 
     [Authorize]
-    public class PaymentController : ControllerBase
+    public class PaymentController : BaseController
     {
         private readonly PaymentService paymentService;
 

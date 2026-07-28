@@ -1,5 +1,7 @@
 using Microsoft.IdentityModel.Tokens;
 using Sea_Trips_System.Models;
+using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -8,7 +10,7 @@ namespace Sea_Trips_System.Services
 {
     public class AuthService
     {
-        private IConfiguration config;
+        private readonly IConfiguration config;
 
         public AuthService(IConfiguration _config)
         {
@@ -25,14 +27,21 @@ namespace Sea_Trips_System.Services
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
             var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-            // استخدام الحقول المطابقة لموديل Client الخاص بك
-            Claim[] claims =
+            // ◄◄ الـ Claims الخاصة بالمستخدم
+            var claims = new List<Claim>
             {
-                new Claim("sub",      client.fullName),
-                new Claim("clientId",   client.clientId.ToString()),
-                new Claim("email",    client.email),
-                new Claim("phone",    client.phone),
-                new Claim("role",  "Client")   // تعيين الدور افتراضياً كـ Client
+                // 1. إضافة الـ ID بالأسماء القياسية ليتطابق مع BaseController
+                new Claim("userId", client.clientId.ToString()),
+                new Claim(ClaimTypes.NameIdentifier, client.clientId.ToString()),
+
+                // 2. إضافة الدور بالأسلوب المعياري لتسهيل عمل [Authorize(Roles = "...")]
+                new Claim(ClaimTypes.Role, "Client"),
+                new Claim("role", "Client"),
+
+                // 3. البيانات الشخصية
+                new Claim(ClaimTypes.Name, client.fullName ?? string.Empty),
+                new Claim(ClaimTypes.Email, client.email ?? string.Empty),
+                new Claim("phone", client.phone ?? string.Empty)
             };
 
             var token = new JwtSecurityToken(

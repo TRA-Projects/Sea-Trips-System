@@ -8,7 +8,7 @@ namespace Sea_Trips_System.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]         
-    public class BoatController : ControllerBase
+    public class BoatController : BaseController
     {
         private readonly BoatService boatService;
 
