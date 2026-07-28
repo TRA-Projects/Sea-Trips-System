@@ -27,19 +27,25 @@ namespace Sea_Trips_System.Models
             if (isBooked)
                 return null;
 
+            // 🔍 جلب سعر الرحلة من قاعدة البيانات حسب النوع المحدد
+            TripType? trip = tripTypeRepo.GetById(dto.tripTypeId);
+            if (trip == null)
+                return null;
+
+
+
             // Map DTO to Model
             Appointment appointment = new Appointment();
             appointment.startTime = dto.startTime;
             appointment.endTime = dto.endTime;
             appointment.numberOfPeople = dto.numberOfPeople;
-           // appointment.clientId = dto.clientId;
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
             appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
-            TripType trip = tripTypeRepo.GetById(dto.tripTypeId);
+            TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
               
             // Calculate Total Price (Duration in hours * Number of People * Rate)
             double hours = (dto.endTime - dto.startTime).TotalHours;
@@ -50,9 +56,8 @@ namespace Sea_Trips_System.Models
             appointmentRepo.Add(appointment);
 
             // Fetch created model with navigation props and return DTO
-            Appointment savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
-            //SEND EMAIL 
-            return MapToResponseDto(savedAppointment);
+            Appointment? savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
+            return savedAppointment != null ? MapToResponseDto(savedAppointment) : null;
         }
 
         // ────*** 2. Get All Appointments ***────
