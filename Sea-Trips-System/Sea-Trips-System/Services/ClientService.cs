@@ -14,8 +14,8 @@ namespace Sea_Trips_System.Services
             clientRepo = _clientRepo;
         }
 
-        // ── 1. Create Client / تسجيل أو إضافة عميل جديد ─────────────────────────
-        public ClientResponseDto CreateClient(CreateClientDto dto)
+        // ── 1. Create Client / تسجيل أو إضافة عميل جديد ─────────────────────────
+        public ClientResponseDto CreateClient(CreateClientDto dto)
         {
             // Business rule: email and phone must not already be registered
             if (clientRepo.GetClientByEmail(dto.email) != null)
@@ -25,31 +25,29 @@ namespace Sea_Trips_System.Services
 
             if (clientRepo.GetClientByPhone(dto.phone) != null)
                 return null;
-            
+
             Client client = new Client();           //creat new object from Client class ...
             client.fullName = dto.fullName;
             client.phone = dto.phone;
             client.email = dto.email;
             client.createdAt = DateTime.Now;          //system generated 
 
-            //  تشفير كلمة المرور قبل الحفظ في قاعدة البيانات
-            client.passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password);
+            // تشفير كلمة المرور قبل الحفظ في قاعدة البيانات
+            client.passwordHash = BCrypt.Net.BCrypt.HashPassword(dto.password);
 
             clientRepo.Add(client);   //save the client 
 
             //SEND EMAIL
 
-
+            // ✅ إنشاء الكائن مرة واحدة فقط
             ClientResponseDto response = new ClientResponseDto();
-            //responce 
-            ClientResponseDto response = new ClientResponseDto();           //creat new object from ClientResponseDto  ...
             response.clientId = client.clientId;
             response.fullName = client.fullName;
             response.phone = client.phone;
             response.email = client.email;
             response.createdAt = client.createdAt;
 
-            return response;              //return the responce to the function 
+            return response;              //return the response to the function 
         }
 
         // ── 2. Client Login / تسجيل دخول العميل ──────────────────────────────
