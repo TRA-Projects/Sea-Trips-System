@@ -70,7 +70,14 @@ namespace Sea_Trips_System.Models
             context.Appointments.Remove(appointment);
             context.SaveChanges();
         }
-        
+
+        // تحديث بيانات حجز موجود بداخل قاعدة البيانات
+        public void Update(Appointment appointment)
+        {
+            context.Appointments.Update(appointment);
+            context.SaveChanges();
+        }
+
     }
 
     }
