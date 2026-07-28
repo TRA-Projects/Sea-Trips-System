@@ -1,3 +1,19 @@
+﻿public class CreateTripDto
+{
+    public string typeName { get; set; }
+    public decimal basePrice { get; set; }
+    public string description { get; set; }
+    public int boatId { get; set; }  
+}
+
+public class TripResponseDto
+{
+    public int tripTypeId { get; set; }
+    public string typeName { get; set; }
+    public decimal basePrice { get; set; }
+    public string description { get; set; }
+    public string status { get; set; }
+}
 ﻿using Sea_Trips_System.Models;
 using System.ComponentModel.DataAnnotations;
 

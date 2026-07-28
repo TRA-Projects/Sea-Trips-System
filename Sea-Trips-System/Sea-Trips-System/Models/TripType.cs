@@ -21,9 +21,19 @@ namespace Sea_Trips_System.Models
         [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")] // // Maximum length is 500 characters----
         public string description { get; set; }
 
+        public string status { get; set; }
+
+
+
+        [Required]
+        [ForeignKey("boat")]
+        public int boatId { get; set; }    //Forign key
+        public Boat boat { get; set; }// navigation property
 
         // reverse navigation — one TripType has many Appointments
         public virtual List<Appointment> Appointments { get; set; }           // link to trip type bookings
+
+
     }
 }
 

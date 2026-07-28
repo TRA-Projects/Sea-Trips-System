@@ -25,6 +25,9 @@ namespace Sea_Trips_System.Models
         [Column(TypeName = "decimal(18,3)")]
         public decimal hourlyRate { get; set; }       //system generated 
 
+        [Required]
+        public decimal price { get; set; }   //calculated
+
 
 
         //one to many
