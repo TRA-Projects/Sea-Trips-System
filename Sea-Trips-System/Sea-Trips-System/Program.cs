@@ -5,6 +5,7 @@ using Microsoft.OpenApi.Models;
 using Sea_Trips_System.Models;
 using Sea_Trips_System.Repositories;
 using Sea_Trips_System.Services;
+using System.Security.Claims;
 using System.Text;
 
 namespace Sea_Trips_System
@@ -56,7 +57,7 @@ namespace Sea_Trips_System
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    options.MapInboundClaims = false;
+                    //options.MapInboundClaims = false;
 
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
@@ -66,7 +67,8 @@ namespace Sea_Trips_System
                         ValidateIssuerSigningKey = true,
                         ValidIssuer = jwtIssuer,
                         ValidAudience = jwtAudience,
-                        RoleClaimType = "role",
+                        RoleClaimType = ClaimTypes.Role,
+                        NameClaimType = ClaimTypes.Name,
                         IssuerSigningKey = new SymmetricSecurityKey(
                             Encoding.UTF8.GetBytes(jwtKey))
                     };
