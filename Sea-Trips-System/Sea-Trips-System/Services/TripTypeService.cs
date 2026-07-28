@@ -17,42 +17,44 @@ namespace Sea_Trips_System.Services
             this.tripRepo = _tripRepo;
         }
 
-        // 1. Get All
+        // 1. Get All - جلب جميع أنواع الرحلات
         public List<TripResponseDto> GetAll()
         {
-            return tripRepo.GetAll()
-                       .Select(tripType => new TripResponseDto
-                       {
-                           tripTypeId = tripType.tripTypeId,
-                           typeName = tripType.typeName,
-                           basePrice = tripType.basePrice,
-                           description = tripType.description
-                       })
-                       .ToList();
+            List<TripType> tripTypes = tripRepo.GetAll();
+            if (tripTypes == null)
+                return new List<TripResponseDto>();
+
+            return tripTypes.Select(tripType => new TripResponseDto
+            {
+                tripTypeId = tripType.tripTypeId,
+                typeName = tripType.typeName,
+                basePrice = tripType.basePrice,
+                description = tripType.description
+            }).ToList();
         }
 
-        // 2. Get By Id
-        public TripTypeDetailsDTO GetById(int id)
+        // 2. Get By Id - جلب تفاصيل نوع رحلة بواسطة الـ ID
+        public TripTypeAllOutputDTO GetById(int id)
         {
             TripType tripType = tripRepo.GetById(id);
 
             if (tripType == null)
                 return null;
 
-            return new TripTypeDetailsDTO
+            return new TripTypeAllOutputDTO
             {
                 tripTypeId = tripType.tripTypeId,
                 typeName = tripType.typeName,
                 basePrice = tripType.basePrice,
                 description = tripType.description,
-                appointmentCount = tripType.Appointments?.Count ?? 0 // حماية ضد الـ null
+              
             };
         }
 
-        // 3. Add / Create Trip
+        // 3. Add / Create TripType - إنشاء رحلة وتحديث حالة القارب وحساب السعر
         public TripResponseDto CreateTrip(CreateTripDto dto)
         {
-            // 1. جلب بيانات القارب
+            // 1. جلب بيانات القارب للتحقق من وجوده وحالته
             Boat boat = boatRepo.GetById(dto.boatId);
 
             // 2. التحقق من وجود القارب ومن أنه متاح للحجز (Available)
@@ -61,7 +63,10 @@ namespace Sea_Trips_System.Services
                 return null; // لا يمكن الحجز لأن القارب محجوز مسبقاً أو غير موجود
             }
 
-            // 3. إنشاء نوع الرحلة وحفظه
+            // 3. حساب السعر الإجمالي (السعر الأساسي + سعر القارب بالساعة * عدد الساعات)
+            decimal calculatedPrice = dto.basePrice + (boat.hourlyRate * (decimal)dto.hours);
+
+            // 4. إنشاء نوع الرحلة الجديد وحفظه
             TripType tripType = new TripType
             {
                 typeName = dto.typeName,
@@ -71,25 +76,25 @@ namespace Sea_Trips_System.Services
 
             tripRepo.Add(tripType);
 
-            // 4. تغيير حالة القارب إلى محجوز (Booked) وحفظها في قاعدة البيانات
+            // 5. تغيير حالة القارب إلى محجوز (Booked) وحفظ التعديل
             boat.status = "Booked";
             boatRepo.Update();
 
-            // 5. إرجاع النتيجة
+            // 6. إرجاع النتيجة متضمنة السعر المحسوب
             return new TripResponseDto
             {
                 tripTypeId = tripType.tripTypeId,
                 typeName = tripType.typeName,
                 basePrice = tripType.basePrice,
                 description = tripType.description,
+                price = calculatedPrice, // ◄◄ السعر النهائي المحسوب
                 status = "Confirmed"
             };
         }
 
-        // 4. Update
+        // 4. Update - تعديل نوع رحلة موجود
         public bool Update(int id, CreateTripDto dto)
         {
-            // تصحيح: استخدام tripRepo بدلاً من repo
             TripType tripType = tripRepo.GetById(id);
 
             if (tripType == null)
@@ -99,16 +104,14 @@ namespace Sea_Trips_System.Services
             tripType.basePrice = dto.basePrice;
             tripType.description = dto.description;
 
-            // تصحيح: يمرر الكائن tripType للدالة
             tripRepo.Update();
 
             return true;
         }
 
-        // 5. Delete
+        // 5. Delete - حذف نوع رحلة
         public bool Delete(int id)
         {
-            // تصحيح: استخدام tripRepo بدلاً من repo
             TripType tripType = tripRepo.GetById(id);
 
             if (tripType == null)

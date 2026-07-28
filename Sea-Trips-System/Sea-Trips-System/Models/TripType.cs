@@ -24,7 +24,6 @@ namespace Sea_Trips_System.Models
         public string status { get; set; }
 
 
-
         [Required]
         [ForeignKey("boat")]
         public int boatId { get; set; }    //Forign key
