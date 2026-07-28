@@ -27,19 +27,25 @@ namespace Sea_Trips_System.Models
             if (isBooked)
                 return null;
 
+            // 🔍 جلب سعر الرحلة من قاعدة البيانات حسب النوع المحدد
+            TripType? trip = tripTypeRepo.GetById(dto.tripTypeId);
+            if (trip == null)
+                return null;
+
+
+
             // Map DTO to Model
             Appointment appointment = new Appointment();
             appointment.startTime = dto.startTime;
             appointment.endTime = dto.endTime;
             appointment.numberOfPeople = dto.numberOfPeople;
-           // appointment.clientId = dto.clientId;
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
             appointment.eventId = dto.eventId;
             appointment.bookingStatus = "Pending";
 
-            TripType trip = tripTypeRepo.GetById(dto.tripTypeId);
+            //TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
               
             // Calculate Total Price (Duration in hours * Number of People * Rate)
             double hours = (dto.endTime - dto.startTime).TotalHours;
@@ -50,9 +56,8 @@ namespace Sea_Trips_System.Models
             appointmentRepo.Add(appointment);
 
             // Fetch created model with navigation props and return DTO
-            Appointment savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
-            //SEND EMAIL 
-            return MapToResponseDto(savedAppointment);
+            Appointment? savedAppointment = appointmentRepo.GetById(appointment.appointmentId);
+            return savedAppointment != null ? MapToResponseDto(savedAppointment) : null;
         }
 
         // ────*** 2. Get All Appointments ***────
@@ -72,7 +77,7 @@ namespace Sea_Trips_System.Models
         // ────*** 3. Get Appointment By ID ****────
         public AppointmentResponseDto GetById(int id)
         {
-            Appointment appointment = appointmentRepo.GetById(id);
+            Appointment? appointment = appointmentRepo.GetById(id);
             if (appointment == null)
                 return null;
 
@@ -82,19 +87,22 @@ namespace Sea_Trips_System.Models
         // ────*** 4. Update Appointment ****────
 
         //استقبال البيانات الجديدة لتحديث حجز سابق، وتطبيق شروط الأمان وحساب السعر من جديد
-        public AppointmentResponseDto Update(int id, UpdateAppointmentDto dto)
+        public AppointmentResponseDto? Update(int id, UpdateAppointmentDto dto)
         {
-            Appointment appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
+            Appointment? appointment = appointmentRepo.GetById(id);  // للتاكد من وجود حجز 
             if (appointment == null)
                 return null;
 
-            // Check boat availability ignoring current appointment ID
             // افحص توفر القارب مع استثناء الحجز الحالي
 
             bool isBooked = appointmentRepo.IsBoatBooked(dto.boatId, dto.startTime, dto.endTime, id);
             if (isBooked)
                 return null;
 
+
+            TripType? trip = tripTypeRepo.GetById(dto.tripTypeId);
+            if (trip == null)
+                return null;
             // تحديث بيانات الحجز بالقيم الجديدة: 
 
             appointment.startTime = dto.startTime;
@@ -108,26 +116,40 @@ namespace Sea_Trips_System.Models
 
             // Recalculate price(إعادة حساب السعر الإجمالي)
             double hours = (dto.endTime - dto.startTime).TotalHours;
-            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * 5);
+            appointment.totalPrice = (decimal)(hours * dto.numberOfPeople * Convert.ToDouble(trip.basePrice));
 
             // 1. حفظ التعديلات في قاعدة البيانات
-            appointmentRepo.Update();
+            appointmentRepo.Update(appointment);
 
-            // 2. بالتفاصيل DB ارجع اجيبه من
-            Appointment updatedAppointment = appointmentRepo.GetById(id);
-
-            // 3.   وإرجاعه DTOتحويله لـ  
-            return MapToResponseDto(updatedAppointment);
+            // 2. تجديد البيانات بالتفاصيل وإرجاع الـ DTO
+            Appointment? updatedAppointment = appointmentRepo.GetById(id);
+            return updatedAppointment != null ? MapToResponseDto(updatedAppointment) : null;
         }
 
         // ────*** 5. Delete Appointment ****────
         public bool Delete(int id)
         {
-            Appointment appointment = appointmentRepo.GetById(id);
+            Appointment? appointment = appointmentRepo.GetById(id);
             if (appointment == null)
                 return false;
 
             appointmentRepo.Delete(appointment);
+            return true;
+        }
+
+        // ────*** 6. Confirm appointment ****────
+
+        // دالة تأكيد الحجز وتغيير حالته بعد الدفع
+        public bool ConfirmAppointment(int appointmentId)
+        {
+            Appointment? appointment = appointmentRepo.GetById(appointmentId);
+
+            if (appointment == null)
+                return false;
+
+            appointment.bookingStatus = "Confirmed"; 
+            appointmentRepo.Update(appointment);
+
             return true;
         }
 

@@ -3,8 +3,7 @@ using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
 {
-    public class AppointmentControllers
-    {
+
 
         [ApiController]
         [Route("api/[controller]")]
@@ -61,6 +60,18 @@ namespace Sea_Trips_System.Models
                 return Ok(updated);
             }
 
+            // POST : api/Appointments/5/confirm
+            [HttpPut("{id}/confirm")]
+            public IActionResult ConfirmBooking(int id)
+            {
+                bool isConfirmed = appointmentService.ConfirmAppointment(id);
+
+                if (!isConfirmed)
+                    return NotFound(new { message = $"Appointment with ID {id} was not found." });
+
+                return Ok(new { message = "Booking status updated to Confirmed successfully!" });
+            }
+
             // DELETE: api/Appointments/5
             [HttpDelete("{id}")]
             public IActionResult Delete(int id)
@@ -73,5 +84,5 @@ namespace Sea_Trips_System.Models
             }
         }
     }
-}
+
 
