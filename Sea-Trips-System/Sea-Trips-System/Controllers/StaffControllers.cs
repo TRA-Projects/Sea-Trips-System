@@ -11,7 +11,7 @@ namespace Sea_Trips_System.Controllers // تصحيح الـ Namespace إلى Con
     [ApiController]
     [Route("api/[controller]")]
     [Authorize(Roles = "Admin,Organizer")]               // ◄◄ تقييد الوصول لإدارة الموظفين للإدارة والمشرفين فقط
-    public class StaffsController : ControllerBase
+    public class StaffsController : BaseController
     {
         private readonly StaffService staffService;
 

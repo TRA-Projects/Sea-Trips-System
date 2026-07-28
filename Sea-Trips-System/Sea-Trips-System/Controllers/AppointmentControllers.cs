@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Sea_Trips_System.Controllers;
 using static Sea_Trips_System.Models.CreateAppointmentDto;
 
 namespace Sea_Trips_System.Models
@@ -8,8 +9,8 @@ namespace Sea_Trips_System.Models
     [ApiController]
     [Route("api/[controller]")]
     //Dependency Injection
-    public class AppointmentsController : ControllerBase
-        {
+    public class AppointmentsController : BaseController
+    {
             private AppointmentService appointmentService;
 
             public AppointmentsController(AppointmentService _appointmentService)

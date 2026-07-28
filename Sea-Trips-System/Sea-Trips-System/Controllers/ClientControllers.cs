@@ -7,7 +7,7 @@ namespace Sea_Trips_System.Controllers
 {
     [ApiController]
     [Route("client")]
-    public class ClientController : ControllerBase
+    public class ClientController : BaseController
     {
         private readonly ClientService clientService;
 

@@ -9,7 +9,7 @@ namespace Sea_Trips_System.Controllers
 {
     [ApiController]
     [Route("api/[controller]")] //
-    public class DestinationsController : ControllerBase
+    public class DestinationsController : BaseController
     {
         private readonly DestinationService destinationService;
 

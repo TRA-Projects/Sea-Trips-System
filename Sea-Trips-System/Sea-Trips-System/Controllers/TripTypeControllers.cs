@@ -9,7 +9,7 @@ namespace Sea_Trips_System.Controllers
     [ApiController]
     [Route("api/[controller]")]
     [Authorize]
-    public class TripTypeController : ControllerBase
+    public class TripTypeController : BaseController
     {
         private readonly TripTypeService tripTypeService;
 
