@@ -59,8 +59,10 @@ namespace Sea_Trips_System.Models
         }
 
         // 5. Save changes
-        public void Update()
+        // تحديث بيانات حجز موجود بداخل قاعدة البيانات
+        public void Update(Appointment appointment)
         {
+            context.Appointments.Update(appointment);
             context.SaveChanges();
         }
 
@@ -71,12 +73,7 @@ namespace Sea_Trips_System.Models
             context.SaveChanges();
         }
 
-        // تحديث بيانات حجز موجود بداخل قاعدة البيانات
-        public void Update(Appointment appointment)
-        {
-            context.Appointments.Update(appointment);
-            context.SaveChanges();
-        }
+       
 
     }
 

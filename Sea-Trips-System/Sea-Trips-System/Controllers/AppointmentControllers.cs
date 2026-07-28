@@ -61,7 +61,7 @@ namespace Sea_Trips_System.Models
                 return Ok(updated);
             }
 
-            // POST or PUT: api/Appointments/5/confirm
+            // POST : api/Appointments/5/confirm
             [HttpPut("{id}/confirm")]
             public IActionResult ConfirmBooking(int id)
             {
