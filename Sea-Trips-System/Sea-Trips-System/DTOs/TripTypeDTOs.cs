@@ -18,7 +18,15 @@ public class CreateTripDto
 
         [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")]
         public string description { get; set; }
-    }
+
+         [Required(ErrorMessage = "Boat ID is required.")]
+         [Range(1, int.MaxValue, ErrorMessage = "Please select a valid Boat ID.")]
+         public int boatId { get; set; }
+
+        [Required(ErrorMessage = "Number of hours is required.")]
+        [Range(1, 24, ErrorMessage = "Hours must be between 1 and 24.")]
+        public int hours { get; set; }
+}
 
 
 // ── —  API The data it returns to Response DTOs─────────────────────────
@@ -34,7 +42,11 @@ public class TripResponseDto
         public decimal basePrice { get; set; }
 
         public string description { get; set; }
-    }
+
+        public string status { get; set; }
+        public decimal price { get; set; }
+
+}
 
 
     // Used when displaying one Trip Type with its Appointments

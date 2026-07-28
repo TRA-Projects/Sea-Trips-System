@@ -28,7 +28,7 @@ namespace Sea_Trips_System.Controllers
         [HttpGet("GetAllTripTypes")]
         public IActionResult GetAllTripTypes()
         {
-            List<TripTypeOutputDTO> result = tripTypeService.GetAll();
+            List<TripResponseDto> result = tripTypeService.GetAll();
 
             if (result.Count == 0)
                 return NoContent();
@@ -54,7 +54,7 @@ namespace Sea_Trips_System.Controllers
         [HttpGet("GetTripTypeById/{id}")]
         public IActionResult GetTripTypeById(int id)
         {
-            TripTypeDetailsDTO tripType = tripTypeService.GetById(id);
+            TripResponseDto tripType = tripTypeService.GetById(id);
 
             if (tripType == null)
                 return NotFound();
@@ -67,7 +67,7 @@ namespace Sea_Trips_System.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost("AddDTO")]
-        public IActionResult AddDTO([FromBody] TripTypeInputDTO dto)
+        public IActionResult AddDTO([FromBody] TripResponseDto dto)
         {
             int id = tripTypeService.Create(dto);
 
@@ -78,7 +78,7 @@ namespace Sea_Trips_System.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPut("Update/{id}")]
-        public IActionResult Update(int id, [FromBody] TripTypeInputDTO dto)
+        public IActionResult Update(int id, [FromBody] CreateTripDto dto)
         {
             bool updated = tripTypeService.Update(id, dto);
 
