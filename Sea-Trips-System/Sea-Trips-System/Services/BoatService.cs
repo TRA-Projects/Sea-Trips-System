@@ -77,7 +77,7 @@ namespace Sea_Trips_System.Services
             return result;
         }
 
-        // 2. دالة تفاصيل القارب وحساب السعر المبدئي لحجز القارب
+        // 2. دالة تفاصيل القارب وحساب السعر المبدئي لحجز القارب وحفظه في قاعدة البيانات
         public BoatResponseDto GetBoatWithPrice(int boatId, int hours)
         {
             Boat boat = boatRepo.GetById(boatId);
@@ -86,9 +86,16 @@ namespace Sea_Trips_System.Services
                 return null;
             }
 
-            // حساب السعر الإجمالي بناءً على عدد الساعات المطلوبة
+            // 1. حساب السعر الإجمالي بناءً على عدد الساعات المطلوبة
             decimal totalPrice = boat.hourlyRate * hours;
 
+            // 2. تعيين السعر الجديد في كائن القارب
+            boat.price = totalPrice;
+
+            // 3. حفظ السعر في قاعدة البيانات (SQL Server)
+            boatRepo.Update();
+
+            // 4. إرجاع النتيجة
             return new BoatResponseDto
             {
                 boatId = boat.boatId,
@@ -96,7 +103,7 @@ namespace Sea_Trips_System.Services
                 capacity = boat.capacity,
                 status = boat.status, // تبقى كما هي بدون تغيير حتى يتم تأكيد الحجز فعلياً
                 hourlyRate = boat.hourlyRate,
-                price = totalPrice
+                price = boat.price
             };
         }
 

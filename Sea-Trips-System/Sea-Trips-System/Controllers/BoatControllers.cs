@@ -45,8 +45,28 @@ namespace Sea_Trips_System.Controllers
 
             return Ok(boat);
         }
+        // ── 3. Get Boat Details With Calculated Price ─────────────────────────
+        [HttpGet("{boatId}/calculate-price")]
+        [AllowAnonymous] // متاح للجميع لحساب السعر المبدئي قبل الحجز
+        public IActionResult GetBoatWithPrice(int boatId,[FromQuery(Name = "hours")] int hours)
+        {
+            // التحقق من أن عدد الساعات أكثر من صفر
+            if (hours <= 0)
+            {
+                return BadRequest(new { message = "Number of hours must be greater than zero." });
+            }
 
-        // ── 3. Get All Boats ─────────────────────────────────────────────────
+            BoatResponseDto boatWithPrice = boatService.GetBoatWithPrice(boatId, hours);
+
+            if (boatWithPrice == null)
+            {
+                return NotFound(new { message = $"Boat with ID {boatId} was not found." });
+            }
+
+            return Ok(boatWithPrice);
+        }
+
+        // ── 4. Get All Boats ─────────────────────────────────────────────────
         [HttpGet]
         [AllowAnonymous]             // متاح للعملاء والزوار لتصفح القوارب المتاحة
         public IActionResult GetAllBoats()
@@ -55,7 +75,7 @@ namespace Sea_Trips_System.Controllers
             return Ok(boats);
         }
 
-        // ── 4. Update Boat ───────────────────────────────────────────────────
+        // ── 5. Update Boat ───────────────────────────────────────────────────
         [HttpPut("{id}")]
         [Authorize(Roles = "Admin,Organizer")]
         public IActionResult UpdateBoat(int id, [FromBody] UpdateBoatDto dto)
@@ -68,7 +88,7 @@ namespace Sea_Trips_System.Controllers
             return Ok(updatedBoat);
         }
 
-        // ── 5. Delete Boat ───────────────────────────────────────────────────
+        // ── 6. Delete Boat ───────────────────────────────────────────────────
         [HttpDelete("{id}")]
         [Authorize(Roles = "Admin")]
         public IActionResult DeleteBoat(int id)
