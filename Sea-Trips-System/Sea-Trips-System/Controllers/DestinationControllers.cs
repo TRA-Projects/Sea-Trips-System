@@ -11,7 +11,7 @@ namespace Sea_Trips_System.Controllers
     [Route("api/[controller]")] //
     public class DestinationsController : BaseController
     {
-        private readonly DestinationService destinationService;
+        private  DestinationService destinationService;
 
         // Constructor Injection: Injecting DestinationService instance
         public DestinationsController(DestinationService _destinationService)
