@@ -18,7 +18,7 @@ namespace Sea_Trips_System.Services
         {
             return new SmtpClient(_config["EmailSettings:Host"])
             {
-                Port = int.Parse(_config["EmailSettings:Port"]),
+                Port = int.Parse(_config["EmailSettings:Port"] ?? "587"),
                 Credentials = new NetworkCredential(
                     _config["EmailSettings:SenderEmail"],
                     _config["EmailSettings:Password"]
@@ -27,13 +27,13 @@ namespace Sea_Trips_System.Services
             };
         }
 
-        // 📧 1. Send Welcome Email upon new user registration
+        // 1. Send Welcome Email upon new user registration
         public void SendWelcomeEmail(string userEmail, string userName)
         {
             var mail = new MailMessage
             {
-                From = new MailAddress(_config["EmailSettings:SenderEmail"], _config["EmailSettings:SenderName"]),
-                Subject = "Welcome to Sea Trips System! 🛥️",
+                From = new MailAddress(_config["EmailSettings:SenderEmail"]!, _config["EmailSettings:SenderName"]),
+                Subject = "Welcome to Sea Trips System",
                 Body = $@"
                     <div style='font-family: Arial, sans-serif; text-align: left;'>
                         <h2 style='color: #0056b3;'>Welcome, {userName}!</h2>
@@ -50,13 +50,38 @@ namespace Sea_Trips_System.Services
             client.Send(mail);
         }
 
-        // 📧 2. Send Payment Receipt Email after successful payment
+        // 2. Send Login Notification Email
+        public void SendLoginNotificationEmail(string userEmail, string userName)
+        {
+            var mail = new MailMessage
+            {
+                From = new MailAddress(_config["EmailSettings:SenderEmail"]!, _config["EmailSettings:SenderName"]),
+                Subject = "Security Alert: New Login to Your Account",
+                Body = $@"
+                    <div style='font-family: Arial, sans-serif; text-align: left;'>
+                        <h2 style='color: #0056b3;'>Hello, {userName}!</h2>
+                        <p>We noticed a new login to your <b>Sea Trips System</b> account.</p>
+                        <hr style='border: 1px solid #eee;'>
+                        <p><b>Email:</b> {userEmail}</p>
+                        <p><b>Time:</b> {DateTime.Now:yyyy-MM-dd HH:mm:ss}</p>
+                        <hr style='border: 1px solid #eee;'>
+                        <p>If this was you, you can safely ignore this email.</p>
+                    </div>",
+                IsBodyHtml = true
+            };
+            mail.To.Add(userEmail);
+
+            using var client = GetSmtpClient();
+            client.Send(mail);
+        }
+
+        // 3. Send Payment Receipt Email after successful payment
         public void SendPaymentReceiptEmail(string userEmail, string userName, int paymentId, decimal amount, string paymentMethod, int appointmentId)
         {
             var mail = new MailMessage
             {
-                From = new MailAddress(_config["EmailSettings:SenderEmail"], _config["EmailSettings:SenderName"]),
-                Subject = $"Payment Receipt #PAY-{paymentId} 💳",
+                From = new MailAddress(_config["EmailSettings:SenderEmail"]!, _config["EmailSettings:SenderName"]),
+                Subject = $"Payment Receipt #PAY-{paymentId}",
                 Body = $@"
                     <div style='font-family: Arial, sans-serif; text-align: left;'>
                         <h2 style='color: #28a745;'>Thank you, {userName}!</h2>
