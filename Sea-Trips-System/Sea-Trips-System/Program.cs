@@ -46,10 +46,13 @@ namespace Sea_Trips_System
             builder.Services.AddScoped<MaintenanceService>();
             builder.Services.AddScoped<PaymentService>();
 
+            // 4. Email Service
+            builder.Services.AddScoped<EmailService>();
+
             // ── JWT Authentication ─────────────────────────────────────────────
             builder.Services.AddScoped<AuthService>();
 
-            var jwtKey = builder.Configuration["JwtSettings:SecretKey"];
+            var jwtKey = builder.Configuration["JwtSettings:SecretKey"] ?? "DefaultFallbackSecretKeyIfNull123456789!";
             var jwtIssuer = builder.Configuration["JwtSettings:Issuer"];
             var jwtAudience = builder.Configuration["JwtSettings:Audience"];
 
@@ -57,8 +60,6 @@ namespace Sea_Trips_System
                 .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
                 .AddJwtBearer(options =>
                 {
-                    //options.MapInboundClaims = false;
-
                     options.TokenValidationParameters = new TokenValidationParameters
                     {
                         ValidateIssuer = true,
@@ -130,7 +131,25 @@ namespace Sea_Trips_System
                 });
             });
 
-            var app = builder.Build();  //end line of service container
+            // 🛠️ معالجة الأخطاء أثناء بناء الخدمة
+            WebApplication app;
+            try
+            {
+                app = builder.Build();
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("\n========================================");
+                Console.WriteLine($"[CRASH ERROR]: {ex.Message}");
+                if (ex.InnerException != null)
+                {
+                    Console.WriteLine($"[DETAILS]: {ex.InnerException.Message}");
+                }
+                Console.WriteLine("========================================\n");
+                Console.WriteLine("Press ENTER to exit...");
+                Console.ReadLine();
+                return;
+            }
 
             // Configure the HTTP request pipeline / middleware pipeline
             if (app.Environment.IsDevelopment())
@@ -141,13 +160,13 @@ namespace Sea_Trips_System
 
             app.UseHttpsRedirection();
 
-            // JWT Middlewares (الترتيب مهم جداً)
-            app.UseAuthentication();  // ← must be before UseAuthorization
+            // JWT Middlewares
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.MapControllers();
 
-            // run application
+            // Run Application
             app.Run();
         }
     }

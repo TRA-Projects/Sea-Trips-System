@@ -1,4 +1,9 @@
 ﻿using Sea_Trips_System.DTOs;
+using Sea_Trips_System.Services;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 
 namespace Sea_Trips_System.Models
 {
@@ -6,12 +11,14 @@ namespace Sea_Trips_System.Models
     {
         private PaymentRepo repo;
         private  AppointmentRepo appointmentRepo;
+        private EmailService _emailService;
 
         // Dependency Injection
-        public PaymentService(PaymentRepo _repo, AppointmentRepo _appointmentRepo)
+        public PaymentService(PaymentRepo _repo, AppointmentRepo _appointmentRepo, EmailService emailService)
         {
             repo = _repo;
             appointmentRepo = _appointmentRepo;
+            _emailService = emailService;
         }
 
         // View All Payments
@@ -56,8 +63,33 @@ namespace Sea_Trips_System.Models
             appointment.bookingStatus = "Confirmed";
             appointmentRepo.Update(appointment);
 
+            //  5.  إرسال إيصال الدفع للإيميل تلقائياً
+            try
+            {
+                if (appointment.Client != null && !string.IsNullOrEmpty(appointment.Client.email))
+                {
+                    _emailService.SendPaymentReceiptEmail(
+                        userEmail: appointment.Client.email,
+                        userName: appointment.Client.fullName,
+                        paymentId: payment.paymentId,
+                        amount: payment.amountPaid,
+                        paymentMethod: payment.paymentMethod,
+                        appointmentId: appointment.appointmentId
+                    );
+                }
+            }
+            catch (Exception ex)
+            {
+                // طباعة الخطأ في حال كانت إعدادات الـ SMTP فيها مشكلة دون إيقاف السيرفر
+                Console.WriteLine($"[Receipt Email Failed]: {ex.Message}");
+            }
+
             return true;
+
         }
+
+            
+        
 
         // Refund Payment
         public bool RefundPayment(int paymentId)
