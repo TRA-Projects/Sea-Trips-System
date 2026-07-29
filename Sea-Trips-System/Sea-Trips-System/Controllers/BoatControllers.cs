@@ -10,7 +10,7 @@ namespace Sea_Trips_System.Controllers
     [Route("api/[controller]")]         
     public class BoatController : BaseController
     {
-        private readonly BoatService boatService;
+        private  BoatService boatService;
 
         public BoatController(BoatService _boatService)
         {
@@ -19,7 +19,7 @@ namespace Sea_Trips_System.Controllers
 
         // ── 1. Create Boat ───────────────────────────────────────────────────
         [HttpPost]
-        [Authorize(Roles = "Admin,Organizer,Staff")]
+        [AllowAnonymous]
         public IActionResult CreateBoat([FromBody] CreateBoatDto dto)
         {
             if (!ModelState.IsValid)

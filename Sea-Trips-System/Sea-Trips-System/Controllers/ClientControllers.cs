@@ -9,11 +9,13 @@ namespace Sea_Trips_System.Controllers
     [Route("client")]
     public class ClientController : BaseController
     {
-        private readonly ClientService clientService;
+        private  ClientService clientService;
+        private  AuthService _authService;
 
-        public ClientController(ClientService _clientService)
+        public ClientController(ClientService _clientService, AuthService authService)
         {
             clientService = _clientService;
+            _authService = authService;
         }
 
         // POST client/register
@@ -34,12 +36,24 @@ namespace Sea_Trips_System.Controllers
         [HttpPost("login")]
         public IActionResult Login([FromBody] ClientLoginDto dto)
         {
-            ClientResponseDto result = clientService.Login(dto);
+            // 1. استخدام دالة Login المكتوبة في ClientService
+            ClientResponseDto client = clientService.Login(dto);
 
-            if (result == null)
-                return Unauthorized(new { message = "Invalid email or credentials." });
+            if (client == null)
+                return Unauthorized(new { message = "Invalid email or password" });
 
-            return Ok(result);
+            // 2. توليد الـ JWT Token 
+            // تنبيه: لاحظي الأحرف الصغيرة (clientId, email) حسب تعريف الـ DTO لديكِ
+            var token = _authService.GenerateToken(client.clientId, client.email, "Client");
+
+            // 3. إرجاع التوكن وبيانات العميل
+            return Ok(new
+            {
+                token = token,
+                clientId = client.clientId,
+                fullName = client.fullName,
+                email = client.email
+            });
         }
 
         // GET client/GetClientData/3

@@ -1,7 +1,4 @@
 using Microsoft.IdentityModel.Tokens;
-using Sea_Trips_System.Models;
-using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -17,42 +14,33 @@ namespace Sea_Trips_System.Services
             config = _config;
         }
 
-      public string GenerateToken(Client client)
-{
-    string secretKey = config["JwtSettings:SecretKey"]!;
-    string issuer = config["JwtSettings:Issuer"]!;
-    string audience = config["JwtSettings:Audience"]!;
-    int hours = int.Parse(config["JwtSettings:ExpiryHours"]!);
+        // ── 1. توليد التوكن باستخدام البيانات المباشرة (ممتاز للـ DTOs) ──────────────
+        public string GenerateToken(int userId, string email, string role)
+        {
+            string secretKey = config["JwtSettings:SecretKey"];
+            string issuer = config["JwtSettings:Issuer"];
+            string audience = config["JwtSettings:Audience"];
+            int hours = int.Parse(config["JwtSettings:ExpiryHours"] ?? "2"); // افتراضي 2 ساعة لو لم يحدد
 
-    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
-    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
+            var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey));
+            var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-    // ◄◄ الـ Claims الخاصة بالمستخدم (واضحة وصريحة)
-    var claims = new List<Claim>
-    {
-        // 1. معرف المستخدم برمز قياسي ومخصص
-        new Claim("userId", client.clientId.ToString()),
-        new Claim(ClaimTypes.NameIdentifier, client.clientId.ToString()),
+            Claim[] claims =
+            {
+                new Claim(ClaimTypes.NameIdentifier, userId.ToString()),
+                new Claim(ClaimTypes.Email, email),
+                new Claim(ClaimTypes.Role, role), // مهم جداً للتحقق من الأدوار [Authorize(Roles = "...")]
+            };
 
-        // 2. الدور/الصلادحية
-        new Claim(ClaimTypes.Role, "Client"),
-        new Claim("role", "Client"),
+            var token = new JwtSecurityToken(
+                issuer: issuer,
+                audience: audience,
+                claims: claims,
+                expires: DateTime.UtcNow.AddHours(hours),
+                signingCredentials: credentials
+            );
 
-        // 3. البيانات الشخصية
-        new Claim(ClaimTypes.Name, client.fullName ?? string.Empty),
-        new Claim(ClaimTypes.Email, client.email ?? string.Empty),
-        new Claim("phone", client.phone ?? string.Empty)
-    };
-
-    var token = new JwtSecurityToken(
-        issuer: issuer,
-        audience: audience,
-        claims: claims,
-        expires: DateTime.UtcNow.AddHours(hours),
-        signingCredentials: credentials
-    );
-
-    return new JwtSecurityTokenHandler().WriteToken(token);
-}
+            return new JwtSecurityTokenHandler().WriteToken(token);
+        }
     }
 }
