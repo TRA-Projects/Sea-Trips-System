@@ -45,6 +45,8 @@ namespace Sea_Trips_System.Controllers
             if (client == null)
                 return Unauthorized(new { message = "Invalid email or password" });
 
+
+            _authService.SendLoginEmailNotification(client.email, client.fullName);
             // 2. توليد الـ JWT Token 
             // تنبيه: لاحظي الأحرف الصغيرة (clientId, email) حسب تعريف الـ DTO لديكِ
             var token = _authService.GenerateToken(client.clientId, client.email, "Admin");

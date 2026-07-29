@@ -63,5 +63,18 @@ namespace Sea_Trips_System.Services
                 Console.WriteLine($"[Email Exception]: {ex.Message}");
             }
         }
+
+        // ── إرسال إيميل تنبيه عند تسجيل الدخول ────────────────
+        public void SendLoginEmailNotification(string email, string fullName)
+        {
+            try
+            {
+                _emailService.SendLoginNotificationEmail(email, fullName);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"[Login Email Exception]: {ex.Message}");
+            }
+        }
     }
 }
