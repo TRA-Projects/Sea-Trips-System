@@ -37,20 +37,31 @@ namespace Sea_Trips_System.Models
                 return Ok(result);
             }
 
-            // POST: api/Appointments (اضافة)
-            [HttpPost]
-            public IActionResult Create([FromBody] CreateAppointmentDto dto)
-            {
-                //get client id from token  call authservice.getIdFromToken(extracted token from heaDER    )
-                var created = appointmentService.Create(dto);
-                if (created == null)
-                    return BadRequest(new { message = "Failed to create appointment. Please check time validity or boat availability." });
+        // POST: api/Appointments (اضافة)
+        [Authorize] // تأكد من وجود هذه لضمان وجود Token صالحة
+        [HttpPost]
+        public IActionResult Create([FromBody] CreateAppointmentDto dto)
+        {
+            // 1. استخراج الـ Claim الخاص بالـ ID من الـ Token
+            var userIdClaim = User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
 
-                return Ok(created);
+            // 2. التحقق من وجود القيمة وتحويلها إلى رقم (int)
+            if (string.IsNullOrEmpty(userIdClaim) || !int.TryParse(userIdClaim, out int clientId))
+            {
+                return Unauthorized(new { message = "Invalid token or User ID not found." });
             }
 
-            // PUT: api/Appointments/  (تعديل)
-            [HttpPut("{id}")]
+            // 3. تمرير الـ clientId للـ Service
+            var created = appointmentService.Create(dto, clientId);
+
+            if (created == null)
+                return BadRequest(new { message = "Failed to create appointment. Please check boat availability or inputs." });
+
+            return Ok(created);
+        }
+
+        // PUT: api/Appointments/  (تعديل)
+        [HttpPut("{id}")]
             public IActionResult Update(int id, [FromBody] UpdateAppointmentDto dto)
             {
                 var updated = appointmentService.Update(id, dto);

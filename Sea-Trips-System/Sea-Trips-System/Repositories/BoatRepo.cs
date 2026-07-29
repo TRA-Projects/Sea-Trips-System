@@ -30,6 +30,20 @@ namespace Sea_Trips_System.Repositories
             return context.Boats.ToList();
         }
 
+        // إضافة قارب جديد مع تحديد اسمه وسعره
+        public void AddWithPrice(string boatName, decimal price)
+        {
+            var boat = new Boat
+            {
+                boatName = boatName,
+                price = price                    
+            };
+
+            context.Boats.Add(boat);
+            context.SaveChanges();
+        }
+
+
         // Add a new boat record to the database
         public void Add(Boat boat)
         {

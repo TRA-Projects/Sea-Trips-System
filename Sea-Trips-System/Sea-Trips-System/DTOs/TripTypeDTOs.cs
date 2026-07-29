@@ -43,7 +43,7 @@ public class TripResponseDto
 
         public string description { get; set; }
 
-        public string status { get; set; }
+        public string? status { get; set; } = "Active";
         public decimal price { get; set; }
 
 }

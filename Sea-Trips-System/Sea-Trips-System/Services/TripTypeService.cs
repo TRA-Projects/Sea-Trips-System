@@ -3,13 +3,14 @@ using Sea_Trips_System.Models;
 using Sea_Trips_System.Repositories;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.NetworkInformation;
 
 namespace Sea_Trips_System.Services
 {
     public class TripTypeService
     {
-        private readonly BoatRepo boatRepo;
-        private readonly TripTypeRepo tripRepo;
+        private  BoatRepo boatRepo;
+        private  TripTypeRepo tripRepo;
 
         public TripTypeService(BoatRepo _boatRepo, TripTypeRepo _tripRepo)
         {
@@ -63,18 +64,21 @@ namespace Sea_Trips_System.Services
                 return 0; // القارب غير متاح
             }
 
+            //  تحديث حالة القارب إلى محجوز
+            boat.status = "Booked";
+
             // 2. إنشاء نوع الرحلة الجديد وحفظه
             TripType tripType = new TripType
             {
                 typeName = dto.typeName,
                 basePrice = dto.basePrice,
-                description = dto.description
+                description = dto.description,
+                boatId = dto.boatId,
+                status = "Active"
             };
 
             tripRepo.Add(tripType);
 
-            // 3. تحديث حالة القارب إلى محجوز
-            boat.status = "Booked";
             boatRepo.Update();
 
             // 4. إرجاع الـ ID الخاص بالـ TripType الجديد
@@ -92,6 +96,7 @@ namespace Sea_Trips_System.Services
             tripType.typeName = dto.typeName;
             tripType.basePrice = dto.basePrice;
             tripType.description = dto.description;
+            tripType.status = "Active";
 
             tripRepo.Update();
 

@@ -21,7 +21,7 @@ namespace Sea_Trips_System.Models
         [StringLength(500, ErrorMessage = "Description cannot exceed 500 characters.")] // // Maximum length is 500 characters----
         public string description { get; set; }
 
-        public string status { get; set; }
+        public string? status { get; set; } = "Active";
 
 
         [Required]

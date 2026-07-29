@@ -14,10 +14,10 @@ namespace Sea_Trips_System.Models
     
 
         [Required]
-        public DateTime startTime { get; set; }  // user input
+        public DateTime startTime { get; set; }  // system generated
 
         [Required]
-        public DateTime endTime { get; set; } // user input
+        public DateTime endTime { get; set; } //system generated
 
         [Required]
         [StringLength(20)]
