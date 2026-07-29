@@ -44,8 +44,7 @@ namespace Sea_Trips_System.Controllers
 
             // 2. توليد الـ JWT Token 
             // تنبيه: لاحظي الأحرف الصغيرة (clientId, email) حسب تعريف الـ DTO لديكِ
-            var token = _authService.GenerateToken(client.clientId, client.email, "Client");
-
+            var token = _authService.GenerateToken(client.clientId, client.email, "Admin");
             // 3. إرجاع التوكن وبيانات العميل
             return Ok(new
             {

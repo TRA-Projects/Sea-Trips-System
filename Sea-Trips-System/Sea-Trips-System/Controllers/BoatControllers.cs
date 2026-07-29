@@ -57,7 +57,7 @@ namespace Sea_Trips_System.Controllers
 
         // ── 4. Update Boat ───────────────────────────────────────────────────
         [HttpPut("{id}")]
-        [Authorize(Roles = "Admin,Organizer,Staff")]
+        [Authorize(Roles = "Admin,Organizer")]
         public IActionResult UpdateBoat(int id, [FromBody] UpdateBoatDto dto)
         {
             BoatResponseDto updatedBoat = boatService.UpdateBoat(id, dto);
