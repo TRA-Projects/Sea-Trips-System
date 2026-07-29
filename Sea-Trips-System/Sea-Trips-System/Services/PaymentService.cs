@@ -5,11 +5,13 @@ namespace Sea_Trips_System.Models
     public class PaymentService
     {
         private PaymentRepo repo;
+        private  AppointmentRepo appointmentRepo;
 
         // Dependency Injection
-        public PaymentService(PaymentRepo _repo)
+        public PaymentService(PaymentRepo _repo, AppointmentRepo _appointmentRepo)
         {
             repo = _repo;
+            appointmentRepo = _appointmentRepo;
         }
 
         // View All Payments
@@ -29,21 +31,32 @@ namespace Sea_Trips_System.Models
         }
 
         // Make Payment
-        public void MakePayment(MakePaymentDto dto)
+        public bool MakePayment(MakePaymentDto dto)
         {
+            // 1. التحقق من وجود الحجز في قاعدة البيانات
+            Appointment appointment = appointmentRepo.GetById(dto.AppointmentId);
+            if (appointment == null)
+            {
+                return false; 
+            }
+
             Payment payment = new Payment
             {
                 paymentMethod = dto.PaymentMethod,
                 appointmentId = dto.AppointmentId,
-
-                amountPaid = 0,
-
+                amountPaid = appointment.totalPrice, 
                 paymentStatus = "Paid",
                 transactionDate = DateTime.Now
             };
 
+            // 3. حفظ عملية الدفع
             repo.AddPayment(payment);
-            //CHANGE APPOINMNET STATUS
+
+            // 4. تحديث حالة الحجز إلى "Confirmed"
+            appointment.bookingStatus = "Confirmed";
+            appointmentRepo.Update(appointment);
+
+            return true;
         }
 
         // Refund Payment

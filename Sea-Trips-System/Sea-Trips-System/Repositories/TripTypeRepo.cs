@@ -33,6 +33,13 @@ namespace Sea_Trips_System.Models
         // Add New Trip Type
         public void Add(TripType tripType)
         {
+
+            if (string.IsNullOrEmpty(tripType.status))
+            {
+                tripType.status = "Active"; // تعيين قيمة افتراضية إذا كانت فارغة
+            }
+
+
             context.TripTypes.Add(tripType);
             context.SaveChanges();
         }

@@ -16,7 +16,7 @@ namespace Sea_Trips_System.Models
 
 
         // ────*** 1. Create Appointment *** ────
-        public AppointmentResponseDto Create(CreateAppointmentDto dto)
+        public AppointmentResponseDto Create(CreateAppointmentDto dto, int clientId)
         {
             // Business rule: Check valid time interval
             if (dto.startTime >= dto.endTime)
@@ -42,6 +42,7 @@ namespace Sea_Trips_System.Models
             appointment.boatId = dto.boatId;
             appointment.tripTypeId = dto.tripTypeId;
             appointment.destinationId = dto.destinationId;
+            appointment.clientId = clientId;
             appointment.bookingStatus = "Pending";
 
             //TripType trips = tripTypeRepo.GetById(dto.tripTypeId);
@@ -63,14 +64,7 @@ namespace Sea_Trips_System.Models
         public List<AppointmentResponseDto> GetAll()
         {
             List<Appointment> appointments = appointmentRepo.GetAll();
-            List<AppointmentResponseDto> responseList = new List<AppointmentResponseDto>();
-
-            foreach (Appointment item in appointments)
-            {
-                responseList.Add(MapToResponseDto(item));
-            }
-
-            return responseList;
+            return appointments.Select(item => MapToResponseDto(item)).ToList();
         }
 
         // ────*** 3. Get Appointment By ID ****────
