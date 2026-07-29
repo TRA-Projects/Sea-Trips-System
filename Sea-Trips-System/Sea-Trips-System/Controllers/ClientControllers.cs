@@ -28,6 +28,9 @@ namespace Sea_Trips_System.Controllers
             if (created == null)
                 return BadRequest(new { message = "Email or phone number is already registered." });
 
+            //  استدعاء إرسال إيميل الترحيب هنا فور نجاح عملية إنشاء الحساب
+            _authService.SendWelcomeEmailAfterRegister(created.email, created.fullName);
+
             return Ok(created);
         }
 

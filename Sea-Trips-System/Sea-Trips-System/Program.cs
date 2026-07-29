@@ -46,6 +46,10 @@ namespace Sea_Trips_System
             builder.Services.AddScoped<MaintenanceService>();
             builder.Services.AddScoped<PaymentService>();
 
+
+            // 4. Email Service
+            builder.Services.AddScoped<Sea_Trips_System.Services.EmailService>();
+
             // ── JWT Authentication ─────────────────────────────────────────────
             builder.Services.AddScoped<AuthService>();
 
