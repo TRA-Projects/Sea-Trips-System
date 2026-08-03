@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="(https://i.imgur.com/8m64v1Y.png)" alt="Sea Trips System Banner" width="100%">
+  <img src="https://i.imgur.com/8m64v1Y.png" alt="Sea Trips System Banner" width="100%" style="border-radius: 10px;">
 </p>
 
 # 🌊 Sea Trips System - Backend API
