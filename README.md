@@ -1,10 +1,10 @@
 <p align="center">
-  <img src="blob:https://gemini.google.com/a9f4cc39-b594-4311-948d-e2791cdf4e36" alt="Sea Trips System Banner" width="100%" style="border-radius: 10px;">
+  <img src="https://replicate.delivery/xpbkg/1gB6rL3rYQpEBSrW7tW0I9587416f64f236988a788b2f91a9398/output.png" alt="Sea Trips System Dashboard" width="100%" style="border-radius: 10px;">
 </p>
+
 # 🌊 Sea Trips System - Backend API
 
 A robust, secure, and scalable multi-layered Web API designed for managing sea trips, user authentication, and seamless bookings. Developed collaboratively as a team project.
-The system is an integrated digital platform that fully automates sea trip and boat rental operations—from client and boat registration to smart bookings, staff allocation, invoicing, maintenance, and reviews—preventing scheduling conflicts and maximizing efficiency.
 ---
 
 ## 🚀 Tech Stack & Tools
