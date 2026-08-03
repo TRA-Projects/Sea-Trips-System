@@ -1,7 +1,6 @@
 <p align="center">
-  <img src="https://replicate.delivery/xpbkg/1gB6rL3rYQpEBSrW7tW0I9587416f64f236988a788b2f91a9398/output.png" alt="Sea Trips System Dashboard" width="100%" style="border-radius: 10px;">
+  <img src="https://github.com/user-attachments/assets/c2b6c278-9044-4302-b4ab-5a8e994d26a3" alt="Sea Trip System Dashboard" width="100%" style="border-radius: 10px; box-shadow: 0 4px 8px rgba(0,0,0,0.1);">
 </p>
-
 # 🌊 Sea Trips System - Backend API
 
 A robust, secure, and scalable multi-layered Web API designed for managing sea trips, user authentication, and seamless bookings. Developed collaboratively as a team project.
