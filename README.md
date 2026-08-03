@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="sea.jpg" alt="Sea Trips System Banner" width="100%" style="border-radius: 10px;">
+  <img src="blob:https://gemini.google.com/a9f4cc39-b594-4311-948d-e2791cdf4e36" alt="Sea Trips System Banner" width="100%" style="border-radius: 10px;">
 </p>
 # 🌊 Sea Trips System - Backend API
 
